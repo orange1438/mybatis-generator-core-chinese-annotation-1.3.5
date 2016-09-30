@@ -217,6 +217,13 @@ public abstract class PluginAdapter implements Plugin {
         return true;
     }
 
+    /**
+     * 在MBG生成record类的时候调用的插件的方法，在该方法中，传入两个参数
+     *
+     * @param topLevelClass     该类的实例就是表示当前正在生成的类的DOM结构
+     * @param introspectedTable 代表的runtime环境，包含了所有context中的配置，一般从这个类中去查询生成对象的一些规则；
+     * @return
+     */
     public boolean modelBaseRecordClassGenerated(TopLevelClass topLevelClass,
             IntrospectedTable introspectedTable) {
         return true;
@@ -246,6 +253,15 @@ public abstract class PluginAdapter implements Plugin {
         return true;
     }
 
+    /**
+     * 在MBG生成key Class类的时候调用的插件的方法
+     * @param topLevelClass
+     *            the generated record with BLOBs class
+     * @param introspectedTable
+     *            The class containing information about the table as
+     *            introspected from the database
+     * @return
+     */
     public boolean modelRecordWithBLOBsClassGenerated(
             TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;

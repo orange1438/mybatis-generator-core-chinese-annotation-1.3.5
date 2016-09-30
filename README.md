@@ -10,3 +10,7 @@
 <br>
 ## 使用方式
 maven工程的打包，执行命令：clean install -Dmaven.test.skip=true（一定要跳过测试路径），加入到本地仓库,生成“1.3.5-chinese-annotation”包名
+<br>
+## 源码剖析说明
+1.剖析org.mybatis.generator.plugins.ToStringPlugin源码<br>
+2.剖析org.mybatis.generator.plugins.MapperConfigPlugin源码<br>
