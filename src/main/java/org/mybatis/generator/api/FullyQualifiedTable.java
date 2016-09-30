@@ -68,6 +68,11 @@ public class FullyQualifiedTable {
     private String endingDelimiter;
 
     /**
+     *  数据库表备注信息
+     */
+    private String remark;
+
+    /**
      * This object is used to hold information related to the table itself, not the columns in the table.
      *
      * @param introspectedCatalog
@@ -119,7 +124,7 @@ public class FullyQualifiedTable {
         this.runtimeCatalog = runtimeCatalog;
         this.runtimeSchema = runtimeSchema;
         this.runtimeTableName = runtimeTableName;
-        
+
         if (stringHasValue(domainObjectName)) {
             int index = domainObjectName.lastIndexOf('.');
             if (index == -1) {
@@ -140,6 +145,14 @@ public class FullyQualifiedTable {
                 .getBeginningDelimiter() : ""; //$NON-NLS-1$
         endingDelimiter = delimitIdentifiers ? context.getEndingDelimiter()
                 : ""; //$NON-NLS-1$
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     /**

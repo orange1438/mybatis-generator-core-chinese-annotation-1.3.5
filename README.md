@@ -9,4 +9,4 @@
 4.增删改查条件的注释信息<br>
 <br>
 ## 使用方式
-maven工程的打包，执行命令：clean install -Dmaven.test.skip=true，加入到本地仓库
+maven工程的打包，执行命令：clean install -Dmaven.test.skip=true（一定要跳过测试路径），加入到本地仓库,生成“1.3.5-chinese-annotation”包名
