@@ -49,69 +49,75 @@ import org.mybatis.generator.internal.db.DatabaseIntrospector;
  * @author Jeff Butler
  */
 public class Context extends PropertyHolder {
-    
-    /** The id. */
+
+    /**
+     * context的id
+     */
     private String id;
 
-    /** The jdbc connection configuration. */
+    /** jdbc连接配置，包装成JDBCConnectionConfiguration 对象，对应<jdbcConnection>元素 */
     private JDBCConnectionConfiguration jdbcConnectionConfiguration;
     
     private ConnectionFactoryConfiguration connectionFactoryConfiguration;
 
-    /** The sql map generator configuration. */
+    /** 生成SQL MAP的xml配置，对应<sqlMapGenerator>元素，包装成 SqlMapGeneratorConfiguration 对象 */
     private SqlMapGeneratorConfiguration sqlMapGeneratorConfiguration;
 
-    /** The java type resolver configuration. */
+    /** 生成java类型处理器配置，对应<javaTypeResolver>元素，包装成 JavaTypeResolverConfiguration 对象 */
     private JavaTypeResolverConfiguration javaTypeResolverConfiguration;
 
-    /** The java model generator configuration. */
+    /** 生成java模型创建器配置，对应<javaModelGenerator>元素，包装成 JavaModelGeneratorConfiguration 对象 */
     private JavaModelGeneratorConfiguration javaModelGeneratorConfiguration;
 
-    /** The java client generator configuration. */
+    /** 生成Mapper接口配置，对应<javaClientGenerator>元素，包装成 JavaClientGeneratorConfiguration 对象 */
     private JavaClientGeneratorConfiguration javaClientGeneratorConfiguration;
 
-    /** The table configurations. */
+    /** 解析每一个<table>元素，并包装成一个一个的TableConfiguration对象 */
     private ArrayList<TableConfiguration> tableConfigurations;
 
-    /** The default model type. */
+    /** 生成对象样式，对应context元素的defaultModelType属性(attribute) */
     private ModelType defaultModelType;
 
-    /** The beginning delimiter. */
+    /** 对应context元素的beginningDelimiter这个property子元素（注意属性和property的区别） */
     private String beginningDelimiter = "\""; //$NON-NLS-1$
 
-    /** The ending delimiter. */
+    /** 对应context元素的endingDelimiter 这个property子元素 */
     private String endingDelimiter = "\""; //$NON-NLS-1$
 
-    /** The comment generator configuration. */
+    /** 对应<commentGenerator>元素，注解生成器的配置*/
     private CommentGeneratorConfiguration commentGeneratorConfiguration;
 
-    /** The comment generator. */
+    /** 注解生成器 */
     private CommentGenerator commentGenerator;
 
-    /** The plugin aggregator. */
+    /** 这是一个包装了所有的plugin的插件执行对象，其中的插件就是由pluginConfigurations中的每一个PluginConfiguration生成 */
     private PluginAggregator pluginAggregator;
 
-    /** The plugin configurations. */
+    /** 对应每一个<plugin>元素的配置 */
     private List<PluginConfiguration> pluginConfigurations;
 
-    /** The target runtime. */
+    /** 目标运行时，对应context元素的targetRuntime属性(attribute) */
     private String targetRuntime;
 
-    /** The introspected column impl. */
+    /** 对应context元素的introspectedColumnImpl属性(attribute)  */
     private String introspectedColumnImpl;
 
-    /** The auto delimit keywords. */
+    /** 自动识别数据库关键字，对应context元素的autoDelimitKeywords这个property子元素*/
     private Boolean autoDelimitKeywords;
-    
-    /** The java formatter. */
+
+    /** Java代码格式化工具，对应context元素的javaFormatter这个property子元素 */
     private JavaFormatter javaFormatter;
-    
-    /** The xml formatter. */
+
+    /**  Xml代码格式化工具，对应context元素的xmlFormatter这个property子元素  */
     private XmlFormatter xmlFormatter;
-    
+    /**
+     * The introspected tables.
+     */
+    private List<IntrospectedTable> introspectedTables;
+
     /**
      * Constructs a Context object.
-     * 
+     *
      * @param defaultModelType
      *            - may be null
      */
@@ -148,12 +154,32 @@ public class Context extends PropertyHolder {
     }
 
     /**
+     * Sets the jdbc connection configuration.
+     *
+     * @param jdbcConnectionConfiguration the new jdbc connection configuration
+     */
+    public void setJdbcConnectionConfiguration(
+            JDBCConnectionConfiguration jdbcConnectionConfiguration) {
+        this.jdbcConnectionConfiguration = jdbcConnectionConfiguration;
+    }
+
+    /**
      * Gets the java client generator configuration.
      *
      * @return the java client generator configuration
      */
     public JavaClientGeneratorConfiguration getJavaClientGeneratorConfiguration() {
         return javaClientGeneratorConfiguration;
+    }
+
+    /**
+     * Sets the java client generator configuration.
+     *
+     * @param javaClientGeneratorConfiguration the new java client generator configuration
+     */
+    public void setJavaClientGeneratorConfiguration(
+            JavaClientGeneratorConfiguration javaClientGeneratorConfiguration) {
+        this.javaClientGeneratorConfiguration = javaClientGeneratorConfiguration;
     }
 
     /**
@@ -166,6 +192,17 @@ public class Context extends PropertyHolder {
     }
 
     /**
+     * Sets the java model generator configuration.
+     *
+     * @param javaModelGeneratorConfiguration
+     *            the new java model generator configuration
+     */
+    public void setJavaModelGeneratorConfiguration(
+            JavaModelGeneratorConfiguration javaModelGeneratorConfiguration) {
+        this.javaModelGeneratorConfiguration = javaModelGeneratorConfiguration;
+    }
+
+    /**
      * Gets the java type resolver configuration.
      *
      * @return the java type resolver configuration
@@ -175,12 +212,34 @@ public class Context extends PropertyHolder {
     }
 
     /**
+     * Sets the java type resolver configuration.
+     *
+     * @param javaTypeResolverConfiguration
+     *            the new java type resolver configuration
+     */
+    public void setJavaTypeResolverConfiguration(
+            JavaTypeResolverConfiguration javaTypeResolverConfiguration) {
+        this.javaTypeResolverConfiguration = javaTypeResolverConfiguration;
+    }
+
+    /**
      * Gets the sql map generator configuration.
      *
      * @return the sql map generator configuration
      */
     public SqlMapGeneratorConfiguration getSqlMapGeneratorConfiguration() {
         return sqlMapGeneratorConfiguration;
+    }
+
+    /**
+     * Sets the sql map generator configuration.
+     *
+     * @param sqlMapGeneratorConfiguration
+     *            the new sql map generator configuration
+     */
+    public void setSqlMapGeneratorConfiguration(
+            SqlMapGeneratorConfiguration sqlMapGeneratorConfiguration) {
+        this.sqlMapGeneratorConfiguration = sqlMapGeneratorConfiguration;
     }
 
     /**
@@ -217,7 +276,7 @@ public class Context extends PropertyHolder {
         } else {
             connectionFactoryConfiguration.validate(errors);
         }
-            
+
         if (javaModelGeneratorConfiguration == null) {
             errors.add(getString("ValidationError.8", id)); //$NON-NLS-1$
         } else {
@@ -234,7 +293,7 @@ public class Context extends PropertyHolder {
         } catch (Exception e) {
             errors.add(getString("ValidationError.25", id)); //$NON-NLS-1$
         }
-        
+
         if (it != null && it.requiresXMLGenerator()) {
             if (sqlMapGeneratorConfiguration == null) {
                 errors.add(getString("ValidationError.9", id)); //$NON-NLS-1$
@@ -278,61 +337,6 @@ public class Context extends PropertyHolder {
     }
 
     /**
-     * Sets the java client generator configuration.
-     *
-     * @param javaClientGeneratorConfiguration
-     *            the new java client generator configuration
-     */
-    public void setJavaClientGeneratorConfiguration(
-            JavaClientGeneratorConfiguration javaClientGeneratorConfiguration) {
-        this.javaClientGeneratorConfiguration = javaClientGeneratorConfiguration;
-    }
-
-    /**
-     * Sets the java model generator configuration.
-     *
-     * @param javaModelGeneratorConfiguration
-     *            the new java model generator configuration
-     */
-    public void setJavaModelGeneratorConfiguration(
-            JavaModelGeneratorConfiguration javaModelGeneratorConfiguration) {
-        this.javaModelGeneratorConfiguration = javaModelGeneratorConfiguration;
-    }
-
-    /**
-     * Sets the java type resolver configuration.
-     *
-     * @param javaTypeResolverConfiguration
-     *            the new java type resolver configuration
-     */
-    public void setJavaTypeResolverConfiguration(
-            JavaTypeResolverConfiguration javaTypeResolverConfiguration) {
-        this.javaTypeResolverConfiguration = javaTypeResolverConfiguration;
-    }
-
-    /**
-     * Sets the jdbc connection configuration.
-     *
-     * @param jdbcConnectionConfiguration
-     *            the new jdbc connection configuration
-     */
-    public void setJdbcConnectionConfiguration(
-            JDBCConnectionConfiguration jdbcConnectionConfiguration) {
-        this.jdbcConnectionConfiguration = jdbcConnectionConfiguration;
-    }
-
-    /**
-     * Sets the sql map generator configuration.
-     *
-     * @param sqlMapGeneratorConfiguration
-     *            the new sql map generator configuration
-     */
-    public void setSqlMapGeneratorConfiguration(
-            SqlMapGeneratorConfiguration sqlMapGeneratorConfiguration) {
-        this.sqlMapGeneratorConfiguration = sqlMapGeneratorConfiguration;
-    }
-
-    /**
      * Gets the default model type.
      *
      * @return the default model type
@@ -345,14 +349,14 @@ public class Context extends PropertyHolder {
      * Builds an XmlElement representation of this context. Note that the XML
      * may not necessarily validate if the context is invalid. Call the
      * <code>validate</code> method to check validity of this context.
-     * 
+     *
      * @return the XML representation of this context
      */
     public XmlElement toXmlElement() {
         XmlElement xmlElement = new XmlElement("context"); //$NON-NLS-1$
-        
+
         xmlElement.addAttribute(new Attribute("id", id)); //$NON-NLS-1$
-        
+
         if (defaultModelType != ModelType.CONDITIONAL) {
             xmlElement.addAttribute(new Attribute(
                     "defaultModelType", defaultModelType.getModelType())); //$NON-NLS-1$
@@ -369,7 +373,7 @@ public class Context extends PropertyHolder {
         }
 
         addPropertyXmlElements(xmlElement);
-        
+
         for (PluginConfiguration pluginConfiguration : pluginConfigurations) {
             xmlElement.addElement(pluginConfiguration.toXmlElement());
         }
@@ -466,7 +470,7 @@ public class Context extends PropertyHolder {
 
         return commentGenerator;
     }
-
+    
     /**
      * Gets the java formatter.
      *
@@ -492,7 +496,7 @@ public class Context extends PropertyHolder {
 
         return xmlFormatter;
     }
-    
+
     /**
      * Gets the comment generator configuration.
      *
@@ -550,16 +554,6 @@ public class Context extends PropertyHolder {
         return introspectedColumnImpl;
     }
 
-    /**
-     * Sets the introspected column impl.
-     *
-     * @param introspectedColumnImpl
-     *            the new introspected column impl
-     */
-    public void setIntrospectedColumnImpl(String introspectedColumnImpl) {
-        this.introspectedColumnImpl = introspectedColumnImpl;
-    }
-
     // methods related to code generation.
     //
     // Methods should be called in this order:
@@ -570,8 +564,15 @@ public class Context extends PropertyHolder {
     // 4. generateFiles()
     //
 
-    /** The introspected tables. */
-    private List<IntrospectedTable> introspectedTables;
+    /**
+     * Sets the introspected column impl.
+     *
+     * @param introspectedColumnImpl
+     *            the new introspected column impl
+     */
+    public void setIntrospectedColumnImpl(String introspectedColumnImpl) {
+        this.introspectedColumnImpl = introspectedColumnImpl;
+    }
 
     /**
      * Gets the introspection steps.

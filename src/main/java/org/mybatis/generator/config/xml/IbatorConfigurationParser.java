@@ -44,8 +44,10 @@ public class IbatorConfigurationParser extends MyBatisGeneratorConfigurationPars
     public Configuration parseIbatorConfiguration(Element rootNode)
             throws XMLParserException {
 
+        //创建一个新的配置对象
         Configuration configuration = new Configuration();
 
+        //得到<generatorConfiguration>下的所有元素，并遍历
         NodeList nodeList = rootNode.getChildNodes();
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node childNode = nodeList.item(i);
@@ -55,10 +57,13 @@ public class IbatorConfigurationParser extends MyBatisGeneratorConfigurationPars
             }
 
             if ("properties".equals(childNode.getNodeName())) { //$NON-NLS-1$
+                //如果是<properties>元素，执行properties解析
                 parseProperties(configuration, childNode);
             } else if ("classPathEntry".equals(childNode.getNodeName())) { //$NON-NLS-1$
+                //如果是<classPathEntry>，执行classPathEntry解析
                 parseClassPathEntry(configuration, childNode);
             } else if ("ibatorContext".equals(childNode.getNodeName())) { //$NON-NLS-1$
+                //如果是<context>元素，执行context解析
                 parseIbatorContext(configuration, childNode);
             }
         }

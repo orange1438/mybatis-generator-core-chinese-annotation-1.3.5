@@ -14,3 +14,6 @@ maven工程的打包，执行命令：clean install -Dmaven.test.skip=true（一
 ## 源码剖析说明
 1.剖析org.mybatis.generator.plugins.ToStringPlugin源码<br>
 2.剖析org.mybatis.generator.plugins.MapperConfigPlugin源码<br>
+3.剖析org.mybatis.generator.api.ShellRunner源码，Main入口<br>
+3.剖析org.mybatis.generator.config.xml.ConfigurationParser源码，配置解析器，用于对generatorConfig.xml配置文件的解析<br>
+4.剖析org.mybatis.generator.config.Context源码，封装<context>元素内容<br>
