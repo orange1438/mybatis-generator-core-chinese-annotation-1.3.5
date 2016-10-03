@@ -15,11 +15,8 @@
  */
 package org.mybatis.generator.api.dom.java;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import org.mybatis.generator.api.dom.OutputUtilities;
 
@@ -116,21 +113,21 @@ public class InnerClass extends JavaElement {
     /**
      * Sets the super class.
      *
-     * @param superClass
-     *            The superClass to set.
-     */
-    public void setSuperClass(FullyQualifiedJavaType superClass) {
-        this.superClass = superClass;
-    }
-
-    /**
-     * Sets the super class.
-     *
      * @param superClassType
      *            the new super class
      */
     public void setSuperClass(String superClassType) {
         this.superClass = new FullyQualifiedJavaType(superClassType);
+    }
+
+    /**
+     * Sets the super class.
+     *
+     * @param superClass
+     *            The superClass to set.
+     */
+    public void setSuperClass(FullyQualifiedJavaType superClass) {
+        this.superClass = superClass;
     }
 
     /**
@@ -199,6 +196,7 @@ public class InnerClass extends JavaElement {
      * @return the formatted content
      */
     public String getFormattedContent(int indentLevel, CompilationUnit compilationUnit) {
+
         StringBuilder sb = new StringBuilder();
 
         addFormattedJavadoc(sb, indentLevel);

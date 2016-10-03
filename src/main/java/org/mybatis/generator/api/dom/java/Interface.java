@@ -20,13 +20,8 @@ import static org.mybatis.generator.api.dom.OutputUtilities.javaIndent;
 import static org.mybatis.generator.api.dom.OutputUtilities.newLine;
 import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * The Class Interface.
@@ -135,6 +130,8 @@ public class Interface extends JavaElement implements CompilationUnit {
         if (importStrings.size() > 0) {
             newLine(sb);
         }
+
+        myClassAnnotation(sb);
 
         int indentLevel = 0;
 

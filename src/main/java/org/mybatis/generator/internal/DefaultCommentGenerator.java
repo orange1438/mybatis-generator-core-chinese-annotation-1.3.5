@@ -139,14 +139,12 @@ public class DefaultCommentGenerator implements CommentGenerator {
                                  boolean markAsDoNotDelete) {
         javaElement.addJavaDocLine(" *"); //$NON-NLS-1$
         StringBuilder sb = new StringBuilder();
-        sb.append(" * "); //$NON-NLS-1$
-        sb.append("Author: oange1438@qq.com");
         if (markAsDoNotDelete) {
-            sb.append(" do_not_delete_during_merge"); //$NON-NLS-1$
+            //   sb.append(" * do_not_delete_during_merge");
         }
         String s = getDateString();
         if (s != null) {
-            sb.append(' ');
+            sb.append(" * ");
             sb.append(s);
         }
         javaElement.addJavaDocLine(sb.toString());
@@ -165,7 +163,8 @@ public class DefaultCommentGenerator implements CommentGenerator {
         } else if (dateFormat != null) {
             return dateFormat.format(new Date());
         } else {
-            return new Date().toString();
+            // 我就喜欢这个格式化，不服自己修改
+            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         }
     }
 
@@ -179,16 +178,18 @@ public class DefaultCommentGenerator implements CommentGenerator {
         if (suppressAllComments) {
             return;
         }
-        System.out.println("innerClass.getClass().getName() = " + innerClass.getType());
         StringBuilder sb = new StringBuilder();
         String shortName = innerClass.getType().getShortName();
         innerClass.addJavaDocLine("/**"); //$NON-NLS-1$
+        sb.append(" * ")
+                .append(introspectedTable.getFullyQualifiedTable().getRemark())
+                .append(introspectedTable.getFullyQualifiedTable());
         if ("GeneratedCriteria".equals(shortName)) {
-            sb.append(" * 基本动态SQL对象,");
+            sb.append("的基本动态SQL对象.");
         } else if ("Criterion".equals(shortName)) {
-            sb.append(" * 动态SQL对象,");
+            sb.append("的动态SQL对象.");
         }
-        sb.append(introspectedTable.getFullyQualifiedTable());
+
         innerClass.addJavaDocLine(sb.toString());
         innerClass.addJavaDocLine(" */");
     }
@@ -271,6 +272,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
                 && !introspectedColumn.getDefaultValue().equals("")) {
             sb.append(" 默认：" + introspectedColumn.getDefaultValue());
         }
+
         if (sb.length() > 0) {
             field.addJavaDocLine("/** ");
             field.addJavaDocLine(sb.toString());
@@ -295,10 +297,11 @@ public class DefaultCommentGenerator implements CommentGenerator {
         } else if ("oredCriteria".equals(field.getName())) {
             sb.append(" 查询条件");
         }
-
-        field.addJavaDocLine("/**"); //$NON-NLS-1$
-        field.addJavaDocLine(" * " + sb.toString()); //$NON-NLS-1$
-        field.addJavaDocLine(" */"); //$NON-NLS-1$
+        if (sb.length() > 0) {
+            field.addJavaDocLine("/**");
+            field.addJavaDocLine(" *" + sb.toString());
+            field.addJavaDocLine(" */");
+        }
     }
 
     /* (non-Javadoc)
@@ -313,14 +316,16 @@ public class DefaultCommentGenerator implements CommentGenerator {
 
         StringBuilder sb = new StringBuilder();
 
-        method.addJavaDocLine("/** "); //$NON-NLS-1$
-
-        sb.append(" * ");
+        sb.append(" *");
         if (method.isConstructor()) {
             sb.append(" 构造查询条件");
         }
         String method_name = method.getName();
-        if ("setOrderByClause".equals(method_name)) {
+        if ("toString".equals(method_name)
+                || "hashCode".equals(method_name)
+                || "equals".equals(method_name)) {
+            return;
+        } else if ("setOrderByClause".equals(method_name)) {
             sb.append(" 设置排序字段");
         } else if ("setDistinct".equals(method_name)) {
             sb.append(" 设置过滤重复数据");
@@ -358,23 +363,20 @@ public class DefaultCommentGenerator implements CommentGenerator {
             sb.append(" 动态字段,根据主键来更新符合条件的数据库记录");
         } else if ("updateByPrimaryKey".equals(method_name)) {
             sb.append(" 根据主键来更新符合条件的数据库记录");
-        } else if ("or".equals(method_name)) {
-            sb.append(" 或者条件实例");
         }
-
-        method.addJavaDocLine(sb.toString());
 
         final List<Parameter> parameterList = method.getParameters();
         if (!parameterList.isEmpty()) {
-            method.addJavaDocLine(" *");
             if ("or".equals(method_name)) {
                 sb.append(" 增加或者的查询条件,用于构建或者查询");
             }
-        } else {
-            if ("or".equals(method_name)) {
+        } else if ("or".equals(method_name)) {
                 sb.append(" 创建一个新的或者查询条件");
-            }
         }
+
+        method.addJavaDocLine("/** ");
+        method.addJavaDocLine(sb.toString());
+
         String paramterName;
         for (Parameter parameter : parameterList) {
             sb.setLength(0);
@@ -420,7 +422,6 @@ public class DefaultCommentGenerator implements CommentGenerator {
                 .append(introspectedColumn.getActualColumnName());
 
         method.addJavaDocLine(sb.toString());
-        method.addJavaDocLine(" *"); //$NON-NLS-1$
 
         sb.setLength(0);
 
@@ -463,13 +464,11 @@ public class DefaultCommentGenerator implements CommentGenerator {
                 .append(introspectedColumn.getActualColumnName());
 
         method.addJavaDocLine(sb.toString());
-        method.addJavaDocLine(" *"); //$NON-NLS-1$
 
         // 参数
         Parameter parm = method.getParameters().get(0);
         sb.setLength(0);
-        sb.append(" * @param "); //$NON-NLS-1$
-        sb.append(parm.getName() + " ");
+        sb.append(" * @param ").append(parm.getName() + " ");
         if (introspectedColumn.getRemarks() != null
                 && !introspectedColumn.getRemarks().equals("")) {
             sb.append(introspectedColumn.getRemarks());
@@ -489,13 +488,12 @@ public class DefaultCommentGenerator implements CommentGenerator {
     public void addClassComment(InnerClass innerClass,
                                 IntrospectedTable introspectedTable, boolean markAsDoNotDelete) {
         // add no document level comments by default
-        // 删除生成Criteria对象的注释信息的注释
+        // 生成Criteria对象的注释信息的注释
         StringBuilder sb = new StringBuilder();
         innerClass.addJavaDocLine("/**");
-        System.out.println("innerClass.getType().getShortName() = " + innerClass.getType().getShortName());
-        sb.append(" * 数据库表 ");
-        sb.append(introspectedTable.getFullyQualifiedTable());
-        sb.append("映射实体");
+        sb.append(" * ").append(introspectedTable.getFullyQualifiedTable().getRemark())
+                .append(introspectedTable.getFullyQualifiedTable()).append("的映射实体");
+
         innerClass.addJavaDocLine(sb.toString());
         innerClass.addJavaDocLine(" */");
     }
