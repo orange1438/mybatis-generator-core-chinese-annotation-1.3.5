@@ -34,7 +34,12 @@ import org.mybatis.generator.api.dom.java.TopLevelClass;
  * <p>
  * Important: This is a simplistic implementation of serializable and does not
  * attempt to do any versioning of classes.
- * 
+ *
+ * 这个插件主要用来为生成的Java模型类添加序列化接口，并生成serialVersionUID字段；
+ * 有两个配置项：
+ * addGWTInterface：这个是针对GWT的，我们忽略；
+ * suppressJavaInterface：这个参数是必须要填的，我们设置为false就可以了；
+ *
  * @author Jeff Butler
  * 
  */

@@ -50,6 +50,12 @@ import org.mybatis.generator.codegen.XmlConstants;
  * targetPackage and targetProject values on the sqlMapGenerator configuration
  * element.
  *
+ * 比较有用的一个插件，可以用来帮助生成一个默认的MapperConfig.xml文件骨架，在这个骨架文件中完成了本次生成的mapper.xml文件的配置；
+ * 该插件支持的配置属性有：
+ * fileName：配置文件名称，默认为MapperConfig.xml；
+ * targetPackage：配置文件所在的包，同MBG配置文件中的所有targetPackage配置；
+ * targetProject：配置文件所在目录，同MBG配置文件中的所有targetProject配置；
+ *
  * @author Jeff Butler
  */
 public class MapperConfigPlugin extends PluginAdapter {

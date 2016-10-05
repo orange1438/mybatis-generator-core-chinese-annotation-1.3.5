@@ -37,7 +37,10 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
  * This plugin will add selectByExample methods that include rowBounds
  * parameters to the generated mapper interface.  This plugin is only
  * valid for MyBatis3.
- * 
+ *
+ * 这个插件可以生成一个新的selectByExample方法，这个方法可以接受一个RowBounds参数，
+ * 主要用来实现分页（当然，我们后面会生成我们自己的分页查询函数），这个插件只针对MyBatis3/MyBatis3Simple有效哈；
+ *
  * @author Jeff Butler
  */
 public class RowBoundsPlugin extends PluginAdapter {

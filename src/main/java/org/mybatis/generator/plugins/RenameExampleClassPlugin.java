@@ -46,8 +46,10 @@ import org.mybatis.generator.api.IntrospectedTable;
  * <dt>replaceString</dt>
  * <dd>Criteria</dd>
  * </dl>
- * 
- * 
+ *
+ * 这个插件可以使用正则表达式的方式来重命名生成的XXXExample类，
+ * 通过配置 searchString和replaceString属性来完成（这个实现原理请参考MBG配置文件中的columnRenamingRule元素）
+ *
  * @author Jeff Butler
  * 
  */

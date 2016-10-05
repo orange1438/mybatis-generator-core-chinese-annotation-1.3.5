@@ -35,7 +35,9 @@ import org.mybatis.generator.codegen.ibatis2.Ibatis2FormattingUtilities;
  * 
  * This plugin only adds methods for String fields mapped to a JDBC character
  * type (CHAR, VARCHAR, etc.)
- * 
+ *
+ * 这个插件用来在XXXExample类中生成大小写敏感的LIKE方法
+ * （插件本身用处不大，但是我们可以通过这个插件学习给XXXExample类添加额外的方法）
  * @author Jeff Butler
  * 
  */
