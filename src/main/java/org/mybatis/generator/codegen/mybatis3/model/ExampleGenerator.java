@@ -55,6 +55,9 @@ public class ExampleGenerator extends AbstractJavaGenerator {
         topLevelClass.setVisibility(JavaVisibility.PUBLIC);
         commentGenerator.addJavaFileComment(topLevelClass);
 
+        // 添加类注释
+        commentGenerator.addExampleClassComment(topLevelClass);
+
         // add default constructor
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);

@@ -707,6 +707,8 @@ public class Context extends PropertyHolder {
         for (PluginConfiguration pluginConfiguration : pluginConfigurations) {
             Plugin plugin = ObjectFactory.createPlugin(this,
                     pluginConfiguration);
+
+            /* 是否添加插件 */
             if (plugin.validate(warnings)) {
                 pluginAggregator.addPlugin(plugin);
             } else {
@@ -719,8 +721,10 @@ public class Context extends PropertyHolder {
             for (IntrospectedTable introspectedTable : introspectedTables) {
                 callback.checkCancel();
 
+                /* 初始化:包括插件的初始化 */
                 introspectedTable.initialize();
                 introspectedTable.calculateGenerators(warnings, callback);
+
                 generatedJavaFiles.addAll(introspectedTable
                         .getGeneratedJavaFiles());
                 generatedXmlFiles.addAll(introspectedTable

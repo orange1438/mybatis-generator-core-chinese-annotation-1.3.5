@@ -69,27 +69,6 @@ public abstract class JavaElement {
     }
 
     /**
-     * 我的类注释
-     * @param sb
-     */
-    public static void myClassAnnotation(StringBuilder sb) {
-        sb.append("/**");
-        OutputUtilities.newLine(sb);
-        sb.append(" * @Description: 本文件由 mybatis-generator-core 1.3.5-chinese-annotation-by-orange1438版本自动生成");
-        OutputUtilities.newLine(sb);
-        sb.append(" * @Author: orange1438");
-        OutputUtilities.newLine(sb);
-        sb.append(" * @Email: orange1438@qq.com");
-        OutputUtilities.newLine(sb);
-        sb.append(" * @Github: github.com/orange1438");
-        OutputUtilities.newLine(sb);
-        sb.append(" * @Date: " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()));
-        OutputUtilities.newLine(sb);
-        sb.append(" */");
-        OutputUtilities.newLine(sb);
-    }
-
-    /**
      * Gets the java doc lines.
      *
      * @return Returns the javaDocLines.

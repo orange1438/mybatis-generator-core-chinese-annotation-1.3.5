@@ -128,8 +128,6 @@ public class Interface extends JavaElement implements CompilationUnit {
             newLine(sb);
         }
 
-        myClassAnnotation(sb);
-
         int indentLevel = 0;
 
         addFormattedJavadoc(sb, indentLevel);

@@ -243,7 +243,10 @@ public class IntrospectedTableMyBatis3Impl extends IntrospectedTable {
     public List<GeneratedJavaFile> getGeneratedJavaFiles() {
         List<GeneratedJavaFile> answer = new ArrayList<GeneratedJavaFile>();
 
+        // 实体类文件
         handleJavaGenerators(javaModelGenerators, answer, context.getJavaModelGeneratorConfiguration().getTargetProject());
+
+        // mapper文件
         handleJavaGenerators(clientGenerators, answer, context.getJavaClientGeneratorConfiguration().getTargetProject());
 
         return answer;

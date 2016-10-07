@@ -132,8 +132,6 @@ public class TopLevelClass extends InnerClass implements CompilationUnit {
             newLine(sb);
         }
 
-        myClassAnnotation(sb);
-
         sb.append(super.getFormattedContent(0, this));
 
         return sb.toString();

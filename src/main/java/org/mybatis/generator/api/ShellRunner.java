@@ -44,17 +44,8 @@ public class ShellRunner {
     private static final String HELP_1 = "-?"; //$NON-NLS-1$
     private static final String HELP_2 = "-h"; //$NON-NLS-1$
 
-    public static void main(String[] fargs) {
-        ShellRunner shellRunner = new ShellRunner();
-        //取得根目录路径
-        String rootPath = shellRunner.getClass().getResource("/").getFile().toString();
-        //当前目录路径
-        //   String currentPath1=shellRunner.getClass().getResource(".").getFile().toString();
-        //  String currentPath2=shellRunner.getClass().getResource("").getFile().toString();
-        //当前目录的上级目录路径
-        //   String parentPath=shellRunner.getClass().getResource("../").getFile().toString();
+    public static void main(String[] args) {
 
-        String[] args = {"-configfile", rootPath + "generatorConfig.xml", "-overwrite"};
         if (args.length == 0) {
             usage();
             System.exit(0);

@@ -61,6 +61,9 @@ public class JavaMapperGenerator extends AbstractJavaClientGenerator {
         interfaze.setVisibility(JavaVisibility.PUBLIC);
         commentGenerator.addJavaFileComment(interfaze);
 
+        // 添加类注释
+        commentGenerator.addExampleClassComment(interfaze);
+
         String rootInterface = introspectedTable
                 .getTableConfigurationProperty(PropertyRegistry.ANY_ROOT_INTERFACE);
         if (!stringHasValue(rootInterface)) {

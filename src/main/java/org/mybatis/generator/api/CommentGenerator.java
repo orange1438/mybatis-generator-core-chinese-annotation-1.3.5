@@ -87,6 +87,12 @@ public interface CommentGenerator {
                               IntrospectedTable introspectedTable);
 
     /**
+     * 添加非model类的注释
+     * @param javaElement
+     */
+    void addExampleClassComment(JavaElement javaElement);
+
+    /**
      * Adds the inner class comment.
      *
      * @param innerClass
