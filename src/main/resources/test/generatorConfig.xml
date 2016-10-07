@@ -10,7 +10,7 @@ http://generator.sturgeon.mopaas.com/index.html
 <generatorConfiguration>
 
     <!-- 引入配置文件 -->
-    <properties resource="app.properties"/>
+    <properties resource="test/app.properties"/>
 
     <!-- 指定数据连接驱动jar地址 -->
     <classPathEntry location="${jdbc.mybatisGenerator.classPath}"/>
@@ -47,10 +47,11 @@ http://generator.sturgeon.mopaas.com/index.html
         <commentGenerator>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
             <property name="suppressAllComments" value="false"/>
-
+            <!-- 是否给实体类生成的备注的注释 true：是 ： 默认为false:否 -->
+            <property name="addRemarkComments" value="true"/>
             <!-- 是否去掉注释代时间戳 true：是 ： false:否,默认yyyy-MM-dd HH:mm:ss（1.3.5-chinese-annotation修改版）-->
-            <property name="suppressDate" value="true"/>
-            <property name="dateFormat" value="yyyy/MM/dd HH:mm:ss"/>
+            <property name="suppressDate" value="false"/>
+            <property name="dateFormat" value="yyyy/MM/dd HH:mm"/>
         </commentGenerator>
 
         <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
@@ -68,16 +69,16 @@ http://generator.sturgeon.mopaas.com/index.html
         </javaTypeResolver>
 
         <!-- 生成实体类的位置 -->
-        <javaModelGenerator targetPackage="com.managementsystem.entity"
-                            targetProject="src\main\java">
+        <javaModelGenerator targetPackage="com.orange1438.entity"
+                            targetProject="src\main\resources\test">
             <!--  for MyBatis3/MyBatis3Simple
                 自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；
             -->
             <property name="constructorBased" value="false"/>
 
             <!-- 是否在当前路径下新加一层schema,
-                eg：false路径com.managementsystem.entity,
-                    true:com.managementsystem.entity.[schemaName]
+                eg：false路径com.orange1438.entity,
+                    true:com.orange1438.entity.[schemaName]
              -->
             <property name="enableSubPackages" value="true"/>
             <!-- 是否针对string类型的字段在set/get的时候进行trim调用:清理前后的空格 -->
@@ -85,8 +86,8 @@ http://generator.sturgeon.mopaas.com/index.html
         </javaModelGenerator>
 
         <!-- 生成mapper xml文件 -->
-        <sqlMapGenerator targetPackage="com.managementsystem.mapper"
-                         targetProject="src\main\java">
+        <sqlMapGenerator targetPackage="com.orange1438.mapper"
+                         targetProject="src\main\resources\test">
             <!-- 解释同上:生成实体类的位置 -->
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
@@ -102,8 +103,8 @@ http://generator.sturgeon.mopaas.com/index.html
        -->
         <!-- 生成mapper接口生成的位置 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.managementsystem.mapper"
-                             targetProject="src\main\java">
+                             targetPackage="com.orange1438.mapper"
+                             targetProject="src\main\resources\test">
             <!-- 解释同上:生成实体类的位置 -->
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
