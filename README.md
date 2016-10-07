@@ -22,16 +22,20 @@ maven工程的打包，执行命令：clean install ，加入到本地仓库,生
 ## 修改源码说明(原版本没有的功能)
 1.数据表的备注信息的添加：在FullyQualifiedTable类中添加remark字段,并在org.mybatis.generator.internal.db.DatabaseIntrospector类calculateIntrospectedTables方法,添加一段获取数据库备注的代码<br>
 ```java
-    //设置数据库表的备注信息
-    //start
-    Statement stmt = this.databaseMetaData.getConnection().createStatement();
-    ResultSet rs = stmt.executeQuery(new StringBuilder().append("SHOW TABLE STATUS LIKE '")
-            .append(atn.getTableName()).append("'").toString());
-    while (rs.next())
-        table.setRemark(rs.getString("COMMENT"));
-    closeResultSet(rs);
-    stmt.close();
-    //end
+  //设置数据库表的备注信息
+  //start
+  Statement stmt = this.databaseMetaData.getConnection().createStatement();
+  ResultSet rs = stmt.executeQuery(
+          new StringBuilder()
+          .append("SHOW TABLE STATUS LIKE '")
+          .append(atn.getTableName())
+          .append("'")
+          .toString());
+  while (rs.next())
+      table.setRemark(rs.getString("COMMENT"));
+  closeResultSet(rs);
+  stmt.close();
+  //end
 ```
 <br>
 2..非model类Example的注释方法的添加，方法名addExampleClassComment(TopLevelClass topLevelClass)<br>
