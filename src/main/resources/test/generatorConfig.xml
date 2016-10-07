@@ -69,7 +69,7 @@ http://generator.sturgeon.mopaas.com/index.html
         </javaTypeResolver>
 
         <!-- 生成实体类的位置 -->
-        <javaModelGenerator targetPackage="com.orange1438.entity"
+        <javaModelGenerator targetPackage="orange1438.entity"
                             targetProject="src\main\resources\test">
             <!--  for MyBatis3/MyBatis3Simple
                 自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；
@@ -86,7 +86,7 @@ http://generator.sturgeon.mopaas.com/index.html
         </javaModelGenerator>
 
         <!-- 生成mapper xml文件 -->
-        <sqlMapGenerator targetPackage="com.orange1438.mapper"
+        <sqlMapGenerator targetPackage="orange1438.mapper"
                          targetProject="src\main\resources\test">
             <!-- 解释同上:生成实体类的位置 -->
             <property name="enableSubPackages" value="true"/>
@@ -103,7 +103,7 @@ http://generator.sturgeon.mopaas.com/index.html
        -->
         <!-- 生成mapper接口生成的位置 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.orange1438.mapper"
+                             targetPackage="orange1438.mapper"
                              targetProject="src\main\resources\test">
             <!-- 解释同上:生成实体类的位置 -->
             <property name="enableSubPackages" value="true"/>
