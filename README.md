@@ -10,11 +10,29 @@
 <br>
 ## 使用方式
 maven工程的打包，执行命令：clean install ，加入到本地仓库,生成“1.3.5-chinese-annotation-by-orange1438”包名
-
 <br>
+
 ## 源码剖析说明
 1.剖析org.mybatis.generator.plugins.ToStringPlugin源码<br>
 2.剖析org.mybatis.generator.plugins.MapperConfigPlugin源码<br>
 3.剖析org.mybatis.generator.api.ShellRunner源码，Main入口<br>
 3.剖析org.mybatis.generator.config.xml.ConfigurationParser源码，配置解析器，用于对generatorConfig.xml配置文件的解析<br>
 4.剖析org.mybatis.generator.config.Context源码，封装<context>元素内容<br>
+
+## 修改源码说明(原版本没有的功能)
+1.数据表的备注信息的添加：在FullyQualifiedTable类中添加remark字段,并在org.mybatis.generator.internal.db.DatabaseIntrospector类calculateIntrospectedTables方法,添加一段获取数据库备注的代码<br>
+`
+            //设置数据库表的备注信息
+            //start
+            Statement stmt = this.databaseMetaData.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(new StringBuilder().append("SHOW TABLE STATUS LIKE '").append(atn.getTableName()).append("'").toString());
+            while (rs.next())
+                table.setRemark(rs.getString("COMMENT"));
+            closeResultSet(rs);
+            stmt.close();
+            //end
+`<br>
+2..非model类Example的注释方法的添加，方法名addExampleClassComment(TopLevelClass topLevelClass)<br>
+3.重构部分org.mybatis.generator.codegen.mybatis3.IntrospectedTableMyBatis3Impl包里getGeneratedJavaFiles方法<br>
+4.详细中文注释的添加，入口包函数在org.mybatis.generator.api.ShellRunner<br>
+5.生成的中文注释信息可在修DefaultCommentGenerator类修改<br>
