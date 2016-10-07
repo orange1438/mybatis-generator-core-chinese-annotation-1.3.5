@@ -76,12 +76,22 @@
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
+
         <dependency>
             <groupId>org.apache.ant</groupId>
             <artifactId>ant</artifactId>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
+
+        <!--数据库依赖,test.orange1438test用的-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.35</version>
+            <scope>runtime</scope>
+        </dependency>
+
     </dependencies>
 
 </project>
