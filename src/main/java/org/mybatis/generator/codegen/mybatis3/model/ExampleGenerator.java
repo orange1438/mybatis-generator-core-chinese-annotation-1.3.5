@@ -1,47 +1,40 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2016 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.codegen.mybatis3.model;
-
-import static org.mybatis.generator.internal.util.JavaBeansUtil.getGetterMethodName;
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.FullyQualifiedTable;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.dom.OutputUtilities;
-import org.mybatis.generator.api.dom.java.CompilationUnit;
-import org.mybatis.generator.api.dom.java.Field;
-import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
-import org.mybatis.generator.api.dom.java.InnerClass;
-import org.mybatis.generator.api.dom.java.JavaVisibility;
-import org.mybatis.generator.api.dom.java.Method;
-import org.mybatis.generator.api.dom.java.Parameter;
-import org.mybatis.generator.api.dom.java.TopLevelClass;
+import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.codegen.AbstractJavaGenerator;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import static org.mybatis.generator.internal.util.JavaBeansUtil.getGetterMethodName;
+import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
+
 /**
- * 
+ *
  * @author Jeff Butler
- * 
+ *
  */
 public class ExampleGenerator extends AbstractJavaGenerator {
 
@@ -192,8 +185,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
         topLevelClass.addMethod(method);
 
         // now generate the inner class that holds the AND conditions
-        topLevelClass
-                .addInnerClass(getGeneratedCriteriaInnerClass(topLevelClass));
+        topLevelClass.addInnerClass(getGeneratedCriteriaInnerClass(topLevelClass));
 
         topLevelClass.addInnerClass(getCriteriaInnerClass());
 
@@ -449,7 +441,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
             field.setVisibility(JavaVisibility.PROTECTED);
             answer.addField(field);
         }
-        
+
         method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setName("getAllCriteria"); //$NON-NLS-1$
@@ -459,7 +451,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
         } else {
             method.addBodyLine("if (allCriteria == null) {"); //$NON-NLS-1$
             method.addBodyLine("allCriteria = new ArrayList<Criterion>();"); //$NON-NLS-1$
-            
+
             strIter = criteriaLists.iterator();
             while (strIter.hasNext()) {
                 method.addBodyLine(String.format("allCriteria.addAll(%s);", strIter.next())); //$NON-NLS-1$
@@ -469,7 +461,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
             method.addBodyLine("return allCriteria;"); //$NON-NLS-1$
         }
         answer.addMethod(method);
-        
+
         // now we need to generate the methods that will be used in the SqlMap
         // to generate the dynamic where clause
         topLevelClass.addImportedType(FullyQualifiedJavaType
@@ -681,10 +673,8 @@ public class ExampleGenerator extends AbstractJavaGenerator {
             answer.addMethod(method);
         }
 
-        for (IntrospectedColumn introspectedColumn : introspectedTable
-                .getNonBLOBColumns()) {
-            topLevelClass.addImportedType(introspectedColumn
-                    .getFullyQualifiedJavaType());
+        for (IntrospectedColumn introspectedColumn : introspectedTable.getNonBLOBColumns()) {
+            topLevelClass.addImportedType(introspectedColumn.getFullyQualifiedJavaType());
 
             // here we need to add the individual methods for setting the
             // conditions for a field
@@ -693,8 +683,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
             answer.addMethod(getSetEqualMethod(introspectedColumn));
             answer.addMethod(getSetNotEqualMethod(introspectedColumn));
             answer.addMethod(getSetGreaterThanMethod(introspectedColumn));
-            answer
-                    .addMethod(getSetGreaterThenOrEqualMethod(introspectedColumn));
+            answer.addMethod(getSetGreaterThenOrEqualMethod(introspectedColumn));
             answer.addMethod(getSetLessThanMethod(introspectedColumn));
             answer.addMethod(getSetLessThanOrEqualMethod(introspectedColumn));
 
@@ -759,7 +748,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
     }
 
     private Method getSingleValueMethod(IntrospectedColumn introspectedColumn,
-            String nameFragment, String operator) {
+                                        String nameFragment, String operator) {
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
         method.addParameter(new Parameter(introspectedColumn
@@ -804,7 +793,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
 
     /**
      * Generates methods that set between and not between conditions
-     * 
+     *
      * @param introspectedColumn
      * @param betweenMethod
      * @return a generated method for the between or not between method
@@ -864,7 +853,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
     }
 
     /**
-     * 
+     *
      * @param introspectedColumn
      * @param inMethod
      *            if true generates an "in" method, else generates a "not in"
@@ -872,7 +861,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
      * @return a generated method for the in or not in method
      */
     private Method getSetInOrNotInMethod(IntrospectedColumn introspectedColumn,
-            boolean inMethod) {
+                                         boolean inMethod) {
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
         FullyQualifiedJavaType type = FullyQualifiedJavaType
@@ -931,7 +920,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
     }
 
     private Method getNoValueMethod(IntrospectedColumn introspectedColumn,
-            String nameFragment, String operator) {
+                                    String nameFragment, String operator) {
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
         StringBuilder sb = new StringBuilder();
@@ -957,7 +946,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
     /**
      * This method adds all the extra methods and fields required to support a
      * user defined type handler on some column.
-     * 
+     *
      * @param introspectedColumn
      * @param constructor
      * @param innerClass
@@ -1044,14 +1033,14 @@ public class ExampleGenerator extends AbstractJavaGenerator {
         if (!introspectedColumn.getFullyQualifiedJavaType().isPrimitive()) {
             method.addBodyLine("if (value1 == null || value2 == null) {"); //$NON-NLS-1$
             method
-                .addBodyLine("throw new RuntimeException(\"Between values for \" + property + \" cannot be null\");"); //$NON-NLS-1$
+                    .addBodyLine("throw new RuntimeException(\"Between values for \" + property + \" cannot be null\");"); //$NON-NLS-1$
             method.addBodyLine("}"); //$NON-NLS-1$
         }
 
         method.addBodyLine(
                 String.format("%s.add(new Criterion(condition, value1, value2, \"%s\"));", //$NON-NLS-1$
                         field.getName(), introspectedColumn.getTypeHandler()));
-        
+
         method.addBodyLine("allCriteria = null;"); //$NON-NLS-1$
         innerClass.addMethod(method);
 

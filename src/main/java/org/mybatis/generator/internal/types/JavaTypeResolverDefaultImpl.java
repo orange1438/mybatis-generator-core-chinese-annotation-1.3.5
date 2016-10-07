@@ -1,27 +1,19 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2016 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.internal.types;
-
-import java.math.BigDecimal;
-import java.sql.Types;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.JavaTypeResolver;
@@ -30,8 +22,12 @@ import org.mybatis.generator.config.Context;
 import org.mybatis.generator.config.PropertyRegistry;
 import org.mybatis.generator.internal.util.StringUtility;
 
+import java.math.BigDecimal;
+import java.sql.Types;
+import java.util.*;
+
 /**
- * 
+ *
  * @author Jeff Butler
  */
 public class JavaTypeResolverDefaultImpl implements JavaTypeResolver {
@@ -45,7 +41,7 @@ public class JavaTypeResolverDefaultImpl implements JavaTypeResolver {
     protected boolean forceBigDecimals;
 
     protected Map<Integer, JdbcTypeInformation> typeMap;
-    
+
     public JavaTypeResolverDefaultImpl() {
         super();
         properties = new Properties();
@@ -142,38 +138,38 @@ public class JavaTypeResolverDefaultImpl implements JavaTypeResolver {
 
         return answer;
     }
-    
+
     protected FullyQualifiedJavaType overrideDefaultType(IntrospectedColumn column, FullyQualifiedJavaType defaultType) {
         FullyQualifiedJavaType answer = defaultType;
-        
+
         switch (column.getJdbcType()) {
-        case Types.BIT:
-            answer = calculateBitReplacement(column, defaultType);
-            break;
-        case Types.DECIMAL:
-        case Types.NUMERIC:
-            answer = calculateBigDecimalReplacement(column, defaultType);
-            break;
+            case Types.BIT:
+                answer = calculateBitReplacement(column, defaultType);
+                break;
+            case Types.DECIMAL:
+            case Types.NUMERIC:
+                answer = calculateBigDecimalReplacement(column, defaultType);
+                break;
         }
 
         return answer;
     }
-    
+
     protected FullyQualifiedJavaType calculateBitReplacement(IntrospectedColumn column, FullyQualifiedJavaType defaultType) {
         FullyQualifiedJavaType answer;
-        
+
         if (column.getLength() > 1) {
             answer = new FullyQualifiedJavaType("byte[]"); //$NON-NLS-1$
         } else {
             answer = defaultType;
         }
-        
+
         return answer;
     }
-    
+
     protected FullyQualifiedJavaType calculateBigDecimalReplacement(IntrospectedColumn column, FullyQualifiedJavaType defaultType) {
         FullyQualifiedJavaType answer;
-        
+
         if (column.getScale() > 0 || column.getLength() > 18 || forceBigDecimals) {
             answer = defaultType;
         } else if (column.getLength() > 9) {
@@ -183,7 +179,7 @@ public class JavaTypeResolverDefaultImpl implements JavaTypeResolver {
         } else {
             answer = new FullyQualifiedJavaType(Short.class.getName());
         }
-        
+
         return answer;
     }
 
@@ -213,7 +209,7 @@ public class JavaTypeResolverDefaultImpl implements JavaTypeResolver {
         private FullyQualifiedJavaType fullyQualifiedJavaType;
 
         public JdbcTypeInformation(String jdbcTypeName,
-                FullyQualifiedJavaType fullyQualifiedJavaType) {
+                                   FullyQualifiedJavaType fullyQualifiedJavaType) {
             this.jdbcTypeName = jdbcTypeName;
             this.fullyQualifiedJavaType = fullyQualifiedJavaType;
         }

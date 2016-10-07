@@ -1,22 +1,19 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2016 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.api;
-
-import java.util.List;
-import java.util.Properties;
 
 import org.mybatis.generator.api.dom.java.Field;
 import org.mybatis.generator.api.dom.java.Interface;
@@ -26,6 +23,9 @@ import org.mybatis.generator.api.dom.xml.Document;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.config.Context;
 
+import java.util.List;
+import java.util.Properties;
+
 /**
  * This class includes no-operation methods for almost every method in the
  * Plugin interface. Clients may extend this class to implement some or all of
@@ -33,9 +33,9 @@ import org.mybatis.generator.config.Context;
  * <p>
  * This adapter does not implement the <tt>validate</tt> method - all plugins
  * must perform validation.
- * 
+ *
  * @author Jeff Butler
- * 
+ *
  */
 public abstract class PluginAdapter implements Plugin {
     protected Context context;
@@ -80,128 +80,128 @@ public abstract class PluginAdapter implements Plugin {
     }
 
     public boolean clientCountByExampleMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+                                                       Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientCountByExampleMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+                                                       TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientDeleteByExampleMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+                                                        Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientDeleteByExampleMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+                                                        TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientDeleteByPrimaryKeyMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+                                                           Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientDeleteByPrimaryKeyMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+                                                           TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientInsertMethodGenerated(Method method, Interface interfaze,
-            IntrospectedTable introspectedTable) {
+                                               IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientInsertMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+                                               TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientGenerated(Interface interfaze,
-            TopLevelClass topLevelClass,
-            IntrospectedTable introspectedTable) {
+                                   TopLevelClass topLevelClass,
+                                   IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientSelectByExampleWithBLOBsMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+                                                                 Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientSelectByExampleWithBLOBsMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+                                                                 TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientSelectByExampleWithoutBLOBsMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+                                                                    Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientSelectByExampleWithoutBLOBsMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+                                                                    TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientSelectByPrimaryKeyMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+                                                           Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientSelectByPrimaryKeyMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+                                                           TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientUpdateByExampleSelectiveMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+                                                                 Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientUpdateByExampleSelectiveMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+                                                                 TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientUpdateByExampleWithBLOBsMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+                                                                 Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientUpdateByExampleWithBLOBsMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+                                                                 TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientUpdateByExampleWithoutBLOBsMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+                                                                    Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientUpdateByExampleWithoutBLOBsMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+                                                                    TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientUpdateByPrimaryKeySelectiveMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+                                                                    Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientUpdateByPrimaryKeySelectiveMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+                                                                    TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientUpdateByPrimaryKeyWithBLOBsMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+                                                                    Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientUpdateByPrimaryKeyWithBLOBsMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+                                                                    TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
@@ -225,31 +225,31 @@ public abstract class PluginAdapter implements Plugin {
      * @return
      */
     public boolean modelBaseRecordClassGenerated(TopLevelClass topLevelClass,
-            IntrospectedTable introspectedTable) {
+                                                 IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean modelExampleClassGenerated(TopLevelClass topLevelClass,
-            IntrospectedTable introspectedTable) {
+                                              IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean modelFieldGenerated(Field field,
-            TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn,
-            IntrospectedTable introspectedTable,
-            Plugin.ModelClassType modelClassType) {
+                                       TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn,
+                                       IntrospectedTable introspectedTable,
+                                       Plugin.ModelClassType modelClassType) {
         return true;
     }
 
     public boolean modelGetterMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn,
-            IntrospectedTable introspectedTable,
-            Plugin.ModelClassType modelClassType) {
+                                              TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn,
+                                              IntrospectedTable introspectedTable,
+                                              Plugin.ModelClassType modelClassType) {
         return true;
     }
 
     public boolean modelPrimaryKeyClassGenerated(TopLevelClass topLevelClass,
-            IntrospectedTable introspectedTable) {
+                                                 IntrospectedTable introspectedTable) {
         return true;
     }
 
@@ -268,9 +268,9 @@ public abstract class PluginAdapter implements Plugin {
     }
 
     public boolean modelSetterMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn,
-            IntrospectedTable introspectedTable,
-            Plugin.ModelClassType modelClassType) {
+                                              TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn,
+                                              IntrospectedTable introspectedTable,
+                                              Plugin.ModelClassType modelClassType) {
         return true;
     }
 
@@ -280,42 +280,42 @@ public abstract class PluginAdapter implements Plugin {
     }
 
     public boolean sqlMapCountByExampleElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+                                                        IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean sqlMapDeleteByExampleElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+                                                         IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean sqlMapDeleteByPrimaryKeyElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+                                                            IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean sqlMapDocumentGenerated(Document document,
-            IntrospectedTable introspectedTable) {
+                                           IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean sqlMapExampleWhereClauseElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+                                                            IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean sqlMapGenerated(GeneratedXmlFile sqlMap,
-            IntrospectedTable introspectedTable) {
+                                   IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean sqlMapInsertElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+                                                IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean sqlMapResultMapWithBLOBsElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+                                                            IntrospectedTable introspectedTable) {
         return true;
     }
 
@@ -330,7 +330,7 @@ public abstract class PluginAdapter implements Plugin {
     }
 
     public boolean sqlMapSelectByPrimaryKeyElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+                                                            IntrospectedTable introspectedTable) {
         return true;
     }
 
@@ -365,17 +365,17 @@ public abstract class PluginAdapter implements Plugin {
     }
 
     public boolean sqlMapInsertSelectiveElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+                                                         IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientInsertSelectiveMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+                                                        Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientInsertSelectiveMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+                                                        TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
@@ -383,37 +383,37 @@ public abstract class PluginAdapter implements Plugin {
     }
 
     public boolean sqlMapBaseColumnListElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+                                                        IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean sqlMapBlobColumnListElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+                                                        IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean providerGenerated(TopLevelClass topLevelClass,
-            IntrospectedTable introspectedTable) {
+                                     IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean providerApplyWhereMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+                                                     TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean providerCountByExampleMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+                                                         TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean providerDeleteByExampleMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+                                                          TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean providerInsertSelectiveMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+                                                          TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
@@ -454,17 +454,17 @@ public abstract class PluginAdapter implements Plugin {
     }
 
     public boolean clientSelectAllMethodGenerated(Method method,
-            Interface interfaze, IntrospectedTable introspectedTable) {
+                                                  Interface interfaze, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean clientSelectAllMethodGenerated(Method method,
-            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+                                                  TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return true;
     }
 
     public boolean sqlMapSelectAllElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
+                                                   IntrospectedTable introspectedTable) {
         return true;
     }
 }

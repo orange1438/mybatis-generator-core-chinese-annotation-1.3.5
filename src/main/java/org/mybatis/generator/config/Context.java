@@ -1,24 +1,27 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2016 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.config;
 
-import static org.mybatis.generator.internal.util.StringUtility.composeFullyQualifiedTableName;
-import static org.mybatis.generator.internal.util.StringUtility.isTrue;
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
+import org.mybatis.generator.api.*;
+import org.mybatis.generator.api.dom.xml.Attribute;
+import org.mybatis.generator.api.dom.xml.XmlElement;
+import org.mybatis.generator.internal.JDBCConnectionFactory;
+import org.mybatis.generator.internal.ObjectFactory;
+import org.mybatis.generator.internal.PluginAggregator;
+import org.mybatis.generator.internal.db.DatabaseIntrospector;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -26,22 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.mybatis.generator.api.CommentGenerator;
-import org.mybatis.generator.api.ConnectionFactory;
-import org.mybatis.generator.api.GeneratedJavaFile;
-import org.mybatis.generator.api.GeneratedXmlFile;
-import org.mybatis.generator.api.JavaFormatter;
-import org.mybatis.generator.api.Plugin;
-import org.mybatis.generator.api.IntrospectedTable;
-import org.mybatis.generator.api.JavaTypeResolver;
-import org.mybatis.generator.api.ProgressCallback;
-import org.mybatis.generator.api.XmlFormatter;
-import org.mybatis.generator.api.dom.xml.Attribute;
-import org.mybatis.generator.api.dom.xml.XmlElement;
-import org.mybatis.generator.internal.JDBCConnectionFactory;
-import org.mybatis.generator.internal.ObjectFactory;
-import org.mybatis.generator.internal.PluginAggregator;
-import org.mybatis.generator.internal.db.DatabaseIntrospector;
+import static org.mybatis.generator.internal.util.StringUtility.*;
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 /**
  * The Class Context.
@@ -55,60 +44,96 @@ public class Context extends PropertyHolder {
      */
     private String id;
 
-    /** jdbc连接配置，包装成JDBCConnectionConfiguration 对象，对应<jdbcConnection>元素 */
+    /**
+     * jdbc连接配置，包装成JDBCConnectionConfiguration 对象，对应<jdbcConnection>元素
+     */
     private JDBCConnectionConfiguration jdbcConnectionConfiguration;
-    
+
     private ConnectionFactoryConfiguration connectionFactoryConfiguration;
 
-    /** 生成SQL MAP的xml配置，对应<sqlMapGenerator>元素，包装成 SqlMapGeneratorConfiguration 对象 */
+    /**
+     * 生成SQL MAP的xml配置，对应<sqlMapGenerator>元素，包装成 SqlMapGeneratorConfiguration 对象
+     */
     private SqlMapGeneratorConfiguration sqlMapGeneratorConfiguration;
 
-    /** 生成java类型处理器配置，对应<javaTypeResolver>元素，包装成 JavaTypeResolverConfiguration 对象 */
+    /**
+     * 生成java类型处理器配置，对应<javaTypeResolver>元素，包装成 JavaTypeResolverConfiguration 对象
+     */
     private JavaTypeResolverConfiguration javaTypeResolverConfiguration;
 
-    /** 生成java模型创建器配置，对应<javaModelGenerator>元素，包装成 JavaModelGeneratorConfiguration 对象 */
+    /**
+     * 生成java模型创建器配置，对应<javaModelGenerator>元素，包装成 JavaModelGeneratorConfiguration 对象
+     */
     private JavaModelGeneratorConfiguration javaModelGeneratorConfiguration;
 
-    /** 生成Mapper接口配置，对应<javaClientGenerator>元素，包装成 JavaClientGeneratorConfiguration 对象 */
+    /**
+     * 生成Mapper接口配置，对应<javaClientGenerator>元素，包装成 JavaClientGeneratorConfiguration 对象
+     */
     private JavaClientGeneratorConfiguration javaClientGeneratorConfiguration;
 
-    /** 解析每一个<table>元素，并包装成一个一个的TableConfiguration对象 */
+    /**
+     * 解析每一个<table>元素，并包装成一个一个的TableConfiguration对象
+     */
     private ArrayList<TableConfiguration> tableConfigurations;
 
-    /** 生成对象样式，对应context元素的defaultModelType属性(attribute) */
+    /**
+     * 生成对象样式，对应context元素的defaultModelType属性(attribute)
+     */
     private ModelType defaultModelType;
 
-    /** 对应context元素的beginningDelimiter这个property子元素（注意属性和property的区别） */
+    /**
+     * 对应context元素的beginningDelimiter这个property子元素（注意属性和property的区别）
+     */
     private String beginningDelimiter = "\""; //$NON-NLS-1$
 
-    /** 对应context元素的endingDelimiter 这个property子元素 */
+    /**
+     * 对应context元素的endingDelimiter 这个property子元素
+     */
     private String endingDelimiter = "\""; //$NON-NLS-1$
 
-    /** 对应<commentGenerator>元素，注解生成器的配置*/
+    /**
+     * 对应<commentGenerator>元素，注解生成器的配置
+     */
     private CommentGeneratorConfiguration commentGeneratorConfiguration;
 
-    /** 注解生成器 */
+    /**
+     * 注解生成器
+     */
     private CommentGenerator commentGenerator;
 
-    /** 这是一个包装了所有的plugin的插件执行对象，其中的插件就是由pluginConfigurations中的每一个PluginConfiguration生成 */
+    /**
+     * 这是一个包装了所有的plugin的插件执行对象，其中的插件就是由pluginConfigurations中的每一个PluginConfiguration生成
+     */
     private PluginAggregator pluginAggregator;
 
-    /** 对应每一个<plugin>元素的配置 */
+    /**
+     * 对应每一个<plugin>元素的配置
+     */
     private List<PluginConfiguration> pluginConfigurations;
 
-    /** 目标运行时，对应context元素的targetRuntime属性(attribute) */
+    /**
+     * 目标运行时，对应context元素的targetRuntime属性(attribute)
+     */
     private String targetRuntime;
 
-    /** 对应context元素的introspectedColumnImpl属性(attribute)  */
+    /**
+     * 对应context元素的introspectedColumnImpl属性(attribute)
+     */
     private String introspectedColumnImpl;
 
-    /** 自动识别数据库关键字，对应context元素的autoDelimitKeywords这个property子元素*/
+    /**
+     * 自动识别数据库关键字，对应context元素的autoDelimitKeywords这个property子元素
+     */
     private Boolean autoDelimitKeywords;
 
-    /** Java代码格式化工具，对应context元素的javaFormatter这个property子元素 */
+    /**
+     * Java代码格式化工具，对应context元素的javaFormatter这个property子元素
+     */
     private JavaFormatter javaFormatter;
 
-    /**  Xml代码格式化工具，对应context元素的xmlFormatter这个property子元素  */
+    /**
+     * Xml代码格式化工具，对应context元素的xmlFormatter这个property子元素
+     */
     private XmlFormatter xmlFormatter;
     /**
      * The introspected tables.
@@ -118,8 +143,7 @@ public class Context extends PropertyHolder {
     /**
      * Constructs a Context object.
      *
-     * @param defaultModelType
-     *            - may be null
+     * @param defaultModelType - may be null
      */
     public Context(ModelType defaultModelType) {
         super();
@@ -137,8 +161,7 @@ public class Context extends PropertyHolder {
     /**
      * Adds the table configuration.
      *
-     * @param tc
-     *            the tc
+     * @param tc the tc
      */
     public void addTableConfiguration(TableConfiguration tc) {
         tableConfigurations.add(tc);
@@ -194,8 +217,7 @@ public class Context extends PropertyHolder {
     /**
      * Sets the java model generator configuration.
      *
-     * @param javaModelGeneratorConfiguration
-     *            the new java model generator configuration
+     * @param javaModelGeneratorConfiguration the new java model generator configuration
      */
     public void setJavaModelGeneratorConfiguration(
             JavaModelGeneratorConfiguration javaModelGeneratorConfiguration) {
@@ -214,8 +236,7 @@ public class Context extends PropertyHolder {
     /**
      * Sets the java type resolver configuration.
      *
-     * @param javaTypeResolverConfiguration
-     *            the new java type resolver configuration
+     * @param javaTypeResolverConfiguration the new java type resolver configuration
      */
     public void setJavaTypeResolverConfiguration(
             JavaTypeResolverConfiguration javaTypeResolverConfiguration) {
@@ -234,8 +255,7 @@ public class Context extends PropertyHolder {
     /**
      * Sets the sql map generator configuration.
      *
-     * @param sqlMapGeneratorConfiguration
-     *            the new sql map generator configuration
+     * @param sqlMapGeneratorConfiguration the new sql map generator configuration
      */
     public void setSqlMapGeneratorConfiguration(
             SqlMapGeneratorConfiguration sqlMapGeneratorConfiguration) {
@@ -245,8 +265,7 @@ public class Context extends PropertyHolder {
     /**
      * Adds the plugin configuration.
      *
-     * @param pluginConfiguration
-     *            the plugin configuration
+     * @param pluginConfiguration the plugin configuration
      */
     public void addPluginConfiguration(
             PluginConfiguration pluginConfiguration) {
@@ -257,8 +276,7 @@ public class Context extends PropertyHolder {
      * This method does a simple validate, it makes sure that all required fields have been filled in. It does not do
      * any more complex operations such as validating that database tables exist or validating that named columns exist
      *
-     * @param errors
-     *            the errors
+     * @param errors the errors
      */
     public void validate(List<String> errors) {
         if (!stringHasValue(id)) {
@@ -329,8 +347,7 @@ public class Context extends PropertyHolder {
     /**
      * Sets the id.
      *
-     * @param id
-     *            the new id
+     * @param id the new id
      */
     public void setId(String id) {
         this.id = id;
@@ -470,7 +487,7 @@ public class Context extends PropertyHolder {
 
         return commentGenerator;
     }
-    
+
     /**
      * Gets the java formatter.
      *
@@ -483,7 +500,7 @@ public class Context extends PropertyHolder {
 
         return javaFormatter;
     }
-    
+
     /**
      * Gets the xml formatter.
      *
@@ -509,8 +526,7 @@ public class Context extends PropertyHolder {
     /**
      * Sets the comment generator configuration.
      *
-     * @param commentGeneratorConfiguration
-     *            the new comment generator configuration
+     * @param commentGeneratorConfiguration the new comment generator configuration
      */
     public void setCommentGeneratorConfiguration(
             CommentGeneratorConfiguration commentGeneratorConfiguration) {
@@ -538,8 +554,7 @@ public class Context extends PropertyHolder {
     /**
      * Sets the target runtime.
      *
-     * @param targetRuntime
-     *            the new target runtime
+     * @param targetRuntime the new target runtime
      */
     public void setTargetRuntime(String targetRuntime) {
         this.targetRuntime = targetRuntime;
@@ -567,8 +582,7 @@ public class Context extends PropertyHolder {
     /**
      * Sets the introspected column impl.
      *
-     * @param introspectedColumnImpl
-     *            the new introspected column impl
+     * @param introspectedColumnImpl the new introspected column impl
      */
     public void setIntrospectedColumnImpl(String introspectedColumnImpl) {
         this.introspectedColumnImpl = introspectedColumnImpl;
@@ -596,29 +610,23 @@ public class Context extends PropertyHolder {
     /**
      * Introspect tables based on the configuration specified in the
      * constructor. This method is long running.
-     * 
-     * @param callback
-     *            a progress callback if progress information is desired, or
-     *            <code>null</code>
-     * @param warnings
-     *            any warning generated from this method will be added to the
-     *            List. Warnings are always Strings.
-     * @param fullyQualifiedTableNames
-     *            a set of table names to generate. The elements of the set must
-     *            be Strings that exactly match what's specified in the
-     *            configuration. For example, if table name = "foo" and schema =
-     *            "bar", then the fully qualified table name is "foo.bar". If
-     *            the Set is null or empty, then all tables in the configuration
-     *            will be used for code generation.
-     * 
-     * @throws SQLException
-     *             if some error arises while introspecting the specified
-     *             database tables.
-     * @throws InterruptedException
-     *             if the progress callback reports a cancel
+     *
+     * @param callback                 a progress callback if progress information is desired, or
+     *                                 <code>null</code>
+     * @param warnings                 any warning generated from this method will be added to the
+     *                                 List. Warnings are always Strings.
+     * @param fullyQualifiedTableNames a set of table names to generate. The elements of the set must
+     *                                 be Strings that exactly match what's specified in the
+     *                                 configuration. For example, if table name = "foo" and schema =
+     *                                 "bar", then the fully qualified table name is "foo.bar". If
+     *                                 the Set is null or empty, then all tables in the configuration
+     *                                 will be used for code generation.
+     * @throws SQLException         if some error arises while introspecting the specified
+     *                              database tables.
+     * @throws InterruptedException if the progress callback reports a cancel
      */
     public void introspectTables(ProgressCallback callback,
-            List<String> warnings, Set<String> fullyQualifiedTableNames)
+                                 List<String> warnings, Set<String> fullyQualifiedTableNames)
             throws SQLException, InterruptedException {
 
         introspectedTables = new ArrayList<IntrospectedTable>();
@@ -636,7 +644,7 @@ public class Context extends PropertyHolder {
 
             for (TableConfiguration tc : tableConfigurations) {
                 String tableName = composeFullyQualifiedTableName(tc.getCatalog(), tc
-                                .getSchema(), tc.getTableName(), '.');
+                        .getSchema(), tc.getTableName(), '.');
 
                 if (fullyQualifiedTableNames != null
                         && fullyQualifiedTableNames.size() > 0
@@ -684,20 +692,15 @@ public class Context extends PropertyHolder {
     /**
      * Generate files.
      *
-     * @param callback
-     *            the callback
-     * @param generatedJavaFiles
-     *            the generated java files
-     * @param generatedXmlFiles
-     *            the generated xml files
-     * @param warnings
-     *            the warnings
-     * @throws InterruptedException
-     *             the interrupted exception
+     * @param callback           the callback
+     * @param generatedJavaFiles the generated java files
+     * @param generatedXmlFiles  the generated xml files
+     * @param warnings           the warnings
+     * @throws InterruptedException the interrupted exception
      */
     public void generateFiles(ProgressCallback callback,
-            List<GeneratedJavaFile> generatedJavaFiles,
-            List<GeneratedXmlFile> generatedXmlFiles, List<String> warnings)
+                              List<GeneratedJavaFile> generatedJavaFiles,
+                              List<GeneratedXmlFile> generatedXmlFiles, List<String> warnings)
             throws InterruptedException {
 
         pluginAggregator = new PluginAggregator();
@@ -740,8 +743,7 @@ public class Context extends PropertyHolder {
      * Gets the connection.
      *
      * @return the connection
-     * @throws SQLException
-     *             the SQL exception
+     * @throws SQLException the SQL exception
      */
     private Connection getConnection() throws SQLException {
         ConnectionFactory connectionFactory;
@@ -750,15 +752,14 @@ public class Context extends PropertyHolder {
         } else {
             connectionFactory = ObjectFactory.createConnectionFactory(this);
         }
-        
+
         return connectionFactory.getConnection();
     }
 
     /**
      * Close connection.
      *
-     * @param connection
-     *            the connection
+     * @param connection the connection
      */
     private void closeConnection(Connection connection) {
         if (connection != null) {

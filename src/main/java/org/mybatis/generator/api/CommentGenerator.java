@@ -1,34 +1,29 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2016 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.api;
 
-import java.util.Properties;
-
-import org.mybatis.generator.api.dom.java.CompilationUnit;
-import org.mybatis.generator.api.dom.java.Field;
-import org.mybatis.generator.api.dom.java.InnerClass;
-import org.mybatis.generator.api.dom.java.InnerEnum;
-import org.mybatis.generator.api.dom.java.Method;
-import org.mybatis.generator.api.dom.java.TopLevelClass;
+import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.api.dom.xml.XmlElement;
+
+import java.util.Properties;
 
 /**
  * Implementations of this interface are used to generate comments for the
  * various artifacts.
- * 
+ *
  * @author Jeff Butler
  */
 public interface CommentGenerator {
@@ -36,9 +31,9 @@ public interface CommentGenerator {
     /**
      * Adds properties for this instance from any properties configured in the
      * CommentGenerator configuration.
-     * 
+     *
      * This method will be called before any of the other methods.
-     * 
+     *
      * @param properties
      *            All properties from the configuration
      */
@@ -48,7 +43,7 @@ public interface CommentGenerator {
      * This method should add a Javadoc comment to the specified field. The field is related to the specified table and
      * is used to hold the value of the specified column.
      * <p>
-     * 
+     *
      * <b>Important:</b> This method should add a the nonstandard JavaDoc tag "@mbg.generated" to the comment. Without
      * this tag, the Eclipse based Java merge feature will fail.
      *
@@ -60,8 +55,8 @@ public interface CommentGenerator {
      *            the introspected column
      */
     void addFieldComment(Field field,
-            IntrospectedTable introspectedTable,
-            IntrospectedColumn introspectedColumn);
+                         IntrospectedTable introspectedTable,
+                         IntrospectedColumn introspectedColumn);
 
     /**
      * Adds the field comment.
@@ -78,7 +73,7 @@ public interface CommentGenerator {
      * be notified not to delete the entire class in case any manual
      * changes have been made.  So this method will always use the 
      * "do not delete" annotation.
-     * 
+     *
      * Because of difficulties with the Java file merger, the default implementation
      * of this method should NOT add comments.  Comments should only be added if
      * specifically requested by the user (for example, by enabling table remark comments).
@@ -89,7 +84,7 @@ public interface CommentGenerator {
      *            the introspected table
      */
     void addModelClassComment(TopLevelClass topLevelClass,
-            IntrospectedTable introspectedTable);
+                              IntrospectedTable introspectedTable);
 
     /**
      * Adds the inner class comment.
@@ -100,7 +95,7 @@ public interface CommentGenerator {
      *            the introspected table
      */
     void addClassComment(InnerClass innerClass,
-            IntrospectedTable introspectedTable);
+                         IntrospectedTable introspectedTable);
 
     /**
      * Adds the inner class comment.
@@ -113,7 +108,7 @@ public interface CommentGenerator {
      *            the mark as do not delete
      */
     void addClassComment(InnerClass innerClass,
-            IntrospectedTable introspectedTable, boolean markAsDoNotDelete);
+                         IntrospectedTable introspectedTable, boolean markAsDoNotDelete);
 
     /**
      * Adds the enum comment.
@@ -124,7 +119,7 @@ public interface CommentGenerator {
      *            the introspected table
      */
     void addEnumComment(InnerEnum innerEnum,
-            IntrospectedTable introspectedTable);
+                        IntrospectedTable introspectedTable);
 
     /**
      * Adds the getter comment.
@@ -137,8 +132,8 @@ public interface CommentGenerator {
      *            the introspected column
      */
     void addGetterComment(Method method,
-            IntrospectedTable introspectedTable,
-            IntrospectedColumn introspectedColumn);
+                          IntrospectedTable introspectedTable,
+                          IntrospectedColumn introspectedColumn);
 
     /**
      * Adds the setter comment.
@@ -151,8 +146,8 @@ public interface CommentGenerator {
      *            the introspected column
      */
     void addSetterComment(Method method,
-            IntrospectedTable introspectedTable,
-            IntrospectedColumn introspectedColumn);
+                          IntrospectedTable introspectedTable,
+                          IntrospectedColumn introspectedColumn);
 
     /**
      * Adds the general method comment.
@@ -163,7 +158,7 @@ public interface CommentGenerator {
      *            the introspected table
      */
     void addGeneralMethodComment(Method method,
-            IntrospectedTable introspectedTable);
+                                 IntrospectedTable introspectedTable);
 
     /**
      * This method is called to add a file level comment to a generated java file. This method could be used to add a
@@ -171,7 +166,7 @@ public interface CommentGenerator {
      * does not deal with this comment. If you run the generator repeatedly, you will only retain the comment from the
      * initial run.
      * <p>
-     * 
+     *
      * The default implementation does nothing.
      *
      * @param compilationUnit
@@ -193,7 +188,7 @@ public interface CommentGenerator {
      * general file comment (such as a copyright notice). However, note that the XML file merge function does not deal
      * with this comment. If you run the generator repeatedly, you will only retain the comment from the initial run.
      * <p>
-     * 
+     *
      * The default implementation does nothing.
      *
      * @param rootElement

@@ -17,21 +17,21 @@
 
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>Oracle Usage Notes</title>
-  <link rel="stylesheet" type="text/css" href="../mbgstyle.css" />
+    <title>Oracle Usage Notes</title>
+    <link rel="stylesheet" type="text/css" href="../mbgstyle.css"/>
 </head>
 <body>
 <h1>Oracle Usage Notes</h1>
 <h2>Public Synonyms</h2>
 <p>If you want to generate objects for a table that has a public synonym, you
-should actually generate the objects against the real table - and then change the
-table name at runtime.  MyBatis Generator supports this automatically.</p>
+    should actually generate the objects against the real table - and then change the
+    table name at runtime. MyBatis Generator supports this automatically.</p>
 <p>For example, assume there is a public alias "FRED" that points to the
-table "HR.EMPLOYEES".  The following table configuration will generate the objects
-based on HR.EMPLOYEES, but the runtime SQL will only refer to FRED:</p>
+    table "HR.EMPLOYEES". The following table configuration will generate the objects
+    based on HR.EMPLOYEES, but the runtime SQL will only refer to FRED:</p>
 <pre>
   &lt;table schema="HR" tableName="EMPLOYEES"&gt;
     &lt;property name="ignoreQualifiersAtRuntime" value="true" /&gt;
@@ -40,8 +40,8 @@ based on HR.EMPLOYEES, but the runtime SQL will only refer to FRED:</p>
 </pre>
 <h2>Oracle LONG Datatype</h2>
 <p>The Oracle JDBC driver will report that a LONG column is JDBC type LONGVARCHAR.
-MyBatis will map LONGVARCHAR to CLOB which is unsupported by the Oracle driver.
-So, when using LONG datatype, you should do a column override in the generator
-to map it to VARCHAR JDBC type.</p>
+    MyBatis will map LONGVARCHAR to CLOB which is unsupported by the Oracle driver.
+    So, when using LONG datatype, you should do a column override in the generator
+    to map it to VARCHAR JDBC type.</p>
 </body>
 </html>

@@ -1,31 +1,31 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2016 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.api;
-
-import java.sql.Types;
-import java.util.Properties;
 
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.config.Context;
 import org.mybatis.generator.internal.util.StringUtility;
 
+import java.sql.Types;
+import java.util.Properties;
+
 /**
  * This class holds information about an introspected column. The class has
  * utility methods useful for generating iBATIS objects.
- * 
+ *
  * @author Jeff Butler
  */
 public class IntrospectedColumn {
@@ -42,7 +42,7 @@ public class IntrospectedColumn {
     protected int scale;
 
     protected boolean identity;
-    
+
     protected boolean isSequenceColumn;
 
     protected String javaProperty;
@@ -65,17 +65,17 @@ public class IntrospectedColumn {
     protected String remarks;
 
     protected String defaultValue;
-    
+
     /**
      * true if the JDBC driver reports that this column is auto-increment
      */
     protected boolean isAutoIncrement;
-    
+
     /**
      * true if the JDBC driver reports that this column is generated
      */
     protected boolean isGeneratedColumn;
-    
+
     /**
      * True if there is a column override that defines this column as GENERATED ALWAYS
      */
@@ -146,12 +146,6 @@ public class IntrospectedColumn {
         return sb.toString();
     }
 
-    public void setActualColumnName(String actualColumnName) {
-        this.actualColumnName = actualColumnName;
-        isColumnNameDelimited = StringUtility
-                .stringContainsSpace(actualColumnName);
-    }
-
     /**
      * @return Returns the identity.
      */
@@ -171,9 +165,9 @@ public class IntrospectedColumn {
         String typeName = getJdbcTypeName();
 
         return "BINARY".equals(typeName) || "BLOB".equals(typeName) //$NON-NLS-1$ //$NON-NLS-2$
-                || "CLOB".equals(typeName) || "LONGNVARCHAR".equals(typeName) //$NON-NLS-1$ //$NON-NLS-2$ 
+                || "CLOB".equals(typeName) || "LONGNVARCHAR".equals(typeName) //$NON-NLS-1$ //$NON-NLS-2$
                 || "LONGVARBINARY".equals(typeName) || "LONGVARCHAR".equals(typeName) //$NON-NLS-1$ //$NON-NLS-2$
-                || "NCLOB".equals(typeName) || "VARBINARY".equals(typeName); //$NON-NLS-1$ //$NON-NLS-2$ 
+                || "NCLOB".equals(typeName) || "VARBINARY".equals(typeName); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     public boolean isStringColumn() {
@@ -192,6 +186,10 @@ public class IntrospectedColumn {
         return getJavaProperty(null);
     }
 
+    public void setJavaProperty(String javaProperty) {
+        this.javaProperty = javaProperty;
+    }
+
     public String getJavaProperty(String prefix) {
         if (prefix == null) {
             return javaProperty;
@@ -202,10 +200,6 @@ public class IntrospectedColumn {
         sb.append(javaProperty);
 
         return sb.toString();
-    }
-
-    public void setJavaProperty(String javaProperty) {
-        this.javaProperty = javaProperty;
     }
 
     public boolean isJDBCDateColumn() {
@@ -232,12 +226,18 @@ public class IntrospectedColumn {
         return actualColumnName;
     }
 
-    public void setColumnNameDelimited(boolean isColumnNameDelimited) {
-        this.isColumnNameDelimited = isColumnNameDelimited;
+    public void setActualColumnName(String actualColumnName) {
+        this.actualColumnName = actualColumnName;
+        isColumnNameDelimited = StringUtility
+                .stringContainsSpace(actualColumnName);
     }
 
     public boolean isColumnNameDelimited() {
         return isColumnNameDelimited;
+    }
+
+    public void setColumnNameDelimited(boolean isColumnNameDelimited) {
+        this.isColumnNameDelimited = isColumnNameDelimited;
     }
 
     public String getJdbcTypeName() {

@@ -1,35 +1,33 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2016 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.config;
 
-import static org.mybatis.generator.internal.util.EqualsUtil.areEqual;
-import static org.mybatis.generator.internal.util.HashCodeUtil.hash;
-import static org.mybatis.generator.internal.util.HashCodeUtil.SEED;
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
-import static org.mybatis.generator.internal.util.StringUtility.composeFullyQualifiedTableName;
-import static org.mybatis.generator.internal.util.StringUtility.isTrue;
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
+import org.mybatis.generator.api.dom.xml.Attribute;
+import org.mybatis.generator.api.dom.xml.XmlElement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.mybatis.generator.api.dom.xml.Attribute;
-import org.mybatis.generator.api.dom.xml.XmlElement;
+import static org.mybatis.generator.internal.util.EqualsUtil.areEqual;
+import static org.mybatis.generator.internal.util.HashCodeUtil.SEED;
+import static org.mybatis.generator.internal.util.HashCodeUtil.hash;
+import static org.mybatis.generator.internal.util.StringUtility.*;
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 /**
  * The Class TableConfiguration.
@@ -37,7 +35,7 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
  * @author Jeff Butler
  */
 public class TableConfiguration extends PropertyHolder {
-    
+
     /** The insert statement enabled. */
     private boolean insertStatementEnabled;
 
@@ -79,40 +77,40 @@ public class TableConfiguration extends PropertyHolder {
 
     /** The catalog. */
     private String catalog;
-    
+
     /** The schema. */
     private String schema;
-    
+
     /** The table name. */
     private String tableName;
-    
+
     /** The domain object name. */
     private String domainObjectName;
-    
+
     /** The alias. */
     private String alias;
-    
+
     /** The model type. */
     private ModelType modelType;
-    
+
     /** The wildcard escaping enabled. */
     private boolean wildcardEscapingEnabled;
-    
+
     /** The configured model type. */
     private String configuredModelType;
-    
+
     /** The delimit identifiers. */
     private boolean delimitIdentifiers;
 
     /** The column renaming rule. */
     private ColumnRenamingRule columnRenamingRule;
-    
+
     /** The is all column delimiting enabled. */
     private boolean isAllColumnDelimitingEnabled;
-    
+
     private String mapperName;
     private String sqlProviderName;
-    
+
     private List<IgnoredColumnPattern> ignoredColumnPatterns = new ArrayList<IgnoredColumnPattern>();
 
     /**
@@ -233,7 +231,7 @@ public class TableConfiguration extends PropertyHolder {
                 return true;
             }
         }
-        
+
         for (IgnoredColumnPattern ignoredColumnPattern : ignoredColumnPatterns) {
             if (ignoredColumnPattern.matches(columnName)) {
                 return true;
@@ -353,6 +351,16 @@ public class TableConfiguration extends PropertyHolder {
     }
 
     /**
+     * Sets the generated key.
+     *
+     * @param generatedKey
+     *            the new generated key
+     */
+    public void setGeneratedKey(GeneratedKey generatedKey) {
+        this.generatedKey = generatedKey;
+    }
+
+    /**
      * Gets the select by example query id.
      *
      * @return the select by example query id
@@ -423,16 +431,6 @@ public class TableConfiguration extends PropertyHolder {
                 || deleteByPrimaryKeyStatementEnabled
                 || countByExampleStatementEnabled
                 || updateByExampleStatementEnabled;
-    }
-
-    /**
-     * Sets the generated key.
-     *
-     * @param generatedKey
-     *            the new generated key
-     */
-    public void setGeneratedKey(GeneratedKey generatedKey) {
-        this.generatedKey = generatedKey;
     }
 
     /**
@@ -543,7 +541,7 @@ public class TableConfiguration extends PropertyHolder {
      * This method returns a List of Strings. The values are the columns
      * that were specified to be ignored in the table, but do not exist in the
      * table.
-     * 
+     *
      * @return a List of Strings - the columns that were improperly configured
      *         as ignored columns
      */
@@ -691,7 +689,7 @@ public class TableConfiguration extends PropertyHolder {
             xmlElement
                     .addAttribute(new Attribute("delimitIdentifiers", "true")); //$NON-NLS-1$ //$NON-NLS-2$
         }
-        
+
         if (stringHasValue(mapperName)) {
             xmlElement.addAttribute(new Attribute(
                     "mapperName", mapperName)); //$NON-NLS-1$
@@ -717,7 +715,7 @@ public class TableConfiguration extends PropertyHolder {
                 xmlElement.addElement(ignoredColumn.toXmlElement());
             }
         }
-        
+
         for (IgnoredColumnPattern ignoredColumnPattern : ignoredColumnPatterns) {
             xmlElement.addElement(ignoredColumnPattern.toXmlElement());
         }

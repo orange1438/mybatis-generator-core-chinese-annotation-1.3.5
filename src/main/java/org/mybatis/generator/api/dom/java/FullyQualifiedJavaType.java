@@ -1,26 +1,26 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2016 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.api.dom.java;
-
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 /**
  * The Class FullyQualifiedJavaType.
@@ -29,28 +29,28 @@ import java.util.StringTokenizer;
  */
 public class FullyQualifiedJavaType implements
         Comparable<FullyQualifiedJavaType> {
-    
+
     /** The Constant JAVA_LANG. */
     private static final String JAVA_LANG = "java.lang"; //$NON-NLS-1$
-    
+
     /** The int instance. */
     private static FullyQualifiedJavaType intInstance = null;
-    
+
     /** The string instance. */
     private static FullyQualifiedJavaType stringInstance = null;
-    
+
     /** The boolean primitive instance. */
     private static FullyQualifiedJavaType booleanPrimitiveInstance = null;
-    
+
     /** The object instance. */
     private static FullyQualifiedJavaType objectInstance = null;
-    
+
     /** The date instance. */
     private static FullyQualifiedJavaType dateInstance = null;
-    
+
     /** The criteria instance. */
     private static FullyQualifiedJavaType criteriaInstance = null;
-    
+
     /** The generated criteria instance. */
     private static FullyQualifiedJavaType generatedCriteriaInstance = null;
 
@@ -62,29 +62,29 @@ public class FullyQualifiedJavaType implements
 
     /** The explicitly imported. */
     private boolean explicitlyImported;
-    
+
     /** The package name. */
     private String packageName;
-    
+
     /** The primitive. */
     private boolean primitive;
-    
+
     /** The is array. */
     private boolean isArray;
-    
+
     /** The primitive type wrapper. */
     private PrimitiveTypeWrapper primitiveTypeWrapper;
-    
+
     /** The type arguments. */
     private List<FullyQualifiedJavaType> typeArguments;
 
     // the following three values are used for dealing with wildcard types
     /** The wildcard type. */
     private boolean wildcardType;
-    
+
     /** The bounded wildcard. */
     private boolean boundedWildcard;
-    
+
     /** The extends bounded wildcard. */
     private boolean extendsBoundedWildcard;
 
@@ -98,200 +98,6 @@ public class FullyQualifiedJavaType implements
         super();
         typeArguments = new ArrayList<FullyQualifiedJavaType>();
         parse(fullTypeSpecification);
-    }
-
-    /**
-     * Checks if is explicitly imported.
-     *
-     * @return Returns the explicitlyImported.
-     */
-    public boolean isExplicitlyImported() {
-        return explicitlyImported;
-    }
-
-    /**
-     * This method returns the fully qualified name - including any generic type parameters.
-     *
-     * @return Returns the fullyQualifiedName.
-     */
-    public String getFullyQualifiedName() {
-        StringBuilder sb = new StringBuilder();
-        if (wildcardType) {
-            sb.append('?');
-            if (boundedWildcard) {
-                if (extendsBoundedWildcard) {
-                    sb.append(" extends "); //$NON-NLS-1$
-                } else {
-                    sb.append(" super "); //$NON-NLS-1$
-                }
-
-                sb.append(baseQualifiedName);
-            }
-        } else {
-            sb.append(baseQualifiedName);
-        }
-
-        if (typeArguments.size() > 0) {
-            boolean first = true;
-            sb.append('<');
-            for (FullyQualifiedJavaType fqjt : typeArguments) {
-                if (first) {
-                    first = false;
-                } else {
-                    sb.append(", "); //$NON-NLS-1$
-                }
-                sb.append(fqjt.getFullyQualifiedName());
-
-            }
-            sb.append('>');
-        }
-
-        return sb.toString();
-    }
-
-    public String getFullyQualifiedNameWithoutTypeParameters() {
-        return baseQualifiedName;
-    }
-    
-    /**
-     * Returns a list of Strings that are the fully qualified names of this type, and any generic type argument
-     * associated with this type.
-     *
-     * @return the import list
-     */
-    public List<String> getImportList() {
-        List<String> answer = new ArrayList<String>();
-        if (isExplicitlyImported()) {
-            int index = baseShortName.indexOf('.');
-            if (index == -1) {
-                answer.add(baseQualifiedName);
-            } else {
-                // an inner class is specified, only import the top
-                // level class
-                StringBuilder sb = new StringBuilder();
-                sb.append(packageName);
-                sb.append('.');
-                sb.append(baseShortName.substring(0, index));
-                answer.add(sb.toString());
-            }
-        }
-
-        for (FullyQualifiedJavaType fqjt : typeArguments) {
-            answer.addAll(fqjt.getImportList());
-        }
-
-        return answer;
-    }
-
-    /**
-     * Gets the package name.
-     *
-     * @return Returns the packageName.
-     */
-    public String getPackageName() {
-        return packageName;
-    }
-
-    /**
-     * Gets the short name.
-     *
-     * @return Returns the shortName - including any type arguments.
-     */
-    public String getShortName() {
-        StringBuilder sb = new StringBuilder();
-        if (wildcardType) {
-            sb.append('?');
-            if (boundedWildcard) {
-                if (extendsBoundedWildcard) {
-                    sb.append(" extends "); //$NON-NLS-1$
-                } else {
-                    sb.append(" super "); //$NON-NLS-1$
-                }
-
-                sb.append(baseShortName);
-            }
-        } else {
-            sb.append(baseShortName);
-        }
-
-        if (typeArguments.size() > 0) {
-            boolean first = true;
-            sb.append('<');
-            for (FullyQualifiedJavaType fqjt : typeArguments) {
-                if (first) {
-                    first = false;
-                } else {
-                    sb.append(", "); //$NON-NLS-1$
-                }
-                sb.append(fqjt.getShortName());
-
-            }
-            sb.append('>');
-        }
-
-        return sb.toString();
-    }
-    
-    public String getShortNameWithoutTypeArguments() {
-        return baseShortName;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-
-        if (!(obj instanceof FullyQualifiedJavaType)) {
-            return false;
-        }
-
-        FullyQualifiedJavaType other = (FullyQualifiedJavaType) obj;
-
-        return getFullyQualifiedName().equals(other.getFullyQualifiedName());
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        return getFullyQualifiedName().hashCode();
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return getFullyQualifiedName();
-    }
-
-    /**
-     * Checks if is primitive.
-     *
-     * @return Returns the primitive.
-     */
-    public boolean isPrimitive() {
-        return primitive;
-    }
-
-    /**
-     * Gets the primitive type wrapper.
-     *
-     * @return Returns the wrapperClass.
-     */
-    public PrimitiveTypeWrapper getPrimitiveTypeWrapper() {
-        return primitiveTypeWrapper;
     }
 
     /**
@@ -436,9 +242,218 @@ public class FullyQualifiedJavaType implements
         return generatedCriteriaInstance;
     }
 
+    /**
+     * Returns the package name of a fully qualified type.
+     * <p>
+     * This method calculates the package as the part of the fully qualified name up to, but not including, the last
+     * element. Therefore, it does not support fully qualified inner classes. Not totally fool proof, but correct in
+     * most instances.
+     *
+     * @param baseQualifiedName the base qualified name
+     * @return the package
+     */
+    private static String getPackage(String baseQualifiedName) {
+        int index = baseQualifiedName.lastIndexOf('.');
+        return baseQualifiedName.substring(0, index);
+    }
+
+    /**
+     * Checks if is explicitly imported.
+     *
+     * @return Returns the explicitlyImported.
+     */
+    public boolean isExplicitlyImported() {
+        return explicitlyImported;
+    }
+
+    /**
+     * This method returns the fully qualified name - including any generic type parameters.
+     *
+     * @return Returns the fullyQualifiedName.
+     */
+    public String getFullyQualifiedName() {
+        StringBuilder sb = new StringBuilder();
+        if (wildcardType) {
+            sb.append('?');
+            if (boundedWildcard) {
+                if (extendsBoundedWildcard) {
+                    sb.append(" extends "); //$NON-NLS-1$
+                } else {
+                    sb.append(" super "); //$NON-NLS-1$
+                }
+
+                sb.append(baseQualifiedName);
+            }
+        } else {
+            sb.append(baseQualifiedName);
+        }
+
+        if (typeArguments.size() > 0) {
+            boolean first = true;
+            sb.append('<');
+            for (FullyQualifiedJavaType fqjt : typeArguments) {
+                if (first) {
+                    first = false;
+                } else {
+                    sb.append(", "); //$NON-NLS-1$
+                }
+                sb.append(fqjt.getFullyQualifiedName());
+
+            }
+            sb.append('>');
+        }
+
+        return sb.toString();
+    }
+
+    public String getFullyQualifiedNameWithoutTypeParameters() {
+        return baseQualifiedName;
+    }
+
+    /**
+     * Returns a list of Strings that are the fully qualified names of this type, and any generic type argument
+     * associated with this type.
+     *
+     * @return the import list
+     */
+    public List<String> getImportList() {
+        List<String> answer = new ArrayList<String>();
+        if (isExplicitlyImported()) {
+            int index = baseShortName.indexOf('.');
+            if (index == -1) {
+                answer.add(baseQualifiedName);
+            } else {
+                // an inner class is specified, only import the top
+                // level class
+                StringBuilder sb = new StringBuilder();
+                sb.append(packageName);
+                sb.append('.');
+                sb.append(baseShortName.substring(0, index));
+                answer.add(sb.toString());
+            }
+        }
+
+        for (FullyQualifiedJavaType fqjt : typeArguments) {
+            answer.addAll(fqjt.getImportList());
+        }
+
+        return answer;
+    }
+
+    /**
+     * Gets the package name.
+     *
+     * @return Returns the packageName.
+     */
+    public String getPackageName() {
+        return packageName;
+    }
+
+    /**
+     * Gets the short name.
+     *
+     * @return Returns the shortName - including any type arguments.
+     */
+    public String getShortName() {
+        StringBuilder sb = new StringBuilder();
+        if (wildcardType) {
+            sb.append('?');
+            if (boundedWildcard) {
+                if (extendsBoundedWildcard) {
+                    sb.append(" extends "); //$NON-NLS-1$
+                } else {
+                    sb.append(" super "); //$NON-NLS-1$
+                }
+
+                sb.append(baseShortName);
+            }
+        } else {
+            sb.append(baseShortName);
+        }
+
+        if (typeArguments.size() > 0) {
+            boolean first = true;
+            sb.append('<');
+            for (FullyQualifiedJavaType fqjt : typeArguments) {
+                if (first) {
+                    first = false;
+                } else {
+                    sb.append(", "); //$NON-NLS-1$
+                }
+                sb.append(fqjt.getShortName());
+
+            }
+            sb.append('>');
+        }
+
+        return sb.toString();
+    }
+
+    public String getShortNameWithoutTypeArguments() {
+        return baseShortName;
+    }
+
     /*
      * (non-Javadoc)
-     * 
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof FullyQualifiedJavaType)) {
+            return false;
+        }
+
+        FullyQualifiedJavaType other = (FullyQualifiedJavaType) obj;
+
+        return getFullyQualifiedName().equals(other.getFullyQualifiedName());
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return getFullyQualifiedName().hashCode();
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return getFullyQualifiedName();
+    }
+
+    /**
+     * Checks if is primitive.
+     *
+     * @return Returns the primitive.
+     */
+    public boolean isPrimitive() {
+        return primitive;
+    }
+
+    /**
+     * Gets the primitive type wrapper.
+     *
+     * @return Returns the wrapperClass.
+     */
+    public PrimitiveTypeWrapper getPrimitiveTypeWrapper() {
+        return primitiveTypeWrapper;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     public int compareTo(FullyQualifiedJavaType other) {
@@ -492,7 +507,7 @@ public class FullyQualifiedJavaType implements
                 }
                 genericParse(fullTypeSpecification.substring(index, endIndex + 1));
             }
-            
+
             // this is far from a perfect test for detecting arrays, but is close
             // enough for most cases.  It will not detect an improperly specified
             // array type like byte], but it will detect byte[] and byte[   ]
@@ -511,13 +526,12 @@ public class FullyQualifiedJavaType implements
         baseQualifiedName = typeSpecification.trim();
         if (baseQualifiedName.contains(".")) { //$NON-NLS-1$
             packageName = getPackage(baseQualifiedName);
-            baseShortName = baseQualifiedName
-                    .substring(packageName.length() + 1);
+            baseShortName = baseQualifiedName.substring(packageName.length() + 1);
             int index = baseShortName.lastIndexOf('.');
             if (index != -1) {
                 baseShortName = baseShortName.substring(index + 1);
             }
-            
+
             if (JAVA_LANG.equals(packageName)) { //$NON-NLS-1$
                 explicitlyImported = false;
             } else {
@@ -610,22 +624,6 @@ public class FullyQualifiedJavaType implements
         if (stringHasValue(finalType)) {
             typeArguments.add(new FullyQualifiedJavaType(finalType));
         }
-    }
-
-    /**
-     * Returns the package name of a fully qualified type.
-     * 
-     * This method calculates the package as the part of the fully qualified name up to, but not including, the last
-     * element. Therefore, it does not support fully qualified inner classes. Not totally fool proof, but correct in
-     * most instances.
-     *
-     * @param baseQualifiedName
-     *            the base qualified name
-     * @return the package
-     */
-    private static String getPackage(String baseQualifiedName) {
-        int index = baseQualifiedName.lastIndexOf('.');
-        return baseQualifiedName.substring(0, index);
     }
 
     /**

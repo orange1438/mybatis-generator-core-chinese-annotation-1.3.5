@@ -1,32 +1,19 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2016 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.api;
-
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
-
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.StringTokenizer;
 
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
@@ -35,9 +22,16 @@ import org.mybatis.generator.exception.XMLParserException;
 import org.mybatis.generator.internal.DefaultShellCallback;
 import org.mybatis.generator.logging.LogFactory;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.*;
+
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
+
 /**
  * This class allows the code generator to be run from the command line.
- * 
+ *  插件默认使用启动:java -jar mybatis-generator-core-1.3.2.jar -configfile generatorConfig.xml -overwrite
  * @author Jeff Butler
  */
 public class ShellRunner {
@@ -50,7 +44,17 @@ public class ShellRunner {
     private static final String HELP_1 = "-?"; //$NON-NLS-1$
     private static final String HELP_2 = "-h"; //$NON-NLS-1$
 
-    public static void main(String[] args) {
+    public static void main(String[] fargs) {
+        ShellRunner shellRunner = new ShellRunner();
+        //取得根目录路径
+        String rootPath = shellRunner.getClass().getResource("/").getFile().toString();
+        //当前目录路径
+        //   String currentPath1=shellRunner.getClass().getResource(".").getFile().toString();
+        //  String currentPath2=shellRunner.getClass().getResource("").getFile().toString();
+        //当前目录的上级目录路径
+        //   String parentPath=shellRunner.getClass().getResource("../").getFile().toString();
+
+        String[] args = {"-configfile", rootPath + "generatorConfig.xml", "-overwrite"};
         if (args.length == 0) {
             usage();
             System.exit(0);

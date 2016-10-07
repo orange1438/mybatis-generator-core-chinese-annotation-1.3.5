@@ -15,18 +15,14 @@
  */
 package org.mybatis.generator.plugins;
 
-import static org.mybatis.generator.internal.util.StringUtility.isTrue;
+import org.mybatis.generator.api.IntrospectedTable;
+import org.mybatis.generator.api.PluginAdapter;
+import org.mybatis.generator.api.dom.java.*;
 
 import java.util.List;
 import java.util.Properties;
 
-import org.mybatis.generator.api.IntrospectedTable;
-import org.mybatis.generator.api.PluginAdapter;
-import org.mybatis.generator.api.dom.java.Field;
-import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
-import org.mybatis.generator.api.dom.java.JavaVisibility;
-import org.mybatis.generator.api.dom.java.Method;
-import org.mybatis.generator.api.dom.java.TopLevelClass;
+import static org.mybatis.generator.internal.util.StringUtility.isTrue;
 
 public class ToStringPlugin extends PluginAdapter {
 
@@ -84,7 +80,8 @@ public class ToStringPlugin extends PluginAdapter {
     }
 
     /**
-     *  具体生成toString方法
+     * 具体生成toString方法
+     *
      * @param introspectedTable
      * @param topLevelClass
      */

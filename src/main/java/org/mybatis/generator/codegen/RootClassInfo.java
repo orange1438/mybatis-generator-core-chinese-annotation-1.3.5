@@ -1,21 +1,23 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2016 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.codegen;
 
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
+import org.mybatis.generator.api.IntrospectedColumn;
+import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
+import org.mybatis.generator.internal.ObjectFactory;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;
@@ -25,14 +27,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.mybatis.generator.api.IntrospectedColumn;
-import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
-import org.mybatis.generator.internal.ObjectFactory;
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 /**
- * 
+ *
  * @author Jeff Butler
- * 
+ *
  */
 public class RootClassInfo {
 
@@ -43,33 +43,10 @@ public class RootClassInfo {
                 .synchronizedMap(new HashMap<String, RootClassInfo>());
     }
 
-    public static RootClassInfo getInstance(String className,
-            List<String> warnings) {
-        RootClassInfo classInfo = rootClassInfoMap.get(className);
-        if (classInfo == null) {
-            classInfo = new RootClassInfo(className, warnings);
-            rootClassInfoMap.put(className, classInfo);
-        }
-
-        return classInfo;
-    }
-
-    /**
-     * Clears the internal map containing root class info.  This method should be called at the beginning of
-     * a generation run to clear the cached root class info in case there has been a change.
-     * For example, when using the eclipse launcher, the cache would be kept until eclipse
-     * was restarted.
-     * 
-     */
-    public static void reset() {
-        rootClassInfoMap.clear();
-    }
-
     private PropertyDescriptor[] propertyDescriptors;
     private String className;
     private List<String> warnings;
     private boolean genericMode = false;
-
     private RootClassInfo(String className, List<String> warnings) {
         super();
         this.className = className;
@@ -78,7 +55,7 @@ public class RootClassInfo {
         if (className == null) {
             return;
         }
-        
+
         FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType(className);
         String nameWithoutGenerics = fqjt.getFullyQualifiedNameWithoutTypeParameters();
         if (!nameWithoutGenerics.equals(className)) {
@@ -93,6 +70,27 @@ public class RootClassInfo {
             propertyDescriptors = null;
             warnings.add(getString("Warning.20", className)); //$NON-NLS-1$
         }
+    }
+
+    public static RootClassInfo getInstance(String className,
+                                            List<String> warnings) {
+        RootClassInfo classInfo = rootClassInfoMap.get(className);
+        if (classInfo == null) {
+            classInfo = new RootClassInfo(className, warnings);
+            rootClassInfoMap.put(className, classInfo);
+        }
+
+        return classInfo;
+    }
+
+    /**
+     * Clears the internal map containing root class info.  This method should be called at the beginning of
+     * a generation run to clear the cached root class info in case there has been a change.
+     * For example, when using the eclipse launcher, the cache would be kept until eclipse
+     * was restarted.
+     */
+    public static void reset() {
+        rootClassInfoMap.clear();
     }
 
     public boolean containsProperty(IntrospectedColumn introspectedColumn) {

@@ -1,50 +1,36 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2016 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.internal;
 
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
-
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.mybatis.generator.api.CommentGenerator;
-import org.mybatis.generator.api.ConnectionFactory;
-import org.mybatis.generator.api.FullyQualifiedTable;
-import org.mybatis.generator.api.JavaFormatter;
-import org.mybatis.generator.api.Plugin;
-import org.mybatis.generator.api.IntrospectedColumn;
-import org.mybatis.generator.api.IntrospectedTable;
-import org.mybatis.generator.api.JavaTypeResolver;
-import org.mybatis.generator.api.XmlFormatter;
+import org.mybatis.generator.api.*;
 import org.mybatis.generator.api.dom.DefaultJavaFormatter;
 import org.mybatis.generator.api.dom.DefaultXmlFormatter;
 import org.mybatis.generator.codegen.ibatis2.IntrospectedTableIbatis2Java2Impl;
 import org.mybatis.generator.codegen.ibatis2.IntrospectedTableIbatis2Java5Impl;
 import org.mybatis.generator.codegen.mybatis3.IntrospectedTableMyBatis3Impl;
 import org.mybatis.generator.codegen.mybatis3.IntrospectedTableMyBatis3SimpleImpl;
-import org.mybatis.generator.config.CommentGeneratorConfiguration;
-import org.mybatis.generator.config.ConnectionFactoryConfiguration;
-import org.mybatis.generator.config.Context;
-import org.mybatis.generator.config.PluginConfiguration;
-import org.mybatis.generator.config.JavaTypeResolverConfiguration;
-import org.mybatis.generator.config.PropertyRegistry;
-import org.mybatis.generator.config.TableConfiguration;
+import org.mybatis.generator.config.*;
 import org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 /**
  * This class creates the different objects needed by the generator.
@@ -52,18 +38,18 @@ import org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl;
  * @author Jeff Butler
  */
 public class ObjectFactory {
-    
+
     /** The external class loaders. */
     private static List<ClassLoader> externalClassLoaders;
-    
+
     /** The resource class loaders. */
     private static List<ClassLoader> resourceClassLoaders;
-    
+
     static {
-    	externalClassLoaders = new ArrayList<ClassLoader>();
+        externalClassLoaders = new ArrayList<ClassLoader>();
         resourceClassLoaders = new ArrayList<ClassLoader>();
     }
-    
+
     /**
      * Utility class. No instances allowed
      */
@@ -76,7 +62,7 @@ public class ObjectFactory {
      * a generation run so that and change to the classloading configuration
      * will be reflected.  For example, if the eclipse launcher changes configuration
      * it might not be updated if eclipse hasn't been restarted.
-     * 
+     *
      */
     public static void reset() {
         externalClassLoaders.clear();
@@ -107,7 +93,7 @@ public class ObjectFactory {
             ClassLoader classLoader) {
         ObjectFactory.externalClassLoaders.add(classLoader);
     }
-    
+
     /**
      * This method returns a class loaded from the context classloader, or the classloader supplied by a client. This is
      * appropriate for JDBC drivers, model root classes, etc. It is not appropriate for any class that extends one of
@@ -132,7 +118,7 @@ public class ObjectFactory {
                 // ignore - fail safe below
             }
         }
-        
+
         return internalClassForName(type);
     }
 
@@ -197,10 +183,10 @@ public class ObjectFactory {
         for (ClassLoader classLoader : resourceClassLoaders) {
             url = classLoader.getResource(resource);
             if (url != null) {
-              return url;
+                return url;
             }
         }
-        
+
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         url = cl.getResource(resource);
 
@@ -244,7 +230,7 @@ public class ObjectFactory {
      * @return the java type resolver
      */
     public static JavaTypeResolver createJavaTypeResolver(Context context,
-            List<String> warnings) {
+                                                          List<String> warnings) {
         JavaTypeResolverConfiguration config = context
                 .getJavaTypeResolverConfiguration();
         String type;
@@ -280,7 +266,7 @@ public class ObjectFactory {
      * @return the plugin
      */
     public static Plugin createPlugin(Context context,
-            PluginConfiguration pluginConfiguration) {
+                                      PluginConfiguration pluginConfiguration) {
         Plugin plugin = (Plugin) createInternalObject(pluginConfiguration
                 .getConfigurationType());
         plugin.setContext(context);
@@ -358,7 +344,7 @@ public class ObjectFactory {
 
         return answer;
     }
-    
+
     /**
      * Creates a new Object object.
      *
@@ -378,7 +364,7 @@ public class ObjectFactory {
 
         return answer;
     }
-    
+
     /**
      * Creates a new Object object.
      *
@@ -404,7 +390,7 @@ public class ObjectFactory {
     /**
      * This method creates an introspected table implementation that is only usable for validation (i.e. for a context
      * to determine if the target is ibatis2 or mybatis3).
-     * 
+     *
      *
      * @param context
      *            the context
@@ -431,7 +417,7 @@ public class ObjectFactory {
 
         return answer;
     }
-    
+
     /**
      * Creates a new Object object.
      *

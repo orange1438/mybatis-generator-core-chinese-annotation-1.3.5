@@ -17,50 +17,51 @@
 
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>The &lt;except&gt; Element</title>
-  <link rel="stylesheet" type="text/css" href="../mbgstyle.css" />
+    <title>The &lt;except&gt; Element</title>
+    <link rel="stylesheet" type="text/css" href="../mbgstyle.css"/>
 </head>
 <body>
 <h1>The &lt;except&gt; Element</h1>
 <p>The &lt;except&gt; element is used to specify an exception to a set of columns
-that are ignored by a regular expression in a 
-<a href="ignoreColumnsByRegex.html">&lt;ignoreColumnsByRegex&gt;</a> element.
-This allows you to specify a very general
-regular expression to ignore a large set of columns, then add columns back into
-the set of columns used for code generation.</p>
+    that are ignored by a regular expression in a
+    <a href="ignoreColumnsByRegex.html">&lt;ignoreColumnsByRegex&gt;</a> element.
+    This allows you to specify a very general
+    regular expression to ignore a large set of columns, then add columns back into
+    the set of columns used for code generation.</p>
 <p>For example, if you specify a regular
-expression like "<code>.*</code>" then MBG will ignore every column in a table.  
-But if you add exceptions, you can add a few columns back.
-This element is an optional child
-element of the <a href="ignoreColumnsByRegex.html">&lt;ignoreColumnsByRegex&gt;</a> element.</p>
+    expression like "<code>.*</code>" then MBG will ignore every column in a table.
+    But if you add exceptions, you can add a few columns back.
+    This element is an optional child
+    element of the <a href="ignoreColumnsByRegex.html">&lt;ignoreColumnsByRegex&gt;</a> element.</p>
 
 <h2>Required Attributes</h2>
 <table border="1" cellspacing="0" cellpadding="5">
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>column</td>
-    <td>The column name of the exception column.</td>
-  </tr>
+    <tr>
+        <th>Attribute</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>column</td>
+        <td>The column name of the exception column.</td>
+    </tr>
 </table>
 
 <h2>Optional Attributes</h2>
 <table border="1" cellspacing="0" cellpadding="5">
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>delimitedColumnName</td>
-    <td>If <code>true</code> then MBG will perform a case-sensitive exact
-        match when matching against returned columns from the database.  If
-        <code>false</code> (default) then the name is considered case-insensitive.</td>
-  </tr>
+    <tr>
+        <th>Attribute</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>delimitedColumnName</td>
+        <td>If <code>true</code> then MBG will perform a case-sensitive exact
+            match when matching against returned columns from the database. If
+            <code>false</code> (default) then the name is considered case-insensitive.
+        </td>
+    </tr>
 </table>
 
 <h2>Child Elements</h2>

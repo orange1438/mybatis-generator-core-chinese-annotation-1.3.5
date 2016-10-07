@@ -15,41 +15,26 @@
  */
 package org.mybatis.generator.internal.db;
 
-import static org.mybatis.generator.internal.util.JavaBeansUtil.getCamelCaseString;
-import static org.mybatis.generator.internal.util.JavaBeansUtil.getValidPropertyName;
-import static org.mybatis.generator.internal.util.StringUtility.composeFullyQualifiedTableName;
-import static org.mybatis.generator.internal.util.StringUtility.isTrue;
-import static org.mybatis.generator.internal.util.StringUtility.stringContainsSQLWildcard;
-import static org.mybatis.generator.internal.util.StringUtility.stringContainsSpace;
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
-
-import java.sql.*;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
-import java.util.TreeMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.mybatis.generator.api.FullyQualifiedTable;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.JavaTypeResolver;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.JavaReservedWords;
-import org.mybatis.generator.config.ColumnOverride;
-import org.mybatis.generator.config.Context;
-import org.mybatis.generator.config.GeneratedKey;
-import org.mybatis.generator.config.PropertyRegistry;
-import org.mybatis.generator.config.TableConfiguration;
+import org.mybatis.generator.config.*;
 import org.mybatis.generator.internal.ObjectFactory;
 import org.mybatis.generator.logging.Log;
 import org.mybatis.generator.logging.LogFactory;
+
+import java.sql.*;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static org.mybatis.generator.internal.util.JavaBeansUtil.getCamelCaseString;
+import static org.mybatis.generator.internal.util.JavaBeansUtil.getValidPropertyName;
+import static org.mybatis.generator.internal.util.StringUtility.*;
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 /**
  * The Class DatabaseIntrospector.
@@ -58,32 +43,38 @@ import org.mybatis.generator.logging.LogFactory;
  */
 public class DatabaseIntrospector {
 
-    /** The database meta data. */
+    /**
+     * The database meta data.
+     */
     private DatabaseMetaData databaseMetaData;
 
-    /** The java type resolver. */
+    /**
+     * The java type resolver.
+     */
     private JavaTypeResolver javaTypeResolver;
 
-    /** The warnings. */
+    /**
+     * The warnings.
+     */
     private List<String> warnings;
 
-    /** The context. */
+    /**
+     * The context.
+     */
     private Context context;
 
-    /** The logger. */
+    /**
+     * The logger.
+     */
     private Log logger;
 
     /**
      * Instantiates a new database introspector.
      *
-     * @param context
-     *            the context
-     * @param databaseMetaData
-     *            the database meta data
-     * @param javaTypeResolver
-     *            the java type resolver
-     * @param warnings
-     *            the warnings
+     * @param context          the context
+     * @param databaseMetaData the database meta data
+     * @param javaTypeResolver the java type resolver
+     * @param warnings         the warnings
      */
     public DatabaseIntrospector(Context context,
                                 DatabaseMetaData databaseMetaData,
@@ -99,10 +90,8 @@ public class DatabaseIntrospector {
     /**
      * Calculate primary key.
      *
-     * @param table
-     *            the table
-     * @param introspectedTable
-     *            the introspected table
+     * @param table             the table
+     * @param introspectedTable the introspected table
      */
     private void calculatePrimaryKey(FullyQualifiedTable table,
                                      IntrospectedTable introspectedTable) {
@@ -141,8 +130,7 @@ public class DatabaseIntrospector {
     /**
      * Close result set.
      *
-     * @param rs
-     *            the rs
+     * @param rs the rs
      */
     private void closeResultSet(ResultSet rs) {
         if (rs != null) {
@@ -157,12 +145,9 @@ public class DatabaseIntrospector {
     /**
      * Report introspection warnings.
      *
-     * @param introspectedTable
-     *            the introspected table
-     * @param tableConfiguration
-     *            the table configuration
-     * @param table
-     *            the table
+     * @param introspectedTable  the introspected table
+     * @param tableConfiguration the table configuration
+     * @param table              the table
      */
     private void reportIntrospectionWarnings(
             IntrospectedTable introspectedTable,
@@ -207,11 +192,9 @@ public class DatabaseIntrospector {
     /**
      * Returns a List of IntrospectedTable elements that matches the specified table configuration.
      *
-     * @param tc
-     *            the tc
+     * @param tc the tc
      * @return a list of introspected tables
-     * @throws SQLException
-     *             the SQL exception
+     * @throws SQLException the SQL exception
      */
     public List<IntrospectedTable> introspectTables(TableConfiguration tc)
             throws SQLException {
@@ -270,10 +253,8 @@ public class DatabaseIntrospector {
     /**
      * Removes the ignored columns.
      *
-     * @param tc
-     *            the tc
-     * @param columns
-     *            the columns
+     * @param tc      the tc
+     * @param columns the columns
      */
     private void removeIgnoredColumns(TableConfiguration tc,
                                       Map<ActualTableName, List<IntrospectedColumn>> columns) {
@@ -300,10 +281,8 @@ public class DatabaseIntrospector {
     /**
      * Calculate extra column information.
      *
-     * @param tc
-     *            the tc
-     * @param columns
-     *            the columns
+     * @param tc      the tc
+     * @param columns the columns
      */
     private void calculateExtraColumnInformation(TableConfiguration tc,
                                                  Map<ActualTableName, List<IntrospectedColumn>> columns) {
@@ -404,10 +383,8 @@ public class DatabaseIntrospector {
     /**
      * Calculate identity columns.
      *
-     * @param tc
-     *            the tc
-     * @param columns
-     *            the columns
+     * @param tc      the tc
+     * @param columns the columns
      */
     private void calculateIdentityColumns(TableConfiguration tc,
                                           Map<ActualTableName, List<IntrospectedColumn>> columns) {
@@ -436,10 +413,8 @@ public class DatabaseIntrospector {
     /**
      * Checks if is matched column.
      *
-     * @param introspectedColumn
-     *            the introspected column
-     * @param gk
-     *            the gk
+     * @param introspectedColumn the introspected column
+     * @param gk                 the gk
      * @return true, if is matched column
      */
     private boolean isMatchedColumn(IntrospectedColumn introspectedColumn, GeneratedKey gk) {
@@ -453,10 +428,8 @@ public class DatabaseIntrospector {
     /**
      * Apply column overrides.
      *
-     * @param tc
-     *            the tc
-     * @param columns
-     *            the columns
+     * @param tc      the tc
+     * @param columns the columns
      */
     private void applyColumnOverrides(TableConfiguration tc,
                                       Map<ActualTableName, List<IntrospectedColumn>> columns) {
@@ -517,11 +490,9 @@ public class DatabaseIntrospector {
      * This method returns a Map<ActualTableName, List<ColumnDefinitions>> of columns returned from the database
      * introspection.
      *
-     * @param tc
-     *            the tc
+     * @param tc the tc
      * @return introspected columns
-     * @throws SQLException
-     *             the SQL exception
+     * @throws SQLException the SQL exception
      */
     private Map<ActualTableName, List<IntrospectedColumn>> getColumns(
             TableConfiguration tc) throws SQLException {
@@ -688,10 +659,8 @@ public class DatabaseIntrospector {
     /**
      * Calculate introspected tables.
      *
-     * @param tc
-     *            the tc
-     * @param columns
-     *            the columns
+     * @param tc      the tc
+     * @param columns the columns
      * @return the list
      */
     private List<IntrospectedTable> calculateIntrospectedTables(
@@ -760,7 +729,7 @@ public class DatabaseIntrospector {
     /**
      * This method calls database metadata to retrieve some extra information about the table
      * such as remarks associated with the table and the type.
-     *
+     * <p>
      * If there is any error, we just add a warning and continue.
      *
      * @param introspectedTable

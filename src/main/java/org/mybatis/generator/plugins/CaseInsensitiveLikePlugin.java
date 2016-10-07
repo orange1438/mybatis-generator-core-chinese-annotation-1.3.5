@@ -1,50 +1,45 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2016 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.plugins;
 
-import java.util.List;
-
-import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
-import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
-import org.mybatis.generator.api.dom.java.InnerClass;
-import org.mybatis.generator.api.dom.java.JavaVisibility;
-import org.mybatis.generator.api.dom.java.Method;
-import org.mybatis.generator.api.dom.java.Parameter;
-import org.mybatis.generator.api.dom.java.TopLevelClass;
+import org.mybatis.generator.api.PluginAdapter;
+import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.codegen.ibatis2.Ibatis2FormattingUtilities;
+
+import java.util.List;
 
 /**
  * This plugin demonstrates adding methods to the example class to enable
  * case-insensitive LIKE searches. It shows hows to construct new methods and
  * add them to an existing class.
- * 
+ *
  * This plugin only adds methods for String fields mapped to a JDBC character
  * type (CHAR, VARCHAR, etc.)
  *
  * 这个插件用来在XXXExample类中生成大小写敏感的LIKE方法
  * （插件本身用处不大，但是我们可以通过这个插件学习给XXXExample类添加额外的方法）
  * @author Jeff Butler
- * 
+ *
  */
 public class CaseInsensitiveLikePlugin extends PluginAdapter {
 
     /**
-     * 
+     *
      */
     public CaseInsensitiveLikePlugin() {
         super();
@@ -56,7 +51,7 @@ public class CaseInsensitiveLikePlugin extends PluginAdapter {
 
     @Override
     public boolean modelExampleClassGenerated(TopLevelClass topLevelClass,
-            IntrospectedTable introspectedTable) {
+                                              IntrospectedTable introspectedTable) {
 
         InnerClass criteria = null;
         // first, find the Criteria inner class

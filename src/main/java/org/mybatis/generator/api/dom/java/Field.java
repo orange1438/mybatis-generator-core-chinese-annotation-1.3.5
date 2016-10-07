@@ -1,17 +1,17 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2016 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.api.dom.java;
 
@@ -28,19 +28,19 @@ public class Field extends JavaElement {
     private boolean isVolatile;
 
     /**
-     *  
+     *
      */
     public Field() {
         // use a default name to avoid NPE
         this("foo", FullyQualifiedJavaType.getIntInstance()); //$NON-NLS-1$
     }
-    
+
     public Field(String name, FullyQualifiedJavaType type) {
         super();
         this.name = name;
         this.type = type;
     }
-    
+
     public Field(Field field) {
         super(field);
         this.type = field.type;
@@ -113,11 +113,11 @@ public class Field extends JavaElement {
         if (isTransient()) {
             sb.append("transient "); //$NON-NLS-1$
         }
-        
+
         if (isVolatile()) {
             sb.append("volatile "); //$NON-NLS-1$
         }
-        
+
         sb.append(JavaDomUtils.calculateTypeName(compilationUnit, type));
 
         sb.append(' ');

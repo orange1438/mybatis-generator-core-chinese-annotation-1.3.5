@@ -1,19 +1,21 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2016 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.api;
+
+import org.mybatis.generator.config.Context;
 
 import static org.mybatis.generator.internal.util.EqualsUtil.areEqual;
 import static org.mybatis.generator.internal.util.HashCodeUtil.SEED;
@@ -21,8 +23,6 @@ import static org.mybatis.generator.internal.util.HashCodeUtil.hash;
 import static org.mybatis.generator.internal.util.JavaBeansUtil.getCamelCaseString;
 import static org.mybatis.generator.internal.util.StringUtility.composeFullyQualifiedTableName;
 import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-
-import org.mybatis.generator.config.Context;
 
 /**
  * The Class FullyQualifiedTable.
@@ -51,7 +51,7 @@ public class FullyQualifiedTable {
 
     /** The domain object name. */
     private String domainObjectName;
-    
+
     /** The domain object sub package. */
     private String domainObjectSubPackage;
 
@@ -111,11 +111,11 @@ public class FullyQualifiedTable {
      *            the context
      */
     public FullyQualifiedTable(String introspectedCatalog,
-            String introspectedSchema, String introspectedTableName,
-            String domainObjectName, String alias,
-            boolean ignoreQualifiersAtRuntime, String runtimeCatalog,
-            String runtimeSchema, String runtimeTableName,
-            boolean delimitIdentifiers, Context context) {
+                               String introspectedSchema, String introspectedTableName,
+                               String domainObjectName, String alias,
+                               boolean ignoreQualifiersAtRuntime, String runtimeCatalog,
+                               String runtimeSchema, String runtimeTableName,
+                               boolean delimitIdentifiers, Context context) {
         super();
         this.introspectedCatalog = introspectedCatalog;
         this.introspectedSchema = introspectedSchema;
@@ -221,7 +221,7 @@ public class FullyQualifiedTable {
         addDelimiters(localTableName);
 
         return composeFullyQualifiedTableName(localCatalog
-                .toString(), localSchema.toString(), localTableName.toString(),
+                        .toString(), localSchema.toString(), localTableName.toString(),
                 '.');
     }
 
@@ -246,7 +246,7 @@ public class FullyQualifiedTable {
     /**
      * This method returns a string that is the fully qualified table name, with
      * underscores as the separator.
-     * 
+     *
      * @return the namespace
      */
     public String getIbatis2SqlMapNamespace() {
@@ -258,9 +258,9 @@ public class FullyQualifiedTable {
                 : introspectedTableName;
 
         return composeFullyQualifiedTableName(
-                        ignoreQualifiersAtRuntime ? null : localCatalog,
-                        ignoreQualifiersAtRuntime ? null : localSchema,
-                        localTable, '_');
+                ignoreQualifiersAtRuntime ? null : localCatalog,
+                ignoreQualifiersAtRuntime ? null : localSchema,
+                localTable, '_');
     }
 
     /**
@@ -296,9 +296,9 @@ public class FullyQualifiedTable {
         return areEqual(this.introspectedTableName,
                 other.introspectedTableName)
                 && areEqual(this.introspectedCatalog,
-                        other.introspectedCatalog)
+                other.introspectedCatalog)
                 && areEqual(this.introspectedSchema,
-                        other.introspectedSchema);
+                other.introspectedSchema);
     }
 
     /* (non-Javadoc)
@@ -336,7 +336,7 @@ public class FullyQualifiedTable {
     /**
      * Calculates a Java package fragment based on the table catalog and schema.
      * If qualifiers are ignored, then this method will return an empty string.
-     * 
+     *
      * This method is used for determining the sub package for Java client and 
      * SQL map (XML) objects.  It ignores any sub-package added to the
      * domain object name in the table configuration.
@@ -364,7 +364,7 @@ public class FullyQualifiedTable {
                 sb.append(introspectedSchema.toLowerCase());
             }
         }
-        
+
         // TODO - strip characters that are not valid in package names
         return sb.toString();
     }
@@ -372,7 +372,7 @@ public class FullyQualifiedTable {
     /**
      * Calculates a Java package fragment based on the table catalog and schema.
      * If qualifiers are ignored, then this method will return an empty string.
-     * 
+     *
      * This method is used for determining the sub package for Java model objects only.
      * It takes into account the possibility that a sub-package was added to the
      * domain object name in the table configuration.
@@ -384,7 +384,7 @@ public class FullyQualifiedTable {
     public String getSubPackageForModel(boolean isSubPackagesEnabled) {
         StringBuilder sb = new StringBuilder();
         sb.append(getSubPackageForClientOrSqlMap(isSubPackagesEnabled));
-        
+
         if (stringHasValue(domainObjectSubPackage)) {
             sb.append('.');
             sb.append(domainObjectSubPackage);

@@ -1,61 +1,40 @@
 /**
- *    Copyright 2006-2016 the original author or authors.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
+ * Copyright 2006-2016 the original author or authors.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.mybatis.generator.codegen.ibatis2.dao;
 
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.FullyQualifiedTable;
-import org.mybatis.generator.api.dom.java.CompilationUnit;
-import org.mybatis.generator.api.dom.java.Field;
-import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
-import org.mybatis.generator.api.dom.java.Interface;
-import org.mybatis.generator.api.dom.java.JavaVisibility;
-import org.mybatis.generator.api.dom.java.Method;
-import org.mybatis.generator.api.dom.java.TopLevelClass;
+import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.codegen.AbstractJavaClientGenerator;
 import org.mybatis.generator.codegen.AbstractXmlGenerator;
-import org.mybatis.generator.codegen.ibatis2.dao.elements.AbstractDAOElementGenerator;
-import org.mybatis.generator.codegen.ibatis2.dao.elements.CountByExampleMethodGenerator;
-import org.mybatis.generator.codegen.ibatis2.dao.elements.DeleteByExampleMethodGenerator;
-import org.mybatis.generator.codegen.ibatis2.dao.elements.DeleteByPrimaryKeyMethodGenerator;
-import org.mybatis.generator.codegen.ibatis2.dao.elements.InsertMethodGenerator;
-import org.mybatis.generator.codegen.ibatis2.dao.elements.InsertSelectiveMethodGenerator;
-import org.mybatis.generator.codegen.ibatis2.dao.elements.SelectByExampleWithBLOBsMethodGenerator;
-import org.mybatis.generator.codegen.ibatis2.dao.elements.SelectByExampleWithoutBLOBsMethodGenerator;
-import org.mybatis.generator.codegen.ibatis2.dao.elements.SelectByPrimaryKeyMethodGenerator;
-import org.mybatis.generator.codegen.ibatis2.dao.elements.UpdateByExampleParmsInnerclassGenerator;
-import org.mybatis.generator.codegen.ibatis2.dao.elements.UpdateByExampleSelectiveMethodGenerator;
-import org.mybatis.generator.codegen.ibatis2.dao.elements.UpdateByExampleWithBLOBsMethodGenerator;
-import org.mybatis.generator.codegen.ibatis2.dao.elements.UpdateByExampleWithoutBLOBsMethodGenerator;
-import org.mybatis.generator.codegen.ibatis2.dao.elements.UpdateByPrimaryKeySelectiveMethodGenerator;
-import org.mybatis.generator.codegen.ibatis2.dao.elements.UpdateByPrimaryKeyWithBLOBsMethodGenerator;
-import org.mybatis.generator.codegen.ibatis2.dao.elements.UpdateByPrimaryKeyWithoutBLOBsMethodGenerator;
+import org.mybatis.generator.codegen.ibatis2.dao.elements.*;
 import org.mybatis.generator.codegen.ibatis2.dao.templates.AbstractDAOTemplate;
 import org.mybatis.generator.config.PropertyRegistry;
 import org.mybatis.generator.internal.rules.Rules;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
+
 /**
- * 
+ *
  * @author Jeff Butler
- * 
+ *
  */
 public class DAOGenerator extends AbstractJavaClientGenerator {
 
@@ -63,7 +42,7 @@ public class DAOGenerator extends AbstractJavaClientGenerator {
     private boolean generateForJava5;
 
     public DAOGenerator(AbstractDAOTemplate daoTemplate,
-            boolean generateForJava5) {
+                        boolean generateForJava5) {
         super(true);
         this.daoTemplate = daoTemplate;
         this.generateForJava5 = generateForJava5;
@@ -173,7 +152,7 @@ public class DAOGenerator extends AbstractJavaClientGenerator {
     }
 
     protected void addCountByExampleMethod(TopLevelClass topLevelClass,
-            Interface interfaze) {
+                                           Interface interfaze) {
         if (introspectedTable.getRules().generateCountByExample()) {
             AbstractDAOElementGenerator methodGenerator = new CountByExampleMethodGenerator(
                     generateForJava5);
@@ -183,7 +162,7 @@ public class DAOGenerator extends AbstractJavaClientGenerator {
     }
 
     protected void addDeleteByExampleMethod(TopLevelClass topLevelClass,
-            Interface interfaze) {
+                                            Interface interfaze) {
         if (introspectedTable.getRules().generateDeleteByExample()) {
             AbstractDAOElementGenerator methodGenerator = new DeleteByExampleMethodGenerator();
             initializeAndExecuteGenerator(methodGenerator, topLevelClass,
@@ -192,7 +171,7 @@ public class DAOGenerator extends AbstractJavaClientGenerator {
     }
 
     protected void addDeleteByPrimaryKeyMethod(TopLevelClass topLevelClass,
-            Interface interfaze) {
+                                               Interface interfaze) {
         if (introspectedTable.getRules().generateDeleteByPrimaryKey()) {
             AbstractDAOElementGenerator methodGenerator = new DeleteByPrimaryKeyMethodGenerator();
             initializeAndExecuteGenerator(methodGenerator, topLevelClass,
@@ -201,7 +180,7 @@ public class DAOGenerator extends AbstractJavaClientGenerator {
     }
 
     protected void addInsertMethod(TopLevelClass topLevelClass,
-            Interface interfaze) {
+                                   Interface interfaze) {
         if (introspectedTable.getRules().generateInsert()) {
             AbstractDAOElementGenerator methodGenerator = new InsertMethodGenerator();
             initializeAndExecuteGenerator(methodGenerator, topLevelClass,
@@ -210,7 +189,7 @@ public class DAOGenerator extends AbstractJavaClientGenerator {
     }
 
     protected void addInsertSelectiveMethod(TopLevelClass topLevelClass,
-            Interface interfaze) {
+                                            Interface interfaze) {
         if (introspectedTable.getRules().generateInsertSelective()) {
             AbstractDAOElementGenerator methodGenerator = new InsertSelectiveMethodGenerator();
             initializeAndExecuteGenerator(methodGenerator, topLevelClass,
@@ -239,7 +218,7 @@ public class DAOGenerator extends AbstractJavaClientGenerator {
     }
 
     protected void addSelectByPrimaryKeyMethod(TopLevelClass topLevelClass,
-            Interface interfaze) {
+                                               Interface interfaze) {
         if (introspectedTable.getRules().generateSelectByPrimaryKey()) {
             AbstractDAOElementGenerator methodGenerator = new SelectByPrimaryKeyMethodGenerator();
             initializeAndExecuteGenerator(methodGenerator, topLevelClass,

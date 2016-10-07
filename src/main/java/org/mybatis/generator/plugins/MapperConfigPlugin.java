@@ -15,21 +15,19 @@
  */
 package org.mybatis.generator.plugins;
 
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import org.mybatis.generator.api.GeneratedXmlFile;
-import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.api.IntrospectedTable;
+import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.Document;
-import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.XmlConstants;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 /**
  * This plugin generates a MapperConfig file containing mapper entries for SQL
@@ -49,7 +47,7 @@ import org.mybatis.generator.codegen.XmlConstants;
  * Note: targetPackage and targetProject follow the same rules as the
  * targetPackage and targetProject values on the sqlMapGenerator configuration
  * element.
- *
+ * <p>
  * 比较有用的一个插件，可以用来帮助生成一个默认的MapperConfig.xml文件骨架，在这个骨架文件中完成了本次生成的mapper.xml文件的配置；
  * 该插件支持的配置属性有：
  * fileName：配置文件名称，默认为MapperConfig.xml；
