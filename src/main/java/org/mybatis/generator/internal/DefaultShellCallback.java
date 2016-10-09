@@ -19,6 +19,7 @@ import org.mybatis.generator.api.ShellCallback;
 import org.mybatis.generator.exception.ShellException;
 
 import java.io.File;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import static org.mybatis.generator.internal.util.messages.Messages.getString;
@@ -44,10 +45,22 @@ public class DefaultShellCallback implements ShellCallback {
         this.overwrite = overwrite;
     }
 
+
+    /**
+     * 当且仅当不存在具有此抽象路径名指定名称的文件夹时，不可分地创建一个新的空文件夹。
+     *
+     * @param directory File文件类
+     * @throws ShellException
+     */
+    private void createNewDirectory(File directory) throws ShellException {
+        if (!directory.mkdirs()) {
+            throw new ShellException(getString("Warning.10", directory.getAbsolutePath()));
+        }
+    }
     /* (non-Javadoc)
      * @see org.mybatis.generator.api.ShellCallback#getDirectory(java.lang.String, java.lang.String)
      */
-    public File getDirectory(String targetProject, String targetPackage)
+    public File getDirectory(String targetProject, String targetPackage, List<String> warnings)
             throws ShellException {
         // targetProject is interpreted as a directory that must exist
         //
@@ -58,8 +71,8 @@ public class DefaultShellCallback implements ShellCallback {
 
         File project = new File(targetProject);
         if (!project.isDirectory()) {
-            throw new ShellException(getString("Warning.9", //$NON-NLS-1$
-                    targetProject));
+            warnings.add(getString("Warning.9", targetProject));
+            createNewDirectory(project);
         }
 
         StringBuilder sb = new StringBuilder();
@@ -71,11 +84,7 @@ public class DefaultShellCallback implements ShellCallback {
 
         File directory = new File(project, sb.toString());
         if (!directory.isDirectory()) {
-            boolean rc = directory.mkdirs();
-            if (!rc) {
-                throw new ShellException(getString("Warning.10", //$NON-NLS-1$
-                        directory.getAbsolutePath()));
-            }
+            createNewDirectory(directory);
         }
 
         return directory;

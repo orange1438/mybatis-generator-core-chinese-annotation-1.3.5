@@ -18,6 +18,7 @@ package org.mybatis.generator.api;
 import org.mybatis.generator.exception.ShellException;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * This interface defines methods that a shell should support to enable
@@ -58,7 +59,7 @@ public interface ShellCallback {
      *             generator will not save the file it is currently working on. The generator will add the exception
      *             message to the list of warnings automatically.
      */
-    File getDirectory(String targetProject, String targetPackage)
+    File getDirectory(String targetProject, String targetPackage, List<String> warnings)
             throws ShellException;
 
     /**

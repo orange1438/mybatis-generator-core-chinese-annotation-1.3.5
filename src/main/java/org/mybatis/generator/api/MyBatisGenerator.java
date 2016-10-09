@@ -281,7 +281,7 @@ public class MyBatisGenerator {
         String source;
         try {
             File directory = shellCallback.getDirectory(gjf
-                    .getTargetProject(), gjf.getTargetPackage());
+                    .getTargetProject(), gjf.getTargetPackage(), warnings);
             targetFile = new File(directory, gjf.getFileName());
             if (targetFile.exists()) {
                 if (shellCallback.isMergeSupported()) {
@@ -320,7 +320,7 @@ public class MyBatisGenerator {
         String source;
         try {
             File directory = shellCallback.getDirectory(gxf
-                    .getTargetProject(), gxf.getTargetPackage());
+                    .getTargetProject(), gxf.getTargetPackage(), warnings);
             targetFile = new File(directory, gxf.getFileName());
             if (targetFile.exists()) {
                 if (gxf.isMergeable()) {
