@@ -133,10 +133,10 @@ public class DefaultCommentGenerator implements CommentGenerator {
         if (markAsDoNotDelete) {
             sb.append(" * do_not_delete_during_merge\n");
         }
-        sb.append(" * @author orange1438 code generator\n");
+        sb.append(" * @author orange1438 code generator");
         String s = getDateString();
         if (s != null) {
-            sb.append(" * ");
+            sb.append("\n * ");
             sb.append(s);
         }
         javaElement.addJavaDocLine(sb.toString());
@@ -162,6 +162,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
 
     /**
      * 我的类注释,用于非实体类Criteria的注释
+     *
      * @param javaElement
      */
     @Override
@@ -236,14 +237,20 @@ public class DefaultCommentGenerator implements CommentGenerator {
         }
         // 添加字段注释
         StringBuffer sb = new StringBuffer();
+        boolean defaultFlag = false;
         //对应表中字段的备注(数据库中自己写的备注信息)
         if (introspectedColumn.getRemarks() != null
                 && !introspectedColumn.getRemarks().equals("")) {
             sb.append(" * " + introspectedColumn.getRemarks());
+            defaultFlag = true;
         }
         if (introspectedColumn.getDefaultValue() != null
                 && !introspectedColumn.getDefaultValue().equals("")) {
-            sb.append(" 默认：" + introspectedColumn.getDefaultValue());
+            if (defaultFlag) {
+                sb.append("  默认：" + introspectedColumn.getDefaultValue());
+            } else {
+                sb.append(" * 默认：" + introspectedColumn.getDefaultValue());
+            }
         }
 
         if (sb.length() > 0) {
