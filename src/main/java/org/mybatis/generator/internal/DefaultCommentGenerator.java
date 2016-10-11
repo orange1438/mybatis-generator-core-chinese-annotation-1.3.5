@@ -191,7 +191,8 @@ public class DefaultCommentGenerator implements CommentGenerator {
 
         topLevelClass.addJavaDocLine("/**"); //$NON-NLS-1$
 
-        String remarks = introspectedTable.getFullyQualifiedTable().getRemark();
+        //String remarks = introspectedTable.getFullyQualifiedTable().getRemark();
+        String remarks = introspectedTable.getRemarks();
         if (addRemarkComments && StringUtility.stringHasValue(remarks)) {
             String[] remarkLines = remarks.split(System.getProperty("line.separator"));  //$NON-NLS-1$
             for (String remarkLine : remarkLines) {
@@ -475,7 +476,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
         String shortName = innerClass.getType().getShortName();
         innerClass.addJavaDocLine("/**"); //$NON-NLS-1$
         sb.append(" * ")
-                .append(introspectedTable.getFullyQualifiedTable().getRemark())
+                .append(introspectedTable.getRemarks())
                 .append(introspectedTable.getFullyQualifiedTable());
         if ("GeneratedCriteria".equals(shortName)) {
             sb.append("的基本动态SQL对象.");
@@ -497,7 +498,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
         // 生成Criteria对象的注释信息的注释
         StringBuilder sb = new StringBuilder();
         innerClass.addJavaDocLine("/**");
-        sb.append(" * ").append(introspectedTable.getFullyQualifiedTable().getRemark())
+        sb.append(" * ").append(introspectedTable.getRemarks())
                 .append(introspectedTable.getFullyQualifiedTable()).append("的映射实体");
 
         innerClass.addJavaDocLine(sb.toString());
