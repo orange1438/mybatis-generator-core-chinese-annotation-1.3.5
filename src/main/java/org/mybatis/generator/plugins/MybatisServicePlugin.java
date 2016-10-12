@@ -202,7 +202,7 @@ public class MybatisServicePlugin extends PluginAdapter {
             interface1.addMethod(method);
         }
 
-        GeneratedJavaFile file = new GeneratedJavaFile(interface1, project, null);
+        GeneratedJavaFile file = new GeneratedJavaFile(interface1, project, context.getJavaFormatter());
         files.add(file);
     }
 
@@ -258,7 +258,7 @@ public class MybatisServicePlugin extends PluginAdapter {
             topLevelClass.addMethod(getOtherInsertboolean("insertSelective", introspectedTable, tableName));
         }
         // 生成文件
-        GeneratedJavaFile file = new GeneratedJavaFile(topLevelClass, project, null);
+        GeneratedJavaFile file = new GeneratedJavaFile(topLevelClass, project, context.getJavaFormatter());
         files.add(file);
     }
 

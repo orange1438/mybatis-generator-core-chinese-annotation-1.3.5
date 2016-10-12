@@ -42,6 +42,19 @@ http://generator.sturgeon.mopaas.com/index.html
             <property name="searchString" value="Example$"/>
             <property name="replaceString" value="Criteria"/>
         </plugin>
+        <plugin type="org.mybatis.generator.plugins.MybatisServicePlugin">
+            <property name="targetPackage" value="orange.service"/>
+            <property name="implementationPackage" value="orange.service.impl"/>
+            <property name="targetProject" value="src\main\resources\test\orange1438"/>
+            <property name="enableInsert" value="true"/>
+            <property name="enableUpdateByExampleSelective" value="true"/>
+            <property name="enableInsertSelective" value="true"/>
+            <property name="enableUpdateByPrimaryKey" value="true"/>
+            <property name="enableDeleteByPrimaryKey" value="true"/>
+            <property name="enableDeleteByExample" value="true"/>
+            <property name="enableUpdateByPrimaryKeySelective" value="true"/>
+            <property name="enableUpdateByExample" value="true"/>
+        </plugin>
 
         <!-- 注释 -->
         <commentGenerator>
