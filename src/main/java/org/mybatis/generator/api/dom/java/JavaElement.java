@@ -106,6 +106,9 @@ public abstract class JavaElement {
         annotations.add(annotation);
     }
 
+    public void removeAnnotation() {
+        annotations.clear();
+    }
     /**
      * Gets the visibility.
      *

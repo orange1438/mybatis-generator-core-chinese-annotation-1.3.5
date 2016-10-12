@@ -698,8 +698,8 @@ public class DatabaseIntrospector {
                     tc.getProperty(PropertyRegistry.TABLE_RUNTIME_TABLE_NAME),
                     delimitIdentifiers, context);
 
-
-            //设置数据库表的备注信息,只能对mysql进行操作
+            /*
+            //设置数据库表的备注信息
             //start
             Statement stmt = this.databaseMetaData.getConnection().createStatement();
             ResultSet rs = stmt.executeQuery(new StringBuilder().append("SHOW TABLE STATUS LIKE '").append(atn.getTableName()).append("'").toString());
@@ -708,6 +708,7 @@ public class DatabaseIntrospector {
             closeResultSet(rs);
             stmt.close();
             //end
+            */
 
             IntrospectedTable introspectedTable = ObjectFactory
                     .createIntrospectedTable(tc, table, context);
@@ -740,7 +741,8 @@ public class DatabaseIntrospector {
 
             ResultSet rs = databaseMetaData.getTables(fqt.getIntrospectedCatalog(), fqt.getIntrospectedSchema(),
                     fqt.getIntrospectedTableName(), null);
-            if (rs.next()) {
+            //if (rs.next()) {
+            while (rs.next()) {
                 String remarks = rs.getString("REMARKS"); //$NON-NLS-1$
                 String tableType = rs.getString("TABLE_TYPE"); //$NON-NLS-1$
                 introspectedTable.setRemarks(remarks);

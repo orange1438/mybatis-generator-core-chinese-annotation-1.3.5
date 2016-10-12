@@ -57,7 +57,6 @@ public class SerializablePlugin extends PluginAdapter {
     }
 
     public boolean validate(List<String> warnings) {
-        // this plugin is always valid
         return true;
     }
 
@@ -109,7 +108,7 @@ public class SerializablePlugin extends PluginAdapter {
             field.setVisibility(JavaVisibility.PRIVATE);
             context.getCommentGenerator().addFieldComment(field, introspectedTable);
 
-            topLevelClass.addField(field);
+            topLevelClass.addField(0, field);
         }
     }
 }

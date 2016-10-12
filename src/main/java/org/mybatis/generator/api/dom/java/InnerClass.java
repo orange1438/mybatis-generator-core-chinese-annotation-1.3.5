@@ -90,6 +90,10 @@ public class InnerClass extends JavaElement {
         return fields;
     }
 
+    public void addField(int index, Field field) {
+        fields.add(index, field);
+    }
+
     /**
      * Adds the field.
      *

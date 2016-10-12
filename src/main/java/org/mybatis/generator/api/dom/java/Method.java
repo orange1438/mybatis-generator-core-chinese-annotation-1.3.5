@@ -149,6 +149,10 @@ public class Method extends JavaElement {
         bodyLines.addAll(index, lines);
     }
 
+
+    public void removeAllBodyLines() {
+        bodyLines.clear();
+    }
     /**
      * Gets the formatted content.
      *
@@ -419,4 +423,5 @@ public class Method extends JavaElement {
     public void setNative(boolean isNative) {
         this.isNative = isNative;
     }
+
 }
