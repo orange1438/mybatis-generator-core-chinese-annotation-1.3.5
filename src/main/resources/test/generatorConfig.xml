@@ -1,131 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE generatorConfiguration
-        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
-
-<!-- 参考官方文档
-http://www.mybatis.org/generator/configreference/xmlconfig.html
-http://generator.sturgeon.mopaas.com/index.html
--->
 <generatorConfiguration>
+    <!-- 修改成自己的路径-->
+    <classPathEntry location="F:\Documents\IDEA\repository\com\oracle\ojdbc14\10.2.0.4.0\ojdbc14-10.2.0.4.0.jar"/>
 
-    <!-- 引入配置文件 -->
-    <properties resource="test/app.properties"/>
-
-    <!-- 指定数据连接驱动jar地址 -->
-    <classPathEntry location="${jdbc.mybatisGenerator.classPath}"/>
-
-    <!-- 一个数据库一个context -->
-    <context id="testTables" targetRuntime="MyBatis3">
-        <!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表；
-        一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+        <!--
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" ></plugin>
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin" ></plugin>
+        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin" >
+            <property name="searchString" value="Example$"></property>
+            <property name="replaceString" value="Criteria"></property>
+        </plugin>
         -->
-        <property name="autoDelimitKeywords" value="false"/>
-        <!-- 生成的Java文件的编码 -->
-        <property name="javaFileEncoding" value="UTF-8"/>
-        <!-- 格式化java代码 -->
-        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
-        <!-- 格式化XML代码 -->
-        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
-
-        <!--开启抑制类型的警告信息-->
-        <property name="suppressTypeWarnings" value="true"/>
-
-        <!-- 插件 ：其他插件参考http://www.jianshu.com/p/1b826d43dbaf-->
-        <!--插件 ：用来给Java模型生成equals和hashcode方法-->
-        <!--<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>-->
-        <!--插件 ：用来为生成的Java模型类添加序列化接口-->
-        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
         <!--插件 ：生成的Java模型创建一个toString方法-->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
-        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
-            <property name="searchString" value="Example$"/>
-            <property name="replaceString" value="Criteria"/>
-        </plugin>
 
-        <!-- 注释 -->
         <commentGenerator>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
             <property name="suppressAllComments" value="false"/>
+
             <!-- 是否给实体类生成的备注的注释 true：是 ： 默认为false:否 -->
             <property name="addRemarkComments" value="true"/>
+
             <!-- 是否去掉注释代时间戳 true：是 ： false:否,默认yyyy-MM-dd HH:mm:ss（1.3.5-chinese-annotation修改版）-->
-            <property name="suppressDate" value="false"/>
-            <property name="dateFormat" value="yyyy/MM/dd HH:mm"/>
+            <property name="suppressDate" value="true"/>
+            <property name="dateFormat" value="yyyy/MM/dd HH:mm:ss"/>
         </commentGenerator>
-
-        <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
-        <jdbcConnection driverClass="${jdbc.dataSource.driverClassName}"
-                        connectionURL="${jdbc.dataSource.url}"
-                        userId="${jdbc.dataSource.username}"
-                        password="${jdbc.dataSource.password}">
+        <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+                        connectionURL="jdbc:oracle:thin:@11.11.11.38:1521/orcl"
+                        userId="wifi_city"
+                        password="city">
         </jdbcConnection>
-
-        <!-- 类型转换 -->
         <javaTypeResolver>
-            <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
-                NUMERIC 类型解析为java.math.BigDecimal -->
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
-
-        <!-- 生成实体类的位置 -->
-        <javaModelGenerator targetPackage="orange1438.entity"
-                            targetProject="src\main\resources\test">
-            <!--  for MyBatis3/MyBatis3Simple
-                自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；
-            -->
-            <property name="constructorBased" value="false"/>
-
-            <!-- 是否在当前路径下新加一层schema,
-                eg：false路径com.orange1438.entity,
-                    true:com.orange1438.entity.[schemaName]
-             -->
+        <!--  model的配置  -->
+        <javaModelGenerator targetPackage="com.cmcc.base12582.service.nxt.model" targetProject="src\main\java">
             <property name="enableSubPackages" value="true"/>
-            <!-- 是否针对string类型的字段在set/get的时候进行trim调用:清理前后的空格 -->
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <!-- 生成mapper xml文件 -->
-        <sqlMapGenerator targetPackage="orange1438.mapper"
-                         targetProject="src\main\resources\test">
-            <!-- 解释同上:生成实体类的位置 -->
+        <!--mybatis的xml的配置  -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src\main\resources\mybatis">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-
-        <!-- 对于mybatis来说，即生成Mapper接口，注意，如果没有配置该元素，那么默认不会生成Mapper接口
-           targetPackage/targetProject:同javaModelGenerator
-           type：选择怎么生成mapper接口（在MyBatis3/MyBatis3Simple下）：
-               1，ANNOTATEDMAPPER：会生成使用Mapper接口+Annotation的方式创建（SQL生成在annotation中），不会生成对应的XML；
-               2，MIXEDMAPPER：使用混合配置，会生成Mapper接口，并适当添加合适的Annotation，但是XML会生成在XML中；
-               3，XMLMAPPER：会生成Mapper接口，接口完全依赖XML；
-           注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER
-       -->
-        <!-- 生成mapper接口生成的位置 -->
-        <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="orange1438.mapper"
-                             targetProject="src\main\resources\test">
-            <!-- 解释同上:生成实体类的位置 -->
+        <!--mapper的配置  -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.cmcc.base12582.service.nxt.mapper"
+                             targetProject="src\main\java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <!-- 指定生成的数据库表 -->
-        <!-- domainObjectName：指定生成的实体类的文件名 -->
-        <table tableName="sys_user" domainObjectName="userEntity"/>
+        <!-- mvn mybatis-generator:generate  -->
+        <!-- 生成代码前首先同步一下代码，避免重复生成检查com.cmcc.base12582.service.nxt.model下的JOPO是否存在  -->
 
-        <!-- 其他需求：有些表的字段需要指定java类型 -->
-        <!--<table schema="management_system" tableName="s_user"-->
-        <!--domainObjectName="UserEntity" enableCountByExample="false"-->
-        <!--enableDeleteByExample="false" enableSelectByExample="false"-->
-        <!--enableUpdateByExample="false">-->
-        <!--&lt;!&ndash; schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample-->
-        <!--是否生成 example类   &ndash;&gt;-->
-        <!--&lt;!&ndash; 忽略列，不生成bean 字段 &ndash;&gt;-->
-        <!--<ignoreColumn column="FRED" />-->
-        <!--&lt;!&ndash; 指定列的java数据类型 &ndash;&gt;-->
-        <!--<columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />-->
-        <!--</table>-->
+        <table tableName="T_VIDEO" domainObjectName="VideoEntiy"/>
+
+        <!--
+        <table tableName="T_D_MESS4SUB" domainObjectName="TDMess4sub" />
+        <table tableName="T_D_ENTARTICLE" domainObjectName="TDEntArticle" />
+        <table tableName="T_D_CAMPUSTALK" domainObjectName="TDCampusTalk" />
+        <table tableName="T_D_CAMPUSTALK#MSG" domainObjectName="TDCampusTalkMsg" />
+        -->
 
     </context>
-
 </generatorConfiguration>

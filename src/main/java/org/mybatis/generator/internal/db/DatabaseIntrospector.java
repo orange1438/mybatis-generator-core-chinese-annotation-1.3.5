@@ -699,7 +699,7 @@ public class DatabaseIntrospector {
                     delimitIdentifiers, context);
 
 
-            //设置数据库表的备注信息
+            //设置数据库表的备注信息,只能对mysql进行操作
             //start
             Statement stmt = this.databaseMetaData.getConnection().createStatement();
             ResultSet rs = stmt.executeQuery(new StringBuilder().append("SHOW TABLE STATUS LIKE '").append(atn.getTableName()).append("'").toString());

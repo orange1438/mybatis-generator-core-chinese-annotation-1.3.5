@@ -20,7 +20,8 @@ public class Orange1438Test {
         //String currentPath2=test.getClass().getResource("").getFile().toString();
         //当前目录的上级目录路径
         //   String parentPath=test.getClass().getResource("../").getFile().toString();
-        String[] arg = new String[]{"-configfile", rootPath + "test/generatorConfig.xml", "-overwrite"};
+        // String[] arg = new String[]{"-configfile", rootPath + "test/generatorConfig.xml", "-overwrite"};
+        String[] arg = new String[]{"-configfile", rootPath + "test/generatorConfigForMySql.xml", "-overwrite"};
 
         ShellRunner.main(arg);
 
