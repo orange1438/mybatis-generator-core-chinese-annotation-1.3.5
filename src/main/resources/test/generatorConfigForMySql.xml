@@ -43,20 +43,6 @@ http://generator.sturgeon.mopaas.com/index.html
             <property name="replaceString" value="Criteria"/>
         </plugin>
 
-        <!--<plugin type="org.mybatis.generator.plugins.MybatisServicePlugin">-->
-        <!--<property name="targetPackage" value="mysqlmybatis.service" />-->
-        <!--<property name="implementationPackage" value="mysqlmybatis.service.impl" />-->
-        <!--<property name="targetProject" value="../mybatis-generator-test/src" />-->
-        <!--<property name="enableInsert" value="true" />-->
-        <!--<property name="enableUpdateByExampleSelective" value="true" />-->
-        <!--<property name="enableInsertSelective" value="true" />-->
-        <!--<property name="enableUpdateByPrimaryKey" value="true" />-->
-        <!--<property name="enableDeleteByPrimaryKey" value="true" />-->
-        <!--<property name="enableDeleteByExample" value="true" />-->
-        <!--<property name="enableUpdateByPrimaryKeySelective" value="true" />-->
-        <!--<property name="enableUpdateByExample" value="true" />-->
-        <!--</plugin>-->
-
         <!-- 注释 -->
         <commentGenerator>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
@@ -69,10 +55,10 @@ http://generator.sturgeon.mopaas.com/index.html
         </commentGenerator>
 
         <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
-        <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
-                        connectionURL="jdbc:oracle:thin:@11.11.11.38:1521:orcl"
-                        userId="wifi_city"
-                        password="city">
+        <jdbcConnection driverClass="${jdbc.dataSource.driverClassName}"
+                        connectionURL="${jdbc.dataSource.url}"
+                        userId="${jdbc.dataSource.username}"
+                        password="${jdbc.dataSource.password}">
         </jdbcConnection>
 
         <!-- 类型转换 -->

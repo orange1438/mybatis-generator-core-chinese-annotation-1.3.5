@@ -9,11 +9,8 @@ http://generator.sturgeon.mopaas.com/index.html
 -->
 <generatorConfiguration>
 
-    <!-- 引入配置文件 -->
-    <properties resource="test/app.properties"/>
-
     <!-- 指定数据连接驱动jar地址 -->
-    <classPathEntry location="${jdbc.mybatisGenerator.classPath}"/>
+    <classPathEntry location="F:\Documents\IDEA\repository\com\oracle\ojdbc14\10.2.0.4.0\ojdbc14-10.2.0.4.0.jar"/>
 
     <!-- 一个数据库一个context -->
     <context id="testTables" targetRuntime="MyBatis3">
@@ -42,20 +39,6 @@ http://generator.sturgeon.mopaas.com/index.html
             <property name="searchString" value="Example$"/>
             <property name="replaceString" value="Criteria"/>
         </plugin>
-
-        <!--<plugin type="org.mybatis.generator.plugins.MybatisServicePlugin">-->
-        <!--<property name="targetPackage" value="mysqlmybatis.service" />-->
-        <!--<property name="implementationPackage" value="mysqlmybatis.service.impl" />-->
-        <!--<property name="targetProject" value="../mybatis-generator-test/src" />-->
-        <!--<property name="enableInsert" value="true" />-->
-        <!--<property name="enableUpdateByExampleSelective" value="true" />-->
-        <!--<property name="enableInsertSelective" value="true" />-->
-        <!--<property name="enableUpdateByPrimaryKey" value="true" />-->
-        <!--<property name="enableDeleteByPrimaryKey" value="true" />-->
-        <!--<property name="enableDeleteByExample" value="true" />-->
-        <!--<property name="enableUpdateByPrimaryKeySelective" value="true" />-->
-        <!--<property name="enableUpdateByExample" value="true" />-->
-        <!--</plugin>-->
 
         <!-- 注释 -->
         <commentGenerator>
@@ -125,7 +108,7 @@ http://generator.sturgeon.mopaas.com/index.html
 
         <!-- 指定生成的数据库表 -->
         <!-- domainObjectName：指定生成的实体类的文件名 -->
-        <table tableName="sys_user" domainObjectName="userEntity"/>
+        <table tableName="T_VIDEO" domainObjectName="VideoEntity"/>
 
         <!-- 其他需求：有些表的字段需要指定java类型 -->
         <!--<table schema="management_system" tableName="s_user"-->

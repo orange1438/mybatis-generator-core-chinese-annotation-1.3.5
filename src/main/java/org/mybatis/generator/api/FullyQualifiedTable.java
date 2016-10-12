@@ -70,7 +70,7 @@ public class FullyQualifiedTable {
     /**
      *  数据库表备注信息
      */
-    //private String remark;
+    private String remark;
 
     /**
      * This object is used to hold information related to the table itself, not the columns in the table.
@@ -147,9 +147,13 @@ public class FullyQualifiedTable {
                 : ""; //$NON-NLS-1$
     }
 
-    //  public String getRemark() {return remark;}
+    public String getRemark() {
+        return remark;
+    }
 
-    // public void setRemark(String remark) {this.remark = remark;}
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     /**
      * Gets the introspected catalog.

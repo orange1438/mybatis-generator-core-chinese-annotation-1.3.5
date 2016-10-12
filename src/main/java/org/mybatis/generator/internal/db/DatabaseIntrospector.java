@@ -595,8 +595,17 @@ public class DatabaseIntrospector {
             introspectedColumn
                     .setNullable(rs.getInt("NULLABLE") == DatabaseMetaData.columnNullable); //$NON-NLS-1$
             introspectedColumn.setScale(rs.getInt("DECIMAL_DIGITS")); //$NON-NLS-1$
-            introspectedColumn.setRemarks(rs.getString("REMARKS")); //$NON-NLS-1$
+            introspectedColumn.setRemarks(rs.getString("REMARKS")); //$NON-NLS-1$ REMARKS
             introspectedColumn.setDefaultValue(rs.getString("COLUMN_DEF")); //$NON-NLS-1$
+
+            //start oracle
+            Statement stmt = this.databaseMetaData.getConnection().createStatement();
+            ResultSet mrs = stmt.executeQuery(new StringBuilder().append("select * from user_col_comments where Table_Name='").append(tc.getTableName() + "' AND COLUMN_NAME='").append(rs.getString("COLUMN_NAME") + "'").toString());
+            while (mrs.next())
+                introspectedColumn.setRemarks(mrs.getString("COMMENTS"));
+            closeResultSet(mrs);
+            stmt.close();
+            //end
 
             if (supportsIsAutoIncrement) {
                 introspectedColumn.setAutoIncrement("YES".equals(rs.getString("IS_AUTOINCREMENT"))); //$NON-NLS-1$ //$NON-NLS-2$
@@ -700,7 +709,7 @@ public class DatabaseIntrospector {
 
             /*
             //设置数据库表的备注信息
-            //start
+            //start mysql
             Statement stmt = this.databaseMetaData.getConnection().createStatement();
             ResultSet rs = stmt.executeQuery(new StringBuilder().append("SHOW TABLE STATUS LIKE '").append(atn.getTableName()).append("'").toString());
             while (rs.next())
@@ -709,6 +718,14 @@ public class DatabaseIntrospector {
             stmt.close();
             //end
             */
+            //start oracle
+            Statement stmt = this.databaseMetaData.getConnection().createStatement();
+            ResultSet rs = stmt.executeQuery(new StringBuilder().append("select * from user_tab_comments where Table_Name Like '").append(atn.getTableName()).append("'").toString());
+            while (rs.next())
+                table.setRemark(rs.getString("COMMENTS"));
+            closeResultSet(rs);
+            stmt.close();
+            //end
 
             IntrospectedTable introspectedTable = ObjectFactory
                     .createIntrospectedTable(tc, table, context);
@@ -743,8 +760,9 @@ public class DatabaseIntrospector {
                     fqt.getIntrospectedTableName(), null);
             //if (rs.next()) {
             while (rs.next()) {
-                String remarks = rs.getString("REMARKS"); //$NON-NLS-1$
+                String remarks = rs.getString("REMARKS"); //$NON-NLS-1$ REMARKS
                 String tableType = rs.getString("TABLE_TYPE"); //$NON-NLS-1$
+
                 introspectedTable.setRemarks(remarks);
                 introspectedTable.setTableType(tableType);
             }
