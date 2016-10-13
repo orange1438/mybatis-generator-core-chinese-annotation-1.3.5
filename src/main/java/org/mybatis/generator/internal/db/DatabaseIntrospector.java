@@ -782,18 +782,17 @@ public class DatabaseIntrospector {
                     fqt.getIntrospectedTableName(), null);
             //if (rs.next()) {
             while (rs.next()) {
-
                 String tableType = rs.getString("TABLE_TYPE"); //$NON-NLS-1$
                 String remarks = rs.getString("REMARKS"); //$NON-NLS-1$ REMARKS
-                if (remarks.isEmpty() || remarks == null) {
+                if (remarks == null || remarks.isEmpty()) {
                     if ("ORACLE".equals(databaseProductName)) {
-                        //start oracle,获取oracle的表备注
+                        //start oracle,获取oracle的库备注
                         Statement stmt = this.databaseMetaData.getConnection().createStatement();
                         ResultSet mrs = stmt.executeQuery(
                                 new StringBuilder()
-                                        .append("select * from user_col_comments where Table_Name='")
-                                        .append(introspectedTable.getFullyQualifiedTable() + "' AND COLUMN_NAME='")
-                                        .append(rs.getString("COLUMN_NAME") + "'")
+                                        .append("select * from user_tab_comments where Table_Name Like '")
+                                        .append(introspectedTable.getFullyQualifiedTable())
+                                        .append("'")
                                         .toString());
                         while (mrs.next())
                             remarks = mrs.getString("COMMENTS");
