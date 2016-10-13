@@ -6,11 +6,12 @@
 <!-- 参考官方文档
 http://www.mybatis.org/generator/configreference/xmlconfig.html
 http://generator.sturgeon.mopaas.com/index.html
+http://www.jianshu.com/p/e09d2370b796
 -->
 <generatorConfiguration>
 
     <!-- 引入配置文件 -->
-    <properties resource="test/app.properties"/>
+    <properties resource="test/generatorConfig.properties"/>
 
     <!-- 指定数据连接驱动jar地址 -->
     <classPathEntry location="${jdbc.mybatisGenerator.classPath}"/>
@@ -82,8 +83,8 @@ http://generator.sturgeon.mopaas.com/index.html
         </javaTypeResolver>
 
         <!-- 生成实体类的位置 -->
-        <javaModelGenerator targetPackage="orange1438.entity"
-                            targetProject="src\main\resources\test">
+        <javaModelGenerator targetPackage="${model.package}"
+                            targetProject="${model.path}">
             <!--  for MyBatis3/MyBatis3Simple
                 自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；
             -->
@@ -99,8 +100,8 @@ http://generator.sturgeon.mopaas.com/index.html
         </javaModelGenerator>
 
         <!-- 生成mapper xml文件 -->
-        <sqlMapGenerator targetPackage="orange1438.mapper"
-                         targetProject="src\main\resources\test">
+        <sqlMapGenerator targetPackage="${mapper.xml.package}"
+                         targetProject="${mapper.xml.path}">
             <!-- 解释同上:生成实体类的位置 -->
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
@@ -116,12 +117,13 @@ http://generator.sturgeon.mopaas.com/index.html
        -->
         <!-- 生成mapper接口生成的位置 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="orange1438.mapper"
-                             targetProject="src\main\resources\test">
+                             targetPackage="${mapper.package}"
+                             targetProject="${mapper.path}">
             <!-- 解释同上:生成实体类的位置 -->
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
+        <!-- mvn mybatis-generator:generate  -->
         <!-- 指定生成的数据库表 -->
         <!-- domainObjectName：指定生成的实体类的文件名 -->
         <table tableName="sys_user" domainObjectName="userEntity"/>
