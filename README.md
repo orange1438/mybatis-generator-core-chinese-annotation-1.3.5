@@ -42,3 +42,4 @@ maven工程的打包，执行命令：clean install ，加入到本地仓库,生
 3.重构部分org.mybatis.generator.codegen.mybatis3.IntrospectedTableMyBatis3Impl包里getGeneratedJavaFiles方法<br>
 4.详细中文注释的添加，入口包函数在org.mybatis.generator.api.ShellRunner<br>
 5.生成的中文注释信息可在修DefaultCommentGenerator类修改<br>
+6.增加MybatisServicePlugin：service层的代码生成，个人觉得不完美，因为业务会变，所以service层也会变，仅供学习参考<br>

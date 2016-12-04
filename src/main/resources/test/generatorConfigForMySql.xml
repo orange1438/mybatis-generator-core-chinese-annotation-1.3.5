@@ -43,10 +43,12 @@ http://www.jianshu.com/p/e09d2370b796
             <property name="searchString" value="Example$"/>
             <property name="replaceString" value="Criteria"/>
         </plugin>
+
+        <!-- service层插件 -->
         <plugin type="org.mybatis.generator.plugins.MybatisServicePlugin">
-            <property name="targetPackage" value="orange.service"/>
-            <property name="implementationPackage" value="orange.service.impl"/>
-            <property name="targetProject" value="src\main\resources\test\orange1438"/>
+            <property name="targetPackage" value="${service.package}"/>
+            <property name="implementationPackage" value="${service.package.impl}"/>
+            <property name="targetProject" value="${service.path}"/>
             <property name="enableInsert" value="true"/>
             <property name="enableUpdateByExampleSelective" value="true"/>
             <property name="enableInsertSelective" value="true"/>
@@ -66,6 +68,9 @@ http://www.jianshu.com/p/e09d2370b796
             <!-- 是否去掉注释代时间戳 true：是 ： false:否,默认yyyy-MM-dd HH:mm:ss（1.3.5-chinese-annotation修改版）-->
             <property name="suppressDate" value="false"/>
             <property name="dateFormat" value="yyyy/MM/dd HH:mm"/>
+
+            <!-- 自己添加的参数属性:数据表字段的get、set方法是否添加final关键字,默认为true -->
+            <property name="addMethodFinal" value="true"/>
         </commentGenerator>
 
         <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->

@@ -18,7 +18,6 @@ package org.mybatis.generator.internal;
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
-import org.mybatis.generator.api.dom.OutputUtilities;
 import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.config.PropertyRegistry;
@@ -62,6 +61,9 @@ public class DefaultCommentGenerator implements CommentGenerator {
 
     private SimpleDateFormat dateFormat;
 
+    // 是否在get、set方法里添加final关键字
+    private boolean addMethodFinal;
+
     /**
      * Instantiates a new default comment generator.
      */
@@ -71,6 +73,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
         suppressDate = false;
         suppressAllComments = false;
         addRemarkComments = false;
+        addMethodFinal = true;
     }
 
     /* (non-Javadoc)
@@ -115,6 +118,10 @@ public class DefaultCommentGenerator implements CommentGenerator {
                 .getProperty(PropertyRegistry.COMMENT_GENERATOR_ADD_REMARK_COMMENTS));
 
         String dateFormatString = properties.getProperty(PropertyRegistry.COMMENT_GENERATOR_DATE_FORMAT);
+
+        addMethodFinal = isTrue(properties
+                .getProperty(PropertyRegistry.COMMENT_GENERATOR_ADD_METHOD_FINAL));
+
         if (StringUtility.stringHasValue(dateFormatString)) {
             dateFormat = new SimpleDateFormat(dateFormatString);
         }
@@ -189,7 +196,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
             return;
         }
 
-        topLevelClass.addJavaDocLine("/**"); //$NON-NLS-1$
+        topLevelClass.addJavaDocLine("/** "); //$NON-NLS-1$
 
         String remarks = introspectedTable.getFullyQualifiedTable().getRemark();
         // String remarks = introspectedTable.getRemarks();
@@ -238,26 +245,13 @@ public class DefaultCommentGenerator implements CommentGenerator {
         }
         // 添加字段注释
         StringBuffer sb = new StringBuffer();
-        boolean defaultFlag = false;
         //对应表中字段的备注(数据库中自己写的备注信息)
         if (introspectedColumn.getRemarks() != null
                 && !introspectedColumn.getRemarks().equals("")) {
-            sb.append(" * " + introspectedColumn.getRemarks());
-            defaultFlag = true;
+            sb.append("// " + introspectedColumn.getRemarks()).append("  默认：" + introspectedColumn.getDefaultValue());
         }
-        if (introspectedColumn.getDefaultValue() != null
-                && !introspectedColumn.getDefaultValue().equals("")) {
-            if (defaultFlag) {
-                sb.append("  默认：" + introspectedColumn.getDefaultValue());
-            } else {
-                sb.append(" * 默认：" + introspectedColumn.getDefaultValue());
-            }
-        }
-
         if (sb.length() > 0) {
-            field.addJavaDocLine("/** ");
             field.addJavaDocLine(sb.toString());
-            field.addJavaDocLine(" */");
         }
     }
 
@@ -277,11 +271,11 @@ public class DefaultCommentGenerator implements CommentGenerator {
             sb.append(" 排序字段");
         } else if ("oredCriteria".equals(field.getName())) {
             sb.append(" 查询条件");
+        } else if ("serialVersionUID".equals(field.getName())) {
+            sb.append("序列化ID");
         }
         if (sb.length() > 0) {
-            field.addJavaDocLine("/**");
-            field.addJavaDocLine(" *" + sb.toString());
-            field.addJavaDocLine(" */");
+            field.addJavaDocLine("//" + sb.toString());
         }
     }
 
@@ -294,7 +288,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
         if (suppressAllComments) {
             return;
         }
-
+        method.setFinal(addMethodFinal);
         StringBuilder sb = new StringBuilder();
 
         sb.append(" *");
@@ -387,11 +381,10 @@ public class DefaultCommentGenerator implements CommentGenerator {
         if (suppressAllComments) {
             return;
         }
-
-        StringBuilder sb = new StringBuilder();
-
+        method.setFinal(addMethodFinal);
         method.addJavaDocLine("/** "); //$NON-NLS-1$
 
+        StringBuilder sb = new StringBuilder();
         sb.append(" * 获取 "); //$NON-NLS-1$
         if (introspectedColumn.getRemarks() != null
                 && !introspectedColumn.getRemarks().equals("")) {
@@ -430,10 +423,10 @@ public class DefaultCommentGenerator implements CommentGenerator {
             return;
         }
 
-        StringBuilder sb = new StringBuilder();
-
+        method.setFinal(addMethodFinal);
         method.addJavaDocLine("/** "); //$NON-NLS-1$
 
+        StringBuilder sb = new StringBuilder();
         sb.append(" * 设置 ");  //$NON-NLS-1$
         if (introspectedColumn.getRemarks() != null
                 && !introspectedColumn.getRemarks().equals("")) {
