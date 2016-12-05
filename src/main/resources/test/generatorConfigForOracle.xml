@@ -35,10 +35,10 @@ http://generator.sturgeon.mopaas.com/index.html
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
         <!--插件 ：生成的Java模型创建一个toString方法-->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
-        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
-            <property name="searchString" value="Example$"/>
-            <property name="replaceString" value="Criteria"/>
-        </plugin>
+        <!--<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">-->
+        <!--<property name="searchString" value="Example$"/>-->
+        <!--<property name="replaceString" value="Criteria"/>-->
+        <!--</plugin>-->
 
         <!-- 注释 -->
         <commentGenerator>
@@ -65,29 +65,25 @@ http://generator.sturgeon.mopaas.com/index.html
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <!-- 生成实体类的位置 -->
-        <javaModelGenerator targetPackage="orange1438.entity"
-                            targetProject="src\main\resources\test">
-            <!--  for MyBatis3/MyBatis3Simple
-                自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；
-            -->
-            <property name="constructorBased" value="false"/>
-
-            <!-- 是否在当前路径下新加一层schema,
-                eg：false路径com.orange1438.entity,
-                    true:com.orange1438.entity.[schemaName]
-             -->
+        <!--  model的配置  -->
+        <javaModelGenerator targetPackage="com.cmcc.base12582.service.esblog.model"
+                            targetProject="src\main\java">
             <property name="enableSubPackages" value="true"/>
-            <!-- 是否针对string类型的字段在set/get的时候进行trim调用:清理前后的空格 -->
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <!-- 生成mapper xml文件 -->
-        <sqlMapGenerator targetPackage="orange1438.mapper"
-                         targetProject="src\main\resources\test">
-            <!-- 解释同上:生成实体类的位置 -->
+        <!--mybatis的xml的配置  -->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="src\main\resources\mybatis">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
+
+        <!--mapper的配置  -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.cmcc.base12582.service.esblog.mapper"
+                             targetProject="src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
 
 
         <!-- 对于mybatis来说，即生成Mapper接口，注意，如果没有配置该元素，那么默认不会生成Mapper接口
@@ -98,17 +94,16 @@ http://generator.sturgeon.mopaas.com/index.html
                3，XMLMAPPER：会生成Mapper接口，接口完全依赖XML；
            注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER
        -->
-        <!-- 生成mapper接口生成的位置 -->
-        <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="orange1438.mapper"
-                             targetProject="src\main\resources\test">
-            <!-- 解释同上:生成实体类的位置 -->
-            <property name="enableSubPackages" value="true"/>
-        </javaClientGenerator>
+
 
         <!-- 指定生成的数据库表 -->
         <!-- domainObjectName：指定生成的实体类的文件名 -->
-        <table tableName="T_VIDEO" domainObjectName="VideoEntity"/>
+        <table tableName="ESB_LOG_CONFIGURATION" domainObjectName="EsbLogConfigurationEntity"/>
+        <!--<table tableName="APP_CRASH_LOG" domainObjectName="AppCrashLogEntity"/>-->
+        <!--<table tableName="APP_METHOD_TIME_LOG_201610" domainObjectName="AppMethETHODTimeLogEntity"/>-->
+        <!--<table tableName="APP_PAGE_RENDER_LOG_201610" domainObjectName="AppPageRenderLogEntity"/>-->
+        <!--<table tableName="H5_PAGE_RENDER_LOG_201610" domainObjectName="H5PageRenderLogEntity"/>-->
+
 
         <!-- 其他需求：有些表的字段需要指定java类型 -->
         <!--<table schema="management_system" tableName="s_user"-->
