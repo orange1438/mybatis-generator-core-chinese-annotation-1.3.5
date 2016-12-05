@@ -249,7 +249,10 @@ public class DefaultCommentGenerator implements CommentGenerator {
         //对应表中字段的备注(数据库中自己写的备注信息)
         if (introspectedColumn.getRemarks() != null
                 && !introspectedColumn.getRemarks().equals("")) {
-            sb.append("// " + introspectedColumn.getRemarks()).append("  默认：" + introspectedColumn.getDefaultValue());
+            sb.append("// " + introspectedColumn.getRemarks());
+            if (introspectedColumn.getDefaultValue() != null && !introspectedColumn.getDefaultValue().isEmpty()) {
+                sb.append("  默认：" + introspectedColumn.getDefaultValue());
+            }
         }
         if (sb.length() > 0) {
             field.addJavaDocLine(sb.toString());
