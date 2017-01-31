@@ -276,7 +276,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
         } else if ("oredCriteria".equals(field.getName())) {
             sb.append(" 查询条件");
         } else if ("serialVersionUID".equals(field.getName())) {
-            sb.append("序列化ID");
+            sb.append("串行版本ID");
         }
         if (sb.length() > 0) {
             field.addJavaDocLine("//" + sb.toString());
