@@ -24,6 +24,7 @@ import org.mybatis.generator.api.dom.java.TopLevelClass;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 /**
  * This plugin adds the java.io.Serializable marker interface to all generated
@@ -101,7 +102,7 @@ public class SerializablePlugin extends PluginAdapter {
 
             Field field = new Field();
             field.setFinal(true);
-            field.setInitializationString("1L"); //$NON-NLS-1$
+            field.setInitializationString(String.valueOf(new Random().nextLong()) + "L"); //$NON-NLS-1$
             field.setName("serialVersionUID"); //$NON-NLS-1$
             field.setStatic(true);
             field.setType(new FullyQualifiedJavaType("long")); //$NON-NLS-1$
