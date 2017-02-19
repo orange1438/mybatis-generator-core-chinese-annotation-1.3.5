@@ -6,6 +6,7 @@
 <!-- 参考官方文档
 http://www.mybatis.org/generator/configreference/xmlconfig.html
 http://generator.sturgeon.mopaas.com/index.html
+http://mbg.cndocs.tk/
 -->
 <generatorConfiguration>
 
