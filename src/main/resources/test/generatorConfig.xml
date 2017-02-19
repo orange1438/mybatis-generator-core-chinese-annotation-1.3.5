@@ -45,8 +45,11 @@ http://mbg.cndocs.tk/
             <property name="replaceString" value="Criteria"/>
         </plugin>
 
+        <!-- 统一Mapper 接口 -->
         <plugin type="org.mybatis.generator.plugins.MapperPlugin">
-            <property name="mappers" value=""/>
+            <property name="mappers" value="org.mybatis.generator.plugins.IMapper"/>
+            <!-- 是否删除Mapper类里的方法，默认删除-->
+            <property name="deleteMethod" value="true"/>
         </plugin>
 
         <!-- service层插件 -->
@@ -131,7 +134,6 @@ http://mbg.cndocs.tk/
                              targetProject="${mapper.path}">
             <!-- 解释同上:生成实体类的位置 -->
             <property name="enableSubPackages" value="true"/>
-            <!--<property name="rootInterface" value="xxxxxxxxx"/>-->
         </javaClientGenerator>
 
         <!-- mvn mybatis-generator:generate  -->

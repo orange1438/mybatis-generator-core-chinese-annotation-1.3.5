@@ -212,6 +212,13 @@ public class Interface extends JavaElement implements CompilationUnit {
     }
 
     /**
+     * 清空方法
+     */
+    public void clearMethod() {
+        methods.clear();
+    }
+
+    /**
      * Gets the type.
      *
      * @return Returns the type.
