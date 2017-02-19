@@ -119,6 +119,15 @@ public abstract class PluginAdapter implements Plugin {
         return true;
     }
 
+    /**
+     * 生成的Mapper接口
+     *
+     * @param interfaze         the generated interface if any, may be null
+     * @param topLevelClass     the generated implementation class if any, may be null
+     * @param introspectedTable The class containing information about the table as
+     *                          introspected from the database
+     * @return
+     */
     public boolean clientGenerated(Interface interfaze,
                                    TopLevelClass topLevelClass,
                                    IntrospectedTable introspectedTable) {
@@ -218,6 +227,7 @@ public abstract class PluginAdapter implements Plugin {
     }
 
     /**
+     * 生成基础实体类
      * 在MBG生成record类的时候调用的插件的方法，在该方法中，传入两个参数
      *
      * @param topLevelClass     该类的实例就是表示当前正在生成的类的DOM结构
@@ -248,12 +258,22 @@ public abstract class PluginAdapter implements Plugin {
         return true;
     }
 
+    /**
+     * 生成实体类注解KEY对象
+     * @param topLevelClass
+     *            the generated primary key class
+     * @param introspectedTable
+     *            The class containing information about the table as
+     *            introspected from the database
+     * @return
+     */
     public boolean modelPrimaryKeyClassGenerated(TopLevelClass topLevelClass,
                                                  IntrospectedTable introspectedTable) {
         return true;
     }
 
     /**
+     * 生成带BLOB字段的对象
      * 在MBG生成key Class类的时候调用的插件的方法
      * @param topLevelClass
      *            the generated record with BLOBs class
