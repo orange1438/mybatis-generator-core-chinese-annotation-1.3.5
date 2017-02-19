@@ -321,27 +321,33 @@ public class DefaultCommentGenerator implements CommentGenerator {
         } else if ("clear".equals(method_name)) {
             sb.append(" 清除查询条件");
         } else if ("countByExample".equals(method_name)) {
-            sb.append(" 根据指定的条件获取数据库记录数");
+            sb.append(" 查询数量");
         } else if ("deleteByExample".equals(method_name)) {
-            sb.append(" 根据指定的条件删除数据库符合条件的记录");
+            sb.append(" 根据条件删除");
         } else if ("deleteByPrimaryKey".equals(method_name)) {
-            sb.append(" 根据主键删除数据库的记录");
+            sb.append(" 根据ID删除");
         } else if ("insert".equals(method_name)) {
-            sb.append(" 新写入数据库记录");
+            sb.append(" 添加对象所有字段");
         } else if ("insertSelective".equals(method_name)) {
-            sb.append(" 动态字段,写入数据库记录");
+            sb.append(" 添加对象对应字段");
         } else if ("selectByExample".equals(method_name)) {
-            sb.append(" 根据指定的条件查询符合条件的数据库记录");
+            sb.append(" 根据条件查询（二进制大对象）");
         } else if ("selectByPrimaryKey".equals(method_name)) {
-            sb.append(" 根据指定主键获取一条数据库记录");
+            sb.append(" 根据ID查询");
         } else if ("updateByExampleSelective".equals(method_name)) {
-            sb.append(" 动态根据指定的条件来更新符合条件的数据库记录");
+            sb.append(" 根据条件修改对应字段");
         } else if ("updateByExample".equals(method_name)) {
-            sb.append(" 根据指定的条件来更新符合条件的数据库记录");
+            sb.append(" 根据条件修改所有字段");
         } else if ("updateByPrimaryKeySelective".equals(method_name)) {
-            sb.append(" 动态字段,根据主键来更新符合条件的数据库记录");
+            sb.append(" 根据ID修改对应字段");
         } else if ("updateByPrimaryKey".equals(method_name)) {
-            sb.append(" 根据主键来更新符合条件的数据库记录");
+            sb.append(" 根据ID修改所有字段(必须含ID）");
+        } else if ("updateByPrimaryKeyWithBLOBs".equals(method_name)) {
+            sb.append(" 根据ID修改字段（包含二进制大对象）");
+        } else if ("updateByExampleWithBLOBs".equals(method_name)) {
+            sb.append(" 根据条件修改字段 （包含二进制大对象）");
+        } else if ("selectByExampleWithBLOBs".equals(method_name)) {
+            sb.append(" 根据条件查询（包含二进制大对象）");
         }
 
         final List<Parameter> parameterList = method.getParameters();
@@ -362,12 +368,25 @@ public class DefaultCommentGenerator implements CommentGenerator {
             sb.append(" * @param "); //$NON-NLS-1$
             paramterName = parameter.getName();
             sb.append(paramterName);
+
             if ("orderByClause".equals(paramterName)) {
                 sb.append(" 排序字段"); //$NON-NLS-1$
             } else if ("distinct".equals(paramterName)) {
                 sb.append(" 是否过滤重复数据");
             } else if ("criteria".equals(paramterName)) {
                 sb.append(" 过滤条件实例");
+            } else if ("record".equals(paramterName)) {
+                if ("insert".equals(method_name) || "insertSelective".equals(method_name)) {
+                    sb.append(" 插入字段对象(必须含ID）");
+                } else if ("updateByExample".equals(method_name) || "updateByExampleSelective".equals(method_name)) {
+                    sb.append(" 修改字段对象 (JOPO)");
+                } else {
+                    sb.append(" 修改字段对象(必须含ID）");
+                }
+            } else if ("example".equals(paramterName)) {
+                sb.append(" 条件对象");
+            } else if (paramterName.toLowerCase().indexOf("id") > -1) {
+                sb.append(" 主键ID");
             }
             method.addJavaDocLine(sb.toString());
         }
