@@ -65,6 +65,13 @@ public abstract class PluginAdapter implements Plugin {
         return null;
     }
 
+    /**
+     * 上下文其余的java文件生成
+     *
+     * @param introspectedTable The class containing information about the table as
+     *                          introspected from the database
+     * @return
+     */
     public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles(
             IntrospectedTable introspectedTable) {
         return null;
