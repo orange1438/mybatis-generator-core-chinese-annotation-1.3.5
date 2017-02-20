@@ -116,6 +116,17 @@ public abstract class PluginAdapter implements Plugin {
         return true;
     }
 
+    /**
+     * 插入方法生成
+     *
+     * @param method            the generated insert method
+     * @param interfaze         the partially implemented client interface. You can add
+     *                          additional imported classes to the interface if
+     *                          necessary.
+     * @param introspectedTable The class containing information about the table as
+     *                          introspected from the database
+     * @return
+     */
     public boolean clientInsertMethodGenerated(Method method, Interface interfaze,
                                                IntrospectedTable introspectedTable) {
         return true;

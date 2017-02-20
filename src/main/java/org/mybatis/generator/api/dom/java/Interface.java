@@ -277,6 +277,13 @@ public class Interface extends JavaElement implements CompilationUnit {
         this.importedTypes.addAll(importedTypes);
     }
 
+    /**
+     * 清空
+     */
+    public void clearImportedTypes() {
+        this.importedTypes.clear();
+    }
+
     /* (non-Javadoc)
      * @see org.mybatis.generator.api.dom.java.CompilationUnit#getStaticImports()
      */

@@ -81,7 +81,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
      */
     public void addJavaFileComment(CompilationUnit compilationUnit) {
         // add no file level comments by default
-        compilationUnit.addFileCommentLine("/* github.com/orange1438 */");
+        compilationUnit.addFileCommentLine("/* https://github.com/orange1438 */");
     }
 
     /**
@@ -143,7 +143,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
         sb.append(" * @author orange1438 code generator");
         String s = getDateString();
         if (s != null) {
-            sb.append("\n * ");
+            sb.append("\n * date:");
             sb.append(s);
         }
         javaElement.addJavaDocLine(sb.toString());
@@ -180,8 +180,8 @@ public class DefaultCommentGenerator implements CommentGenerator {
             return;
         }
         javaElement.addJavaDocLine("/**");
-        javaElement.addJavaDocLine(" * 本文件由 github.com/orange1438/mybatis-generator-core-chinese-annotation1.3.5-chinese-annotation 自动生成");
-        //    javaElement.addJavaDocLine(" * 本文件由 赵承志 自动生成");
+        javaElement.addJavaDocLine(" * 本文件由 https://github.com/orange1438/mybatis-generator-core-chinese-annotation1.3.5-chinese-annotation 自动生成");
+        //    javaElement.addJavaDocLine(" * 本文件由 橙子 自动生成");
         addJavadocTag(javaElement, false);
         javaElement.addJavaDocLine(" */");
     }

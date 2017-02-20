@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author orange1438
  *         github: github.com/orange1438
- *         data: 2017/02/19 21:39
+ *         date: 2017/02/19 21:39
  */
 public interface IMapper<M, E, ID extends Serializable> {
     /**
@@ -19,7 +19,7 @@ public interface IMapper<M, E, ID extends Serializable> {
      *
      * @param example 条件对象
      */
-    long countByExample(E example);
+    int countByExample(E example);
 
     /**
      * 根据条件删除
@@ -50,13 +50,6 @@ public interface IMapper<M, E, ID extends Serializable> {
     int insertSelective(M record);
 
     /**
-     * 根据条件查询（包含二进制大对象）
-     *
-     * @param example 条件对象
-     */
-    List<M> selectByExampleWithBLOBs(E example);
-
-    /**
      * 根据条件查询（二进制大对象）
      *
      * @param example 条件对象
@@ -78,6 +71,13 @@ public interface IMapper<M, E, ID extends Serializable> {
     int updateByPrimaryKeySelective(M record);
 
     /**
+     * 根据ID修改所有字段(必须含ID）
+     *
+     * @param record 修改字段对象(必须含ID）
+     */
+    int updateByPrimaryKey(M record);
+
+    /**
      * 根据ID修改字段（包含二进制大对象）
      *
      * @param record 修改字段对象(必须含ID）
@@ -85,9 +85,33 @@ public interface IMapper<M, E, ID extends Serializable> {
     int updateByPrimaryKeyWithBLOBs(M record);
 
     /**
-     * 根据ID修改所有字段(必须含ID）
+     * 根据条件查询（包含二进制大对象）
      *
-     * @param record 修改字段对象(必须含ID）
+     * @param example 条件对象
      */
-    int updateByPrimaryKey(M record);
+    List<M> selectByExampleWithBLOBs(E example);
+
+    /**
+     * 根据条件修改字段 （包含大字段）
+     * @param record 修改字段对象(必须含ID）
+     * @param example 条件对象
+     * @return
+     */
+    //   int updateByExampleWithBLOBs(@Param("record") M record, @Param("example") E example);
+
+    /**
+     * 根据条件修改对应字段
+     * @param record 修改字段对象 (JOPO)
+     * @param example 条件对象
+     * @return
+     */
+    //   int updateByExampleSelective(@Param("record") M record, @Param("example") E example);
+
+    /**
+     * 根据条件修改所有字段
+     * @param record 修改字段对象 (JOPO)
+     * @param example 条件对象
+     * @return
+     */
+    //  int updateByExample(@Param("record") M record, @Param("example") E example);
 }

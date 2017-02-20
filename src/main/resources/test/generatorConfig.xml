@@ -47,7 +47,7 @@ http://mbg.cndocs.tk/
 
         <!-- 统一Mapper 接口 -->
         <plugin type="org.mybatis.generator.plugins.MapperPlugin">
-            <property name="mappers" value="org.mybatis.generator.plugins.IMapper"/>
+            <property name="interfaceName" value="IMapper"/>
             <!-- 是否删除Mapper类里的方法，默认删除-->
             <property name="deleteMethod" value="true"/>
         </plugin>
