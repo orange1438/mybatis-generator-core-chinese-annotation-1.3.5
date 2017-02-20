@@ -140,7 +140,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
         if (markAsDoNotDelete) {
             sb.append(" * do_not_delete_during_merge\n");
         }
-        sb.append(" * @author Zhao Chengzhi code generator");
+        sb.append(" * @author orange1438 code generator");
         String s = getDateString();
         if (s != null) {
             sb.append("\n * ");
