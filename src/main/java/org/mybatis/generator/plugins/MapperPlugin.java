@@ -17,7 +17,7 @@ import java.util.Properties;
 import java.util.Set;
 
 /**
- * 文件描述注释
+ * 统一Mapper生成
  *
  * @author orange1438
  *         github: github.com/orange1438
