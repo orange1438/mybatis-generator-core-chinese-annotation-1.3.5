@@ -1,5 +1,6 @@
 package org.mybatis.generator.plugins;
 
+import org.mybatis.generator.api.GeneratedJavaFile;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
@@ -118,4 +119,9 @@ public class MapperPlugin extends PluginAdapter {
         return true;
     }
 
+    @Override
+    public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles(IntrospectedTable introspectedTable) {
+        super.contextGenerateAdditionalJavaFiles(introspectedTable);
+        return null;
+    }
 }

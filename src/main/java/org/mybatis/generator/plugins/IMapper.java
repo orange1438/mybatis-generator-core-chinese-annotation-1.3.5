@@ -1,5 +1,6 @@
 package org.mybatis.generator.plugins;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  *         github: github.com/orange1438
  *         data: 2017/02/19 21:39
  */
-public interface IMapper<M, E, ID> {
+public interface IMapper<M, E, ID extends Serializable> {
     /**
      * 查询数量
      *
