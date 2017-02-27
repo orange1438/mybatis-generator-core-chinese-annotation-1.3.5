@@ -112,6 +112,11 @@ public class MapperPlugin extends PluginAdapter {
             //获取实体类
             FullyQualifiedJavaType entityType = new FullyQualifiedJavaType(introspectedTable.getBaseRecordType());
 
+            //注解的添加
+            FullyQualifiedJavaType serviceType = new FullyQualifiedJavaType("org.springframework.stereotype.Repository");
+            interfaze.addImportedType(serviceType);
+            interfaze.addAnnotation("@Repository");
+
             //import接口
             interfaze.addImportedType(interfaceType);
 
