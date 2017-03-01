@@ -79,6 +79,7 @@ http://mbg.cndocs.tk/
 
             <!-- 自己添加的参数属性:数据表字段的get、set方法是否添加final关键字,默认为true -->
             <property name="addMethodFinal" value="true"/>
+            <property name="author" value="true"/>
         </commentGenerator>
 
         <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->

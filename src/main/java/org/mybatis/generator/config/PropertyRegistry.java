@@ -70,4 +70,5 @@ public class PropertyRegistry {
     public static final String COMMENT_GENERATOR_DATE_FORMAT = "dateFormat"; //$NON-NLS-1$
 
     public static final String COMMENT_GENERATOR_ADD_METHOD_FINAL = "addMethodFinal"; //$NON-NLS-1$
+    public static final String COMMENT_GENERATOR_AUTHOR = "author"; //$NON-NLS-1$
 }

@@ -64,6 +64,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
     // 是否在get、set方法里添加final关键字
     private boolean addMethodFinal;
 
+    private String author;
     /**
      * Instantiates a new default comment generator.
      */
@@ -74,6 +75,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
         suppressAllComments = false;
         addRemarkComments = false;
         addMethodFinal = true;
+        author = "orange1438 code generator";
     }
 
     /* (non-Javadoc)
@@ -117,13 +119,19 @@ public class DefaultCommentGenerator implements CommentGenerator {
         addRemarkComments = isTrue(properties
                 .getProperty(PropertyRegistry.COMMENT_GENERATOR_ADD_REMARK_COMMENTS));
 
-        String dateFormatString = properties.getProperty(PropertyRegistry.COMMENT_GENERATOR_DATE_FORMAT);
+
 
         addMethodFinal = isTrue(properties
                 .getProperty(PropertyRegistry.COMMENT_GENERATOR_ADD_METHOD_FINAL));
 
+        String dateFormatString = properties.getProperty(PropertyRegistry.COMMENT_GENERATOR_DATE_FORMAT);
         if (StringUtility.stringHasValue(dateFormatString)) {
             dateFormat = new SimpleDateFormat(dateFormatString);
+        }
+
+        String authorString = properties.getProperty(PropertyRegistry.COMMENT_GENERATOR_AUTHOR);
+        if (StringUtility.stringHasValue(authorString)) {
+            author = authorString;
         }
     }
 
@@ -140,7 +148,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
         if (markAsDoNotDelete) {
             sb.append(" * do_not_delete_during_merge\n");
         }
-        sb.append(" * @author orange1438 code generator");
+        sb.append(" * @author " + author);
         String s = getDateString();
         if (s != null) {
             sb.append("\n * date:");
