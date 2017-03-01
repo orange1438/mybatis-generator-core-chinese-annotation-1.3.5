@@ -21,39 +21,17 @@ import java.util.*;
  */
 public class MapperPlugin extends PluginAdapter {
     private String interfaceName;
-    private boolean caseSensitive = false;
     private boolean deleteMethod = true;
-    //开始的分隔符，例如mysql为`，sqlserver为[
-    private String beginningDelimiter = "";
-    //结束的分隔符，例如mysql为`，sqlserver为]
-    private String endingDelimiter = "";
-    //数据库模式
-    private String schema;
-    //注释生成器
-    private CommentGeneratorConfiguration commentCfg;
 
     private FullyQualifiedJavaType interfaceType;
-
 
     private FullyQualifiedJavaType E;
     private FullyQualifiedJavaType M;
     private FullyQualifiedJavaType ID;
 
-    @Override
-    public void setContext(Context context) {
-        super.setContext(context);
-        //设置默认的注释生成器
-        commentCfg = new CommentGeneratorConfiguration();
-        commentCfg.setConfigurationType(DefaultCommentGenerator.class.getCanonicalName());
-        context.setCommentGeneratorConfiguration(commentCfg);
-        //支持oracle获取注释#114
-        context.getJdbcConnectionConfiguration().addProperty("remarksReporting", "true");
-    }
 
     @Override
-    public void setProperties(Properties properties) {
-        super.setProperties(properties);
-
+    public boolean validate(List<String> warnings) {
         interfaceName = this.properties.getProperty("interfaceName");
         String deleteMethod = this.properties.getProperty("deleteMethod");
         if ("FALSE".equals(deleteMethod.toUpperCase())) {
@@ -62,35 +40,12 @@ public class MapperPlugin extends PluginAdapter {
             this.deleteMethod = true;
         }
 
-        String caseSensitive = this.properties.getProperty("caseSensitive");
-        if (StringUtility.stringHasValue(caseSensitive)) {
-            this.caseSensitive = caseSensitive.equalsIgnoreCase("TRUE");
-        }
-        String beginningDelimiter = this.properties.getProperty("beginningDelimiter");
-        if (StringUtility.stringHasValue(beginningDelimiter)) {
-            this.beginningDelimiter = beginningDelimiter;
-        }
-        commentCfg.addProperty("beginningDelimiter", this.beginningDelimiter);
-        String endingDelimiter = this.properties.getProperty("endingDelimiter");
-        if (StringUtility.stringHasValue(endingDelimiter)) {
-            this.endingDelimiter = endingDelimiter;
-        }
-        commentCfg.addProperty("endingDelimiter", this.endingDelimiter);
-        String schema = this.properties.getProperty("schema");
-        if (StringUtility.stringHasValue(schema)) {
-            this.schema = schema;
-        }
-    }
-
-    @Override
-    public boolean validate(List<String> warnings) {
         E = new FullyQualifiedJavaType("E");
         M = new FullyQualifiedJavaType("M");
         ID = new FullyQualifiedJavaType("ID");
 
         String interfacePack = context.getJavaClientGeneratorConfiguration().getTargetPackage();
         interfaceType = new FullyQualifiedJavaType(interfacePack + "." + interfaceName);
-
         return true;
     }
 
@@ -137,8 +92,6 @@ public class MapperPlugin extends PluginAdapter {
             interfaze.addImportedType(entityType);
             return true;
         } else return super.clientGenerated(interfaze, topLevelClass, introspectedTable);
-
-
     }
 
     @Override
