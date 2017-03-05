@@ -471,6 +471,13 @@ public class FullyQualifiedJavaType implements
     }
 
     /**
+     * 取消泛型
+     */
+    public void clearTypeArgument() {
+        typeArguments.clear();
+    }
+
+    /**
      * Parses the.
      *
      * @param fullTypeSpecification

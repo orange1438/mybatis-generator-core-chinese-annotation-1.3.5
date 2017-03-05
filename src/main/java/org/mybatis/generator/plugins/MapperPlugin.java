@@ -73,6 +73,8 @@ public class MapperPlugin extends PluginAdapter {
             interfaze.addAnnotation("@Repository");
 
             //import接口
+            // 解决多个表，而重复生成IMaper的问题
+            interfaceType.clearTypeArgument();
             interfaze.addImportedType(interfaceType);
 
             FullyQualifiedJavaType exampleType = new FullyQualifiedJavaType(introspectedTable.getExampleType());
