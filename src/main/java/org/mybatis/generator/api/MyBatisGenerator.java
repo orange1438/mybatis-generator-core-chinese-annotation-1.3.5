@@ -369,6 +369,7 @@ public class MyBatisGenerator {
 
         BufferedWriter bw = new BufferedWriter(osw);
         bw.write(content);
+        bw.flush();
         bw.close();
     }
 
