@@ -44,3 +44,4 @@ maven工程的打包，执行命令：clean install ，加入到本地仓库,生
 5.生成的中文注释信息可在修DefaultCommentGenerator类修改<br>
 6.增加MybatisServicePlugin：service层的代码生成，个人觉得不完美，因为业务会变，所以service层也会变，仅供学习参考<br>
 7.增加MapperPlugin：Mapper层有大量生成的重复方法，所以增加了统一继承IMapper接口实现<br>
+8.为IMapper接口加入批量插入数据的方法<br>
