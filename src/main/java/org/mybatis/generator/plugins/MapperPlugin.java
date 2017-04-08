@@ -27,6 +27,7 @@ public class MapperPlugin extends PluginAdapter {
 
     private FullyQualifiedJavaType E;
     private FullyQualifiedJavaType M;
+    private FullyQualifiedJavaType MLIST;
     private FullyQualifiedJavaType ID;
 
 
@@ -42,6 +43,7 @@ public class MapperPlugin extends PluginAdapter {
 
         E = new FullyQualifiedJavaType("E");
         M = new FullyQualifiedJavaType("M");
+        MLIST = new FullyQualifiedJavaType("List<M>");
         ID = new FullyQualifiedJavaType("ID");
 
         String interfacePack = context.getJavaClientGeneratorConfiguration().getTargetPackage();
@@ -130,6 +132,12 @@ public class MapperPlugin extends PluginAdapter {
             interface1.addMethod(method);
 
             method = insertSelective(introspectedTable);
+            interface1.addMethod(method);
+
+            method = insertBatch(introspectedTable);
+            interface1.addMethod(method);
+
+            method = insertBatchSelective(introspectedTable);
             interface1.addMethod(method);
 
             method = selectByExampleWithBLOBs(introspectedTable);
@@ -241,6 +249,32 @@ public class MapperPlugin extends PluginAdapter {
         method.setName("insertSelective");
         method.setReturnType(FullyQualifiedJavaType.getIntInstance());
         method.addParameter(new Parameter(M, "record"));
+        method.setVisibility(JavaVisibility.PUBLIC);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+        return method;
+    }
+
+    /**
+     * 添加方法
+     */
+    protected Method insertBatch(IntrospectedTable introspectedTable) {
+        Method method = new Method();
+        method.setName("insertBatch");
+        method.setReturnType(FullyQualifiedJavaType.getIntInstance());
+        method.addParameter(new Parameter(MLIST, "record"));
+        method.setVisibility(JavaVisibility.PUBLIC);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+        return method;
+    }
+
+    /**
+     * 添加方法
+     */
+    protected Method insertBatchSelective(IntrospectedTable introspectedTable) {
+        Method method = new Method();
+        method.setName("insertBatchSelective");
+        method.setReturnType(FullyQualifiedJavaType.getIntInstance());
+        method.addParameter(new Parameter(MLIST, "record"));
         method.setVisibility(JavaVisibility.PUBLIC);
         context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
         return method;

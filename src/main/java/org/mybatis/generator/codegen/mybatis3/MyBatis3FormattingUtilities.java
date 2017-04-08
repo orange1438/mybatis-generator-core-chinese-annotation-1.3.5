@@ -36,14 +36,19 @@ public class MyBatis3FormattingUtilities {
 
     /**
      * Gets the parameter clause.
-     *
+     * 加入obj，为批量插入用的
      * @param introspectedColumn
      *            the introspected column
      * @return the parameter clause
      */
     public static String getParameterClause(
             IntrospectedColumn introspectedColumn) {
-        return getParameterClause(introspectedColumn, null);
+        return getParameterClause(introspectedColumn, null, "");
+    }
+
+    public static String getParameterClause(
+            IntrospectedColumn introspectedColumn, String obj) {
+        return getParameterClause(introspectedColumn, null, obj);
     }
 
     /**
@@ -56,11 +61,11 @@ public class MyBatis3FormattingUtilities {
      * @return the parameter clause
      */
     public static String getParameterClause(
-            IntrospectedColumn introspectedColumn, String prefix) {
+            IntrospectedColumn introspectedColumn, String prefix, String obj) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("#{"); //$NON-NLS-1$
-        sb.append(introspectedColumn.getJavaProperty(prefix));
+        sb.append("#{");
+        sb.append(obj.isEmpty() ? introspectedColumn.getJavaProperty(prefix) : obj + "." + introspectedColumn.getJavaProperty(prefix));
         sb.append(",jdbcType="); //$NON-NLS-1$
         sb.append(introspectedColumn.getJdbcTypeName());
 

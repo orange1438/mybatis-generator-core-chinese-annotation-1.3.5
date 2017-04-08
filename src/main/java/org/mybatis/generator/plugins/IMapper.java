@@ -50,6 +50,20 @@ public interface IMapper<M, E, ID extends Serializable> {
     int insertSelective(M record);
 
     /**
+     * 添加对象集合对应字段
+     *
+     * @param record 插入字段对象(必须含ID）
+     */
+    int insertBatchSelective(List<M> record);
+
+    /**
+     * 添加对象集合对应字段
+     *
+     * @param record 插入字段对象(必须含ID）
+     */
+    int insertBatch(List<M> record);
+
+    /**
      * 根据条件查询（二进制大对象）
      *
      * @param example 条件对象

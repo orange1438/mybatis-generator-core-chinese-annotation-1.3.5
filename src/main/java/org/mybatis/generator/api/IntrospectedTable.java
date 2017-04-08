@@ -741,7 +741,9 @@ public abstract class IntrospectedTable {
         setDeleteByExampleStatementId("deleteByExample"); //$NON-NLS-1$
         setDeleteByPrimaryKeyStatementId("deleteByPrimaryKey"); //$NON-NLS-1$
         setInsertStatementId("insert"); //$NON-NLS-1$
-        setInsertSelectiveStatementId("insertSelective"); //$NON-NLS-1$
+        setInsertSelectiveStatementId("insertSelective");
+        setInsertBatchStatementId("insertBatch");
+        setInsertBatchSelectiveStatementId("insertBatchSelective");
         setSelectAllStatementId("selectAll"); //$NON-NLS-1$
         setSelectByExampleStatementId("selectByExample"); //$NON-NLS-1$
         setSelectByExampleWithBLOBsStatementId("selectByExampleWithBLOBs"); //$NON-NLS-1$
@@ -1124,6 +1126,31 @@ public abstract class IntrospectedTable {
     public void setInsertSelectiveStatementId(String s) {
         internalAttributes.put(
                 InternalAttribute.ATTR_INSERT_SELECTIVE_STATEMENT_ID, s);
+    }
+
+    /**
+     * 批量插入
+     *
+     * @param
+     */
+    public String getInsertBatchStatementId() {
+        return internalAttributes
+                .get(InternalAttribute.ATTR_INSERT_BATCH_STATEMENT_ID);
+    }
+
+    public void setInsertBatchStatementId(String s) {
+        internalAttributes.put(
+                InternalAttribute.ATTR_INSERT_BATCH_STATEMENT_ID, s);
+    }
+
+    public String getInsertBatchSelectiveStatementId() {
+        return internalAttributes
+                .get(InternalAttribute.ATTR_INSERT_BATCH_SELECTIVE_STATEMENT_ID);
+    }
+
+    public void setInsertBatchSelectiveStatementId(String s) {
+        internalAttributes.put(
+                InternalAttribute.ATTR_INSERT_BATCH_SELECTIVE_STATEMENT_ID, s);
     }
 
     /**
@@ -1876,6 +1903,13 @@ public abstract class IntrospectedTable {
          * The attr insert selective statement id.
          */
         ATTR_INSERT_SELECTIVE_STATEMENT_ID,
+
+
+        /**
+         * 批量插入
+         */
+        ATTR_INSERT_BATCH_STATEMENT_ID,
+        ATTR_INSERT_BATCH_SELECTIVE_STATEMENT_ID,
 
         /**
          * The attr select all statement id.

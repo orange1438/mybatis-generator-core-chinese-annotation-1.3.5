@@ -338,6 +338,10 @@ public class DefaultCommentGenerator implements CommentGenerator {
             sb.append(" 添加对象所有字段");
         } else if ("insertSelective".equals(method_name)) {
             sb.append(" 添加对象对应字段");
+        } else if ("insertBatch".equals(method_name)) {
+            sb.append(" 添加List集合对象所有字段");
+        } else if ("insertBatchSelective".equals(method_name)) {
+            sb.append(" 添加List集合对象对应字段");
         } else if ("selectByExample".equals(method_name)) {
             sb.append(" 根据条件查询（二进制大对象）");
         } else if ("selectByPrimaryKey".equals(method_name)) {
@@ -386,6 +390,8 @@ public class DefaultCommentGenerator implements CommentGenerator {
             } else if ("record".equals(paramterName)) {
                 if ("insert".equals(method_name) || "insertSelective".equals(method_name)) {
                     sb.append(" 插入字段对象(必须含ID）");
+                } else if ("insertBatch".equals(method_name) || "insertBatchSelective".equals(method_name)) {
+                    sb.append(" 批量插入字段对象(必须含ID）");
                 } else if ("updateByExample".equals(method_name) || "updateByExampleSelective".equals(method_name)) {
                     sb.append(" 修改字段对象 (JOPO)");
                 } else {
