@@ -66,6 +66,9 @@ public class ExampleGenerator extends AbstractJavaGenerator {
         method.addBodyLine("oredCriteria = new ArrayList<Criteria>();"); //$NON-NLS-1$
 
         commentGenerator.addGeneralMethodComment(method, introspectedTable);
+        method.setFinal(false);//构造方法不要进行final
+
+
         topLevelClass.addMethod(method);
 
         // add field, getter, setter for orderby clause
