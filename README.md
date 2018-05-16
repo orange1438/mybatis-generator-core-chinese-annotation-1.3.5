@@ -7,6 +7,8 @@
 2.get/set方法的注释信息<br>
 3.类注释信息<br>
 4.增删改查条件的注释信息<br>
+5.生成的代码符合阿里规范<br>
+5.增加批量增加、修改的操作<br>
 <br>
 ## 使用方式
 maven工程的打包，执行命令：clean install ，加入到本地仓库,生成“1.3.5-chinese-annotation-by-orange1438”包名
@@ -47,3 +49,4 @@ maven工程的打包，执行命令：clean install ，加入到本地仓库,生
 8.为IMapper接口加入批量插入数据的方法<br>
 9.删除ibatis2内容，并删除CaseInsensitiveLikePlugin插件（这个插件用来在XXXExample类中生成大小写敏感的LIKE方法插件本身用处不大，但是我们可以通过这个插件学习给XXXExample类添加额外的方法）），因此引用了ibatis2
 10.为IMapper接口加入批量更新数据的方法<br>
+11.生成的代码符合阿里规范<br>
