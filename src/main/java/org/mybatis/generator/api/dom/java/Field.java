@@ -32,7 +32,7 @@ public class Field extends JavaElement {
      */
     public Field() {
         // use a default name to avoid NPE
-        this("foo", FullyQualifiedJavaType.getIntInstance()); //$NON-NLS-1$
+        this("foo", FullyQualifiedJavaType.getIntInstance());
     }
 
     public Field(String name, FullyQualifiedJavaType type) {
@@ -103,19 +103,19 @@ public class Field extends JavaElement {
         sb.append(getVisibility().getValue());
 
         if (isStatic()) {
-            sb.append("static "); //$NON-NLS-1$
+            sb.append("static ");
         }
 
         if (isFinal()) {
-            sb.append("final "); //$NON-NLS-1$
+            sb.append("final ");
         }
 
         if (isTransient()) {
-            sb.append("transient "); //$NON-NLS-1$
+            sb.append("transient ");
         }
 
         if (isVolatile()) {
-            sb.append("volatile "); //$NON-NLS-1$
+            sb.append("volatile ");
         }
 
         sb.append(JavaDomUtils.calculateTypeName(compilationUnit, type));
@@ -124,7 +124,7 @@ public class Field extends JavaElement {
         sb.append(name);
 
         if (initializationString != null && initializationString.length() > 0) {
-            sb.append(" = "); //$NON-NLS-1$
+            sb.append(" = ");
             sb.append(initializationString);
         }
 

@@ -33,9 +33,9 @@ public class PluginConfiguration extends TypedPropertyHolder {
     }
 
     public XmlElement toXmlElement() {
-        XmlElement answer = new XmlElement("plugin"); //$NON-NLS-1$
+        XmlElement answer = new XmlElement("plugin");
         if (getConfigurationType() != null) {
-            answer.addAttribute(new Attribute("type", getConfigurationType())); //$NON-NLS-1$
+            answer.addAttribute(new Attribute("type", getConfigurationType()));
         }
 
         addPropertyXmlElements(answer);
@@ -45,7 +45,7 @@ public class PluginConfiguration extends TypedPropertyHolder {
 
     public void validate(List<String> errors, String contextId) {
         if (!stringHasValue(getConfigurationType())) {
-            errors.add(getString("ValidationError.17", //$NON-NLS-1$
+            errors.add(getString("ValidationError.17",
                     contextId));
         }
     }

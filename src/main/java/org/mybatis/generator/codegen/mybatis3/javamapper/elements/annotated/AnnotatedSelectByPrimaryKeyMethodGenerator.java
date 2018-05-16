@@ -43,12 +43,12 @@ public class AnnotatedSelectByPrimaryKeyMethodGenerator extends
 
     @Override
     public void addMapperAnnotations(Interface interfaze, Method method) {
-        interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Select")); //$NON-NLS-1$
+        interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Select"));
 
         StringBuilder sb = new StringBuilder();
-        method.addAnnotation("@Select({"); //$NON-NLS-1$
+        method.addAnnotation("@Select({");
         javaIndent(sb, 1);
-        sb.append("\"select\","); //$NON-NLS-1$
+        sb.append("\"select\",");
         method.addAnnotation(sb.toString());
 
         Iterator<IntrospectedColumn> iter = introspectedTable
@@ -62,11 +62,11 @@ public class AnnotatedSelectByPrimaryKeyMethodGenerator extends
             hasColumns = true;
 
             if (iter.hasNext()) {
-                sb.append(", "); //$NON-NLS-1$
+                sb.append(", ");
             }
 
             if (sb.length() > 80) {
-                sb.append("\","); //$NON-NLS-1$
+                sb.append("\",");
                 method.addAnnotation(sb.toString());
 
                 sb.setLength(0);
@@ -77,16 +77,16 @@ public class AnnotatedSelectByPrimaryKeyMethodGenerator extends
         }
 
         if (hasColumns) {
-            sb.append("\","); //$NON-NLS-1$
+            sb.append("\",");
             method.addAnnotation(sb.toString());
         }
 
         sb.setLength(0);
         javaIndent(sb, 1);
-        sb.append("\"from "); //$NON-NLS-1$
+        sb.append("\"from ");
         sb.append(escapeStringForJava(introspectedTable
                 .getAliasedFullyQualifiedTableNameAtRuntime()));
-        sb.append("\","); //$NON-NLS-1$
+        sb.append("\",");
         method.addAnnotation(sb.toString());
 
         boolean and = false;
@@ -97,14 +97,14 @@ public class AnnotatedSelectByPrimaryKeyMethodGenerator extends
             sb.setLength(0);
             javaIndent(sb, 1);
             if (and) {
-                sb.append("  \"and "); //$NON-NLS-1$
+                sb.append("  \"and ");
             } else {
-                sb.append("\"where "); //$NON-NLS-1$
+                sb.append("\"where ");
                 and = true;
             }
 
             sb.append(escapeStringForJava(getAliasedEscapedColumnName(introspectedColumn)));
-            sb.append(" = "); //$NON-NLS-1$
+            sb.append(" = ");
             sb.append(getParameterClause(introspectedColumn));
             sb.append('\"');
             if (iter.hasNext()) {
@@ -113,7 +113,7 @@ public class AnnotatedSelectByPrimaryKeyMethodGenerator extends
             method.addAnnotation(sb.toString());
         }
 
-        method.addAnnotation("})"); //$NON-NLS-1$
+        method.addAnnotation("})");
 
         if (useResultMapIfAvailable) {
             if (introspectedTable.getRules().generateBaseResultMap()
@@ -128,9 +128,9 @@ public class AnnotatedSelectByPrimaryKeyMethodGenerator extends
     }
 
     private void addResultMapAnnotation(Interface interfaze, Method method) {
-        interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.ResultMap")); //$NON-NLS-1$
+        interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.ResultMap"));
 
-        String annotation = String.format("@ResultMap(\"%s.%s\")", //$NON-NLS-1$
+        String annotation = String.format("@ResultMap(\"%s.%s\")",
                 introspectedTable.getMyBatis3SqlMapNamespace(),
                 introspectedTable.getRules().generateResultMapWithBLOBs() ?
                         introspectedTable.getResultMapWithBLOBsId() : introspectedTable.getBaseResultMapId());
@@ -138,16 +138,16 @@ public class AnnotatedSelectByPrimaryKeyMethodGenerator extends
     }
 
     private void addAnnotatedResults(Interface interfaze, Method method) {
-        interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.type.JdbcType")); //$NON-NLS-1$
+        interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.type.JdbcType"));
 
         if (introspectedTable.isConstructorBased()) {
-            interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Arg")); //$NON-NLS-1$
-            interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.ConstructorArgs")); //$NON-NLS-1$
-            method.addAnnotation("@ConstructorArgs({"); //$NON-NLS-1$
+            interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Arg"));
+            interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.ConstructorArgs"));
+            method.addAnnotation("@ConstructorArgs({");
         } else {
-            interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Result")); //$NON-NLS-1$
-            interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Results")); //$NON-NLS-1$
-            method.addAnnotation("@Results({"); //$NON-NLS-1$
+            interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Result"));
+            interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Results"));
+            method.addAnnotation("@Results({");
         }
 
         StringBuilder sb = new StringBuilder();
@@ -182,6 +182,6 @@ public class AnnotatedSelectByPrimaryKeyMethodGenerator extends
             method.addAnnotation(sb.toString());
         }
 
-        method.addAnnotation("})"); //$NON-NLS-1$
+        method.addAnnotation("})");
     }
 }

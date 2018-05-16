@@ -43,10 +43,10 @@ public class InsertBatchElementGenerator extends AbstractXmlElementGenerator {
 
     @Override
     public void addElements(XmlElement parentElement) {
-        XmlElement answer = new XmlElement("insert"); //$NON-NLS-1$
+        XmlElement answer = new XmlElement("insert");
 
         answer.addAttribute(new Attribute(
-                "id", introspectedTable.getInsertBatchStatementId())); //$NON-NLS-1$
+                "id", introspectedTable.getInsertBatchStatementId()));
 
         answer.addAttribute(new Attribute("parameterType", "java.util.List"));
 
@@ -61,11 +61,11 @@ public class InsertBatchElementGenerator extends AbstractXmlElementGenerator {
             if (introspectedColumn != null) {
                 if (gk.isJdbcStandard()) {
                     answer.addAttribute(new Attribute(
-                            "useGeneratedKeys", "true")); //$NON-NLS-1$ //$NON-NLS-2$
+                            "useGeneratedKeys", "true"));  //$NON-NLS-2$
                     answer.addAttribute(new Attribute(
-                            "keyProperty", introspectedColumn.getJavaProperty())); //$NON-NLS-1$
+                            "keyProperty", introspectedColumn.getJavaProperty()));
                     answer.addAttribute(new Attribute(
-                            "keyColumn", introspectedColumn.getActualColumnName())); //$NON-NLS-1$
+                            "keyColumn", introspectedColumn.getActualColumnName()));
                 } else {
                     answer.addElement(getSelectKey(introspectedColumn, gk));
                 }
@@ -75,11 +75,11 @@ public class InsertBatchElementGenerator extends AbstractXmlElementGenerator {
         StringBuilder insertClause = new StringBuilder();
         StringBuilder valuesClause = new StringBuilder();
 
-        insertClause.append("insert into "); //$NON-NLS-1$
+        insertClause.append("insert into ");
         insertClause.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
-        insertClause.append(" ("); //$NON-NLS-1$
+        insertClause.append(" (");
 
-        valuesClause.append("("); //$NON-NLS-1$
+        valuesClause.append("(");
 
         List<String> valuesClauses = new ArrayList<String>();
         List<IntrospectedColumn> columns = ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable.getAllColumns());

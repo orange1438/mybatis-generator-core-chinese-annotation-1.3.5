@@ -142,9 +142,9 @@ public class FullyQualifiedTable {
         }
 
         beginningDelimiter = delimitIdentifiers ? context
-                .getBeginningDelimiter() : ""; //$NON-NLS-1$
+                .getBeginningDelimiter() : "";
         endingDelimiter = delimitIdentifiers ? context.getEndingDelimiter()
-                : ""; //$NON-NLS-1$
+                : "";
     }
 
     public String getRemark() {

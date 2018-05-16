@@ -58,7 +58,7 @@ public class Method extends JavaElement {
      */
     public Method() {
         // use a default name to avoid malformed code
-        this("bar"); //$NON-NLS-1$
+        this("bar");
     }
 
     /**
@@ -175,27 +175,27 @@ public class Method extends JavaElement {
             sb.append(getVisibility().getValue());
 
             if (isStatic()) {
-                sb.append("static "); //$NON-NLS-1$
+                sb.append("static ");
             }
 
             if (isFinal()) {
-                sb.append("final "); //$NON-NLS-1$
+                sb.append("final ");
             }
 
             if (isSynchronized()) {
-                sb.append("synchronized "); //$NON-NLS-1$
+                sb.append("synchronized ");
             }
 
             if (isNative()) {
-                sb.append("native "); //$NON-NLS-1$
+                sb.append("native ");
             } else if (bodyLines.size() == 0) {
-                sb.append("abstract "); //$NON-NLS-1$
+                sb.append("abstract ");
             }
         }
 
         if (!constructor) {
             if (getReturnType() == null) {
-                sb.append("void"); //$NON-NLS-1$
+                sb.append("void");
             } else {
                 sb.append(JavaDomUtils.calculateTypeName(compilationUnit, getReturnType()));
             }
@@ -208,7 +208,7 @@ public class Method extends JavaElement {
         boolean comma = false;
         for (Parameter parameter : getParameters()) {
             if (comma) {
-                sb.append(", "); //$NON-NLS-1$
+                sb.append(", ");
             } else {
                 comma = true;
             }
@@ -219,11 +219,11 @@ public class Method extends JavaElement {
         sb.append(')');
 
         if (getExceptions().size() > 0) {
-            sb.append(" throws "); //$NON-NLS-1$
+            sb.append(" throws ");
             comma = false;
             for (FullyQualifiedJavaType fqjt : getExceptions()) {
                 if (comma) {
-                    sb.append(", "); //$NON-NLS-1$
+                    sb.append(", ");
                 } else {
                     comma = true;
                 }
@@ -236,13 +236,13 @@ public class Method extends JavaElement {
         if (bodyLines.size() == 0 || isNative()) {
             sb.append(';');
         } else {
-            sb.append(" {"); //$NON-NLS-1$
+            sb.append(" {");
             indentLevel++;
 
             ListIterator<String> listIter = bodyLines.listIterator();
             while (listIter.hasNext()) {
                 String line = listIter.next();
-                if (line.startsWith("}")) { //$NON-NLS-1$
+                if (line.startsWith("}")) {
                     indentLevel--;
                 }
 
@@ -250,16 +250,16 @@ public class Method extends JavaElement {
                 OutputUtilities.javaIndent(sb, indentLevel);
                 sb.append(line);
 
-                if ((line.endsWith("{") && !line.startsWith("switch")) //$NON-NLS-1$ //$NON-NLS-2$
-                        || line.endsWith(":")) { //$NON-NLS-1$
+                if ((line.endsWith("{") && !line.startsWith("switch"))  //$NON-NLS-2$
+                        || line.endsWith(":")) {
                     indentLevel++;
                 }
 
-                if (line.startsWith("break")) { //$NON-NLS-1$
+                if (line.startsWith("break")) {
                     // if the next line is '}', then don't outdent
                     if (listIter.hasNext()) {
                         String nextLine = listIter.next();
-                        if (nextLine.startsWith("}")) { //$NON-NLS-1$
+                        if (nextLine.startsWith("}")) {
                             indentLevel++;
                         }
 

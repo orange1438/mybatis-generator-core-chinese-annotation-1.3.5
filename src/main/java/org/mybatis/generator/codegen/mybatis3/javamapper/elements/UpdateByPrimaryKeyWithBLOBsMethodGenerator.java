@@ -53,7 +53,7 @@ public class UpdateByPrimaryKeyWithBLOBsMethodGenerator extends
 
         method.setName(introspectedTable
                 .getUpdateByPrimaryKeyWithBLOBsStatementId());
-        method.addParameter(new Parameter(parameterType, "record")); //$NON-NLS-1$
+        method.addParameter(new Parameter(parameterType, "record"));
 
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);

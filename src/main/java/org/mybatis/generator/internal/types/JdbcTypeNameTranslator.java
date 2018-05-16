@@ -31,76 +31,76 @@ public class JdbcTypeNameTranslator {
 
     static {
         typeToName = new HashMap<Integer, String>();
-        typeToName.put(Types.ARRAY, "ARRAY"); //$NON-NLS-1$
-        typeToName.put(Types.BIGINT, "BIGINT"); //$NON-NLS-1$
-        typeToName.put(Types.BINARY, "BINARY"); //$NON-NLS-1$
-        typeToName.put(Types.BIT, "BIT"); //$NON-NLS-1$
-        typeToName.put(Types.BLOB, "BLOB"); //$NON-NLS-1$
-        typeToName.put(Types.BOOLEAN, "BOOLEAN"); //$NON-NLS-1$
-        typeToName.put(Types.CHAR, "CHAR"); //$NON-NLS-1$
-        typeToName.put(Types.CLOB, "CLOB"); //$NON-NLS-1$
-        typeToName.put(Types.DATALINK, "DATALINK"); //$NON-NLS-1$
-        typeToName.put(Types.DATE, "DATE"); //$NON-NLS-1$
-        typeToName.put(Types.DECIMAL, "DECIMAL"); //$NON-NLS-1$
-        typeToName.put(Types.DISTINCT, "DISTINCT"); //$NON-NLS-1$
-        typeToName.put(Types.DOUBLE, "DOUBLE"); //$NON-NLS-1$
-        typeToName.put(Types.FLOAT, "FLOAT"); //$NON-NLS-1$
-        typeToName.put(Types.INTEGER, "INTEGER"); //$NON-NLS-1$
-        typeToName.put(Types.JAVA_OBJECT, "JAVA_OBJECT"); //$NON-NLS-1$
-        typeToName.put(Types.LONGVARBINARY, "LONGVARBINARY"); //$NON-NLS-1$
-        typeToName.put(Types.LONGVARCHAR, "LONGVARCHAR"); //$NON-NLS-1$
-        typeToName.put(Types.NCHAR, "NCHAR"); //$NON-NLS-1$
-        typeToName.put(Types.NCLOB, "NCLOB"); //$NON-NLS-1$
-        typeToName.put(Types.NVARCHAR, "NVARCHAR"); //$NON-NLS-1$
-        typeToName.put(Types.LONGNVARCHAR, "LONGNVARCHAR"); //$NON-NLS-1$
-        typeToName.put(Types.NULL, "NULL"); //$NON-NLS-1$
-        typeToName.put(Types.NUMERIC, "NUMERIC"); //$NON-NLS-1$
-        typeToName.put(Types.OTHER, "OTHER"); //$NON-NLS-1$
-        typeToName.put(Types.REAL, "REAL"); //$NON-NLS-1$
-        typeToName.put(Types.REF, "REF"); //$NON-NLS-1$
-        typeToName.put(Types.SMALLINT, "SMALLINT"); //$NON-NLS-1$
-        typeToName.put(Types.STRUCT, "STRUCT"); //$NON-NLS-1$
-        typeToName.put(Types.TIME, "TIME"); //$NON-NLS-1$
-        typeToName.put(Types.TIMESTAMP, "TIMESTAMP"); //$NON-NLS-1$
-        typeToName.put(Types.TINYINT, "TINYINT"); //$NON-NLS-1$
-        typeToName.put(Types.VARBINARY, "VARBINARY"); //$NON-NLS-1$
-        typeToName.put(Types.VARCHAR, "VARCHAR"); //$NON-NLS-1$
+        typeToName.put(Types.ARRAY, "ARRAY");
+        typeToName.put(Types.BIGINT, "BIGINT");
+        typeToName.put(Types.BINARY, "BINARY");
+        typeToName.put(Types.BIT, "BIT");
+        typeToName.put(Types.BLOB, "BLOB");
+        typeToName.put(Types.BOOLEAN, "BOOLEAN");
+        typeToName.put(Types.CHAR, "CHAR");
+        typeToName.put(Types.CLOB, "CLOB");
+        typeToName.put(Types.DATALINK, "DATALINK");
+        typeToName.put(Types.DATE, "DATE");
+        typeToName.put(Types.DECIMAL, "DECIMAL");
+        typeToName.put(Types.DISTINCT, "DISTINCT");
+        typeToName.put(Types.DOUBLE, "DOUBLE");
+        typeToName.put(Types.FLOAT, "FLOAT");
+        typeToName.put(Types.INTEGER, "INTEGER");
+        typeToName.put(Types.JAVA_OBJECT, "JAVA_OBJECT");
+        typeToName.put(Types.LONGVARBINARY, "LONGVARBINARY");
+        typeToName.put(Types.LONGVARCHAR, "LONGVARCHAR");
+        typeToName.put(Types.NCHAR, "NCHAR");
+        typeToName.put(Types.NCLOB, "NCLOB");
+        typeToName.put(Types.NVARCHAR, "NVARCHAR");
+        typeToName.put(Types.LONGNVARCHAR, "LONGNVARCHAR");
+        typeToName.put(Types.NULL, "NULL");
+        typeToName.put(Types.NUMERIC, "NUMERIC");
+        typeToName.put(Types.OTHER, "OTHER");
+        typeToName.put(Types.REAL, "REAL");
+        typeToName.put(Types.REF, "REF");
+        typeToName.put(Types.SMALLINT, "SMALLINT");
+        typeToName.put(Types.STRUCT, "STRUCT");
+        typeToName.put(Types.TIME, "TIME");
+        typeToName.put(Types.TIMESTAMP, "TIMESTAMP");
+        typeToName.put(Types.TINYINT, "TINYINT");
+        typeToName.put(Types.VARBINARY, "VARBINARY");
+        typeToName.put(Types.VARCHAR, "VARCHAR");
 
         nameToType = new HashMap<String, Integer>();
-        nameToType.put("ARRAY", Types.ARRAY); //$NON-NLS-1$
-        nameToType.put("BIGINT", Types.BIGINT); //$NON-NLS-1$
-        nameToType.put("BINARY", Types.BINARY); //$NON-NLS-1$
-        nameToType.put("BIT", Types.BIT); //$NON-NLS-1$
-        nameToType.put("BLOB", Types.BLOB); //$NON-NLS-1$
-        nameToType.put("BOOLEAN", Types.BOOLEAN); //$NON-NLS-1$
-        nameToType.put("CHAR", Types.CHAR); //$NON-NLS-1$
-        nameToType.put("CLOB", Types.CLOB); //$NON-NLS-1$
-        nameToType.put("DATALINK", Types.DATALINK); //$NON-NLS-1$
-        nameToType.put("DATE", Types.DATE); //$NON-NLS-1$
-        nameToType.put("DECIMAL", Types.DECIMAL); //$NON-NLS-1$
-        nameToType.put("DISTINCT", Types.DISTINCT); //$NON-NLS-1$
-        nameToType.put("DOUBLE", Types.DOUBLE); //$NON-NLS-1$
-        nameToType.put("FLOAT", Types.FLOAT); //$NON-NLS-1$
-        nameToType.put("INTEGER", Types.INTEGER); //$NON-NLS-1$
-        nameToType.put("JAVA_OBJECT", Types.JAVA_OBJECT); //$NON-NLS-1$
-        nameToType.put("LONGVARBINARY", Types.LONGVARBINARY); //$NON-NLS-1$
-        nameToType.put("LONGVARCHAR", Types.LONGVARCHAR); //$NON-NLS-1$
-        nameToType.put("NCHAR", Types.NCHAR); //$NON-NLS-1$
-        nameToType.put("NCLOB", Types.NCLOB); //$NON-NLS-1$
-        nameToType.put("NVARCHAR", Types.NVARCHAR); //$NON-NLS-1$
-        nameToType.put("LONGNVARCHAR", Types.LONGNVARCHAR); //$NON-NLS-1$
-        nameToType.put("NULL", Types.NULL); //$NON-NLS-1$
-        nameToType.put("NUMERIC", Types.NUMERIC); //$NON-NLS-1$
-        nameToType.put("OTHER", Types.OTHER); //$NON-NLS-1$
-        nameToType.put("REAL", Types.REAL); //$NON-NLS-1$
-        nameToType.put("REF", Types.REF); //$NON-NLS-1$
-        nameToType.put("SMALLINT", Types.SMALLINT); //$NON-NLS-1$
-        nameToType.put("STRUCT", Types.STRUCT); //$NON-NLS-1$
-        nameToType.put("TIME", Types.TIME); //$NON-NLS-1$
-        nameToType.put("TIMESTAMP", Types.TIMESTAMP); //$NON-NLS-1$
-        nameToType.put("TINYINT", Types.TINYINT); //$NON-NLS-1$
-        nameToType.put("VARBINARY", Types.VARBINARY); //$NON-NLS-1$
-        nameToType.put("VARCHAR", Types.VARCHAR); //$NON-NLS-1$
+        nameToType.put("ARRAY", Types.ARRAY);
+        nameToType.put("BIGINT", Types.BIGINT);
+        nameToType.put("BINARY", Types.BINARY);
+        nameToType.put("BIT", Types.BIT);
+        nameToType.put("BLOB", Types.BLOB);
+        nameToType.put("BOOLEAN", Types.BOOLEAN);
+        nameToType.put("CHAR", Types.CHAR);
+        nameToType.put("CLOB", Types.CLOB);
+        nameToType.put("DATALINK", Types.DATALINK);
+        nameToType.put("DATE", Types.DATE);
+        nameToType.put("DECIMAL", Types.DECIMAL);
+        nameToType.put("DISTINCT", Types.DISTINCT);
+        nameToType.put("DOUBLE", Types.DOUBLE);
+        nameToType.put("FLOAT", Types.FLOAT);
+        nameToType.put("INTEGER", Types.INTEGER);
+        nameToType.put("JAVA_OBJECT", Types.JAVA_OBJECT);
+        nameToType.put("LONGVARBINARY", Types.LONGVARBINARY);
+        nameToType.put("LONGVARCHAR", Types.LONGVARCHAR);
+        nameToType.put("NCHAR", Types.NCHAR);
+        nameToType.put("NCLOB", Types.NCLOB);
+        nameToType.put("NVARCHAR", Types.NVARCHAR);
+        nameToType.put("LONGNVARCHAR", Types.LONGNVARCHAR);
+        nameToType.put("NULL", Types.NULL);
+        nameToType.put("NUMERIC", Types.NUMERIC);
+        nameToType.put("OTHER", Types.OTHER);
+        nameToType.put("REAL", Types.REAL);
+        nameToType.put("REF", Types.REF);
+        nameToType.put("SMALLINT", Types.SMALLINT);
+        nameToType.put("STRUCT", Types.STRUCT);
+        nameToType.put("TIME", Types.TIME);
+        nameToType.put("TIMESTAMP", Types.TIMESTAMP);
+        nameToType.put("TINYINT", Types.TINYINT);
+        nameToType.put("VARBINARY", Types.VARBINARY);
+        nameToType.put("VARCHAR", Types.VARCHAR);
     }
 
     /**
@@ -121,7 +121,7 @@ public class JdbcTypeNameTranslator {
     public static String getJdbcTypeName(int jdbcType) {
         String answer = typeToName.get(jdbcType);
         if (answer == null) {
-            answer = "OTHER"; //$NON-NLS-1$
+            answer = "OTHER";
         }
 
         return answer;

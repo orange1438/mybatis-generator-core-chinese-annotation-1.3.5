@@ -100,7 +100,7 @@ public class Interface extends JavaElement implements CompilationUnit {
         }
 
         if (stringHasValue(getType().getPackageName())) {
-            sb.append("package "); //$NON-NLS-1$
+            sb.append("package ");
             sb.append(getType().getPackageName());
             sb.append(';');
             newLine(sb);
@@ -108,7 +108,7 @@ public class Interface extends JavaElement implements CompilationUnit {
         }
 
         for (String staticImport : staticImports) {
-            sb.append("import static "); //$NON-NLS-1$
+            sb.append("import static ");
             sb.append(staticImport);
             sb.append(';');
             newLine(sb);
@@ -136,23 +136,23 @@ public class Interface extends JavaElement implements CompilationUnit {
         sb.append(getVisibility().getValue());
 
         if (isStatic()) {
-            sb.append("static "); //$NON-NLS-1$
+            sb.append("static ");
         }
 
         if (isFinal()) {
-            sb.append("final "); //$NON-NLS-1$
+            sb.append("final ");
         }
 
-        sb.append("interface "); //$NON-NLS-1$
+        sb.append("interface ");
         sb.append(getType().getShortName());
 
         if (getSuperInterfaceTypes().size() > 0) {
-            sb.append(" extends "); //$NON-NLS-1$
+            sb.append(" extends ");
 
             boolean comma = false;
             for (FullyQualifiedJavaType fqjt : getSuperInterfaceTypes()) {
                 if (comma) {
-                    sb.append(", "); //$NON-NLS-1$
+                    sb.append(", ");
                 } else {
                     comma = true;
                 }
@@ -161,7 +161,7 @@ public class Interface extends JavaElement implements CompilationUnit {
             }
         }
 
-        sb.append(" {"); //$NON-NLS-1$
+        sb.append(" {");
         indentLevel++;
 
         Iterator<Method> mtdIter = getMethods().iterator();

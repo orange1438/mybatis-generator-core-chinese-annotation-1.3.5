@@ -41,9 +41,9 @@ public class InsertBatchSelectiveElementGenerator extends
 
     @Override
     public void addElements(XmlElement parentElement) {
-        XmlElement answer = new XmlElement("insert"); //$NON-NLS-1$
+        XmlElement answer = new XmlElement("insert");
 
-        answer.addAttribute(new Attribute("id", introspectedTable.getInsertBatchSelectiveStatementId())); //$NON-NLS-1$
+        answer.addAttribute(new Attribute("id", introspectedTable.getInsertBatchSelectiveStatementId()));
 
         answer.addAttribute(new Attribute("parameterType", "java.util.List"));
 
@@ -57,9 +57,9 @@ public class InsertBatchSelectiveElementGenerator extends
             // warning has already been reported
             if (introspectedColumn != null) {
                 if (gk.isJdbcStandard()) {
-                    answer.addAttribute(new Attribute("useGeneratedKeys", "true")); //$NON-NLS-1$ //$NON-NLS-2$
-                    answer.addAttribute(new Attribute("keyProperty", introspectedColumn.getJavaProperty())); //$NON-NLS-1$
-                    answer.addAttribute(new Attribute("keyColumn", introspectedColumn.getActualColumnName())); //$NON-NLS-1$
+                    answer.addAttribute(new Attribute("useGeneratedKeys", "true"));  //$NON-NLS-2$
+                    answer.addAttribute(new Attribute("keyProperty", introspectedColumn.getJavaProperty()));
+                    answer.addAttribute(new Attribute("keyColumn", introspectedColumn.getActualColumnName()));
                 } else {
                     answer.addElement(getSelectKey(introspectedColumn, gk));
                 }
@@ -68,7 +68,7 @@ public class InsertBatchSelectiveElementGenerator extends
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("insert into "); //$NON-NLS-1$
+        sb.append("insert into ");
         sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
 
@@ -78,10 +78,10 @@ public class InsertBatchSelectiveElementGenerator extends
         innerForEach.addAttribute(new Attribute("index", "index"));
         innerForEach.addAttribute(new Attribute("separator", ","));
 
-        XmlElement valuesTrimElement = new XmlElement("trim"); //$NON-NLS-1$
-        valuesTrimElement.addAttribute(new Attribute("prefix", "(")); //$NON-NLS-1$ //$NON-NLS-2$
-        valuesTrimElement.addAttribute(new Attribute("suffix", ")")); //$NON-NLS-1$ //$NON-NLS-2$
-        valuesTrimElement.addAttribute(new Attribute("suffixOverrides", ",")); //$NON-NLS-1$ //$NON-NLS-2$
+        XmlElement valuesTrimElement = new XmlElement("trim");
+        valuesTrimElement.addAttribute(new Attribute("prefix", "("));  //$NON-NLS-2$
+        valuesTrimElement.addAttribute(new Attribute("suffix", ")"));  //$NON-NLS-2$
+        valuesTrimElement.addAttribute(new Attribute("suffixOverrides", ","));  //$NON-NLS-2$
         innerForEach.addElement(valuesTrimElement);
 
         StringBuilder insertClause = new StringBuilder();
@@ -102,9 +102,9 @@ public class InsertBatchSelectiveElementGenerator extends
             XmlElement valuesNotNullElement = new XmlElement("if");
             sb.setLength(0);
             sb.append("item." + introspectedColumn.getJavaProperty());
-            sb.append(" != null"); //$NON-NLS-1$
+            sb.append(" != null");
             valuesNotNullElement.addAttribute(new Attribute(
-                    "test", sb.toString())); //$NON-NLS-1$
+                    "test", sb.toString()));
 
             sb.setLength(0);
             sb.append(MyBatis3FormattingUtilities
@@ -113,12 +113,12 @@ public class InsertBatchSelectiveElementGenerator extends
             valuesNotNullElement.addElement(new TextElement(sb.toString()));
             valuesTrimElement.addElement(valuesNotNullElement);
 
-            valuesNotNullElement = new XmlElement("if"); //$NON-NLS-1$
+            valuesNotNullElement = new XmlElement("if");
             sb.setLength(0);
             sb.append("item." + introspectedColumn.getJavaProperty());
-            sb.append(" == null"); //$NON-NLS-1$
+            sb.append(" == null");
             valuesNotNullElement.addAttribute(new Attribute(
-                    "test", sb.toString())); //$NON-NLS-1$
+                    "test", sb.toString()));
 
             sb.setLength(0);
             sb.append("NULL");

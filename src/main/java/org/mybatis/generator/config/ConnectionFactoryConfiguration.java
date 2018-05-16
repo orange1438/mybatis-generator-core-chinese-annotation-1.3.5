@@ -31,22 +31,22 @@ public class ConnectionFactoryConfiguration extends TypedPropertyHolder {
     }
 
     public void validate(List<String> errors) {
-        if (getConfigurationType() == null || "DEFAULT".equals(getConfigurationType())) { //$NON-NLS-1$
-            if (!StringUtility.stringHasValue(getProperty("driverClass"))) { //$NON-NLS-1$
-                errors.add(getString("ValidationError.18", "connectionFactory", "driverClass")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        if (getConfigurationType() == null || "DEFAULT".equals(getConfigurationType())) {
+            if (!StringUtility.stringHasValue(getProperty("driverClass"))) {
+                errors.add(getString("ValidationError.18", "connectionFactory", "driverClass"));  //$NON-NLS-2$ //$NON-NLS-3$
             }
 
-            if (!StringUtility.stringHasValue(getProperty("connectionURL"))) { //$NON-NLS-1$
-                errors.add(getString("ValidationError.18", "connectionFactory", "connectionURL")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            if (!StringUtility.stringHasValue(getProperty("connectionURL"))) {
+                errors.add(getString("ValidationError.18", "connectionFactory", "connectionURL"));  //$NON-NLS-2$ //$NON-NLS-3$
             }
         }
     }
 
     public XmlElement toXmlElement() {
-        XmlElement xmlElement = new XmlElement("connectionFactory"); //$NON-NLS-1$
+        XmlElement xmlElement = new XmlElement("connectionFactory");
 
         if (stringHasValue(getConfigurationType())) {
-            xmlElement.addAttribute(new Attribute("type", getConfigurationType())); //$NON-NLS-1$
+            xmlElement.addAttribute(new Attribute("type", getConfigurationType()));
         }
 
         addPropertyXmlElements(xmlElement);

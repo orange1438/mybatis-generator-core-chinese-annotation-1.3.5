@@ -31,7 +31,7 @@ public class LogFactory {
 
     static {
         try {
-            ObjectFactory.internalClassForName("org.apache.log4j.Logger"); //$NON-NLS-1$
+            ObjectFactory.internalClassForName("org.apache.log4j.Logger");
             logFactory = new Log4jLoggingLogFactory();
         } catch (Exception e) {
             logFactory = new JdkLoggingLogFactory();
@@ -42,7 +42,7 @@ public class LogFactory {
         try {
             return logFactory.getLog(clazz);
         } catch (Throwable t) {
-            throw new RuntimeException(getString("RuntimeError.21", //$NON-NLS-1$
+            throw new RuntimeException(getString("RuntimeError.21",
                     clazz.getName(), t.getMessage()), t);
         }
     }

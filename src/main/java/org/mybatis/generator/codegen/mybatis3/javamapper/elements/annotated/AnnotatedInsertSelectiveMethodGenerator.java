@@ -35,13 +35,13 @@ public class AnnotatedInsertSelectiveMethodGenerator extends
     @Override
     public void addMapperAnnotations(Interface interfaze, Method method) {
         FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType(introspectedTable.getMyBatis3SqlProviderType());
-        interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.InsertProvider")); //$NON-NLS-1$
+        interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.InsertProvider"));
         StringBuilder sb = new StringBuilder();
-        sb.append("@InsertProvider(type="); //$NON-NLS-1$
+        sb.append("@InsertProvider(type=");
         sb.append(fqjt.getShortName());
-        sb.append(".class, method=\""); //$NON-NLS-1$
+        sb.append(".class, method=\"");
         sb.append(introspectedTable.getInsertSelectiveStatementId());
-        sb.append("\")"); //$NON-NLS-1$
+        sb.append("\")");
 
         method.addAnnotation(sb.toString());
 

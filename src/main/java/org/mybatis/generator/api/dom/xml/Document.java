@@ -99,17 +99,17 @@ public class Document {
     public String getFormattedContent() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"); //$NON-NLS-1$
+        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 
         if (publicId != null && systemId != null) {
             OutputUtilities.newLine(sb);
-            sb.append("<!DOCTYPE "); //$NON-NLS-1$
+            sb.append("<!DOCTYPE ");
             sb.append(rootElement.getName());
-            sb.append(" PUBLIC \""); //$NON-NLS-1$
+            sb.append(" PUBLIC \"");
             sb.append(publicId);
-            sb.append("\" \""); //$NON-NLS-1$
+            sb.append("\" \"");
             sb.append(systemId);
-            sb.append("\">"); //$NON-NLS-1$
+            sb.append("\">");
         }
 
         OutputUtilities.newLine(sb);

@@ -183,7 +183,7 @@ public class ConfigurationParser {
                 //如果xml的PUBLIC_ID为-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN，则执行解析mybatis过程；
                 config = parseMyBatisGeneratorConfiguration(rootNode);
             } else {
-                throw new XMLParserException(getString("RuntimeError.5")); //$NON-NLS-1$
+                throw new XMLParserException(getString("RuntimeError.5"));
             }
 
             if (parseErrors.size() > 0) {

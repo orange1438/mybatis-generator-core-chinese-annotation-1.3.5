@@ -43,7 +43,7 @@ public class UpdateByPrimaryKeyWithoutBLOBsMethodGenerator extends
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setReturnType(FullyQualifiedJavaType.getIntInstance());
         method.setName(introspectedTable.getUpdateByPrimaryKeyStatementId());
-        method.addParameter(new Parameter(parameterType, "record")); //$NON-NLS-1$
+        method.addParameter(new Parameter(parameterType, "record"));
 
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);

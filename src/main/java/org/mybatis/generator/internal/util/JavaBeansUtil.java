@@ -67,9 +67,9 @@ public class JavaBeansUtil {
 
         if (fullyQualifiedJavaType.equals(FullyQualifiedJavaType
                 .getBooleanPrimitiveInstance())) {
-            sb.insert(0, "is"); //$NON-NLS-1$
+            sb.insert(0, "is");
         } else {
-            sb.insert(0, "get"); //$NON-NLS-1$
+            sb.insert(0, "get");
         }
 
         return sb.toString();
@@ -96,7 +96,7 @@ public class JavaBeansUtil {
             }
         }
 
-        sb.insert(0, "set"); //$NON-NLS-1$
+        sb.insert(0, "set");
 
         return sb.toString();
     }
@@ -209,7 +209,7 @@ public class JavaBeansUtil {
                 introspectedTable, introspectedColumn);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("return "); //$NON-NLS-1$
+        sb.append("return ");
         sb.append(property);
         sb.append(';');
         method.addBodyLine(sb.toString());
@@ -272,18 +272,18 @@ public class JavaBeansUtil {
 
         StringBuilder sb = new StringBuilder();
         if (introspectedColumn.isStringColumn() && isTrimStringsEnabled(introspectedColumn)) {
-            sb.append("this."); //$NON-NLS-1$
+            sb.append("this.");
             sb.append(property);
-            sb.append(" = "); //$NON-NLS-1$
+            sb.append(" = ");
             sb.append(property);
-            sb.append(" == null ? null : "); //$NON-NLS-1$
+            sb.append(" == null ? null : ");
             sb.append(property);
-            sb.append(".trim();"); //$NON-NLS-1$
+            sb.append(".trim();");
             method.addBodyLine(sb.toString());
         } else {
-            sb.append("this."); //$NON-NLS-1$
+            sb.append("this.");
             sb.append(property);
-            sb.append(" = "); //$NON-NLS-1$
+            sb.append(" = ");
             sb.append(property);
             sb.append(';');
             method.addBodyLine(sb.toString());

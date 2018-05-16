@@ -56,14 +56,14 @@ public class JavaModelGeneratorConfiguration extends PropertyHolder {
     }
 
     public XmlElement toXmlElement() {
-        XmlElement answer = new XmlElement("javaModelGenerator"); //$NON-NLS-1$
+        XmlElement answer = new XmlElement("javaModelGenerator");
 
         if (targetPackage != null) {
-            answer.addAttribute(new Attribute("targetPackage", targetPackage)); //$NON-NLS-1$
+            answer.addAttribute(new Attribute("targetPackage", targetPackage));
         }
 
         if (targetProject != null) {
-            answer.addAttribute(new Attribute("targetProject", targetProject)); //$NON-NLS-1$
+            answer.addAttribute(new Attribute("targetProject", targetProject));
         }
 
         addPropertyXmlElements(answer);
@@ -73,12 +73,12 @@ public class JavaModelGeneratorConfiguration extends PropertyHolder {
 
     public void validate(List<String> errors, String contextId) {
         if (!stringHasValue(targetProject)) {
-            errors.add(getString("ValidationError.0", contextId)); //$NON-NLS-1$
+            errors.add(getString("ValidationError.0", contextId));
         }
 
         if (!stringHasValue(targetPackage)) {
-            errors.add(getString("ValidationError.12", //$NON-NLS-1$
-                    "JavaModelGenerator", contextId)); //$NON-NLS-1$
+            errors.add(getString("ValidationError.12",
+                    "JavaModelGenerator", contextId));
         }
     }
 }

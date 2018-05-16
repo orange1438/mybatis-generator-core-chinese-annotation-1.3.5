@@ -136,7 +136,7 @@ public class GeneratedKey {
      * @return the my batis3 order
      */
     public String getMyBatis3Order() {
-        return isIdentity ? "AFTER" : "BEFORE"; //$NON-NLS-1$ //$NON-NLS-2$
+        return isIdentity ? "AFTER" : "BEFORE";  //$NON-NLS-2$
     }
 
     /**
@@ -145,15 +145,15 @@ public class GeneratedKey {
      * @return the xml element
      */
     public XmlElement toXmlElement() {
-        XmlElement xmlElement = new XmlElement("generatedKey"); //$NON-NLS-1$
-        xmlElement.addAttribute(new Attribute("column", column)); //$NON-NLS-1$
+        XmlElement xmlElement = new XmlElement("generatedKey");
+        xmlElement.addAttribute(new Attribute("column", column));
         xmlElement.addAttribute(new Attribute(
-                "sqlStatement", configuredSqlStatement)); //$NON-NLS-1$
+                "sqlStatement", configuredSqlStatement));
         if (stringHasValue(type)) {
-            xmlElement.addAttribute(new Attribute("type", type)); //$NON-NLS-1$
+            xmlElement.addAttribute(new Attribute("type", type));
         }
-        xmlElement.addAttribute(new Attribute("identity", //$NON-NLS-1$
-                isIdentity ? "true" : "false")); //$NON-NLS-1$ //$NON-NLS-2$
+        xmlElement.addAttribute(new Attribute("identity",
+                isIdentity ? "true" : "false"));  //$NON-NLS-2$
 
         return xmlElement;
     }
@@ -168,22 +168,22 @@ public class GeneratedKey {
      */
     public void validate(List<String> errors, String tableName) {
         if (!stringHasValue(runtimeSqlStatement)) {
-            errors.add(getString("ValidationError.7", //$NON-NLS-1$
+            errors.add(getString("ValidationError.7",
                     tableName));
         }
 
         if (stringHasValue(type) &&
-                !"pre".equals(type) && !"post".equals(type)) { //$NON-NLS-1$ //$NON-NLS-2$
-            errors.add(getString("ValidationError.15", tableName)); //$NON-NLS-1$
+                !"pre".equals(type) && !"post".equals(type)) {  //$NON-NLS-2$
+            errors.add(getString("ValidationError.15", tableName));
         }
 
-        if ("pre".equals(type) && isIdentity) { //$NON-NLS-1$
-            errors.add(getString("ValidationError.23", //$NON-NLS-1$
+        if ("pre".equals(type) && isIdentity) {
+            errors.add(getString("ValidationError.23",
                     tableName));
         }
 
-        if ("post".equals(type) && !isIdentity) { //$NON-NLS-1$
-            errors.add(getString("ValidationError.24", //$NON-NLS-1$
+        if ("post".equals(type) && !isIdentity) {
+            errors.add(getString("ValidationError.24",
                     tableName));
         }
     }
@@ -194,6 +194,6 @@ public class GeneratedKey {
      * @return true, if is jdbc standard
      */
     public boolean isJdbcStandard() {
-        return "JDBC".equals(runtimeSqlStatement); //$NON-NLS-1$
+        return "JDBC".equals(runtimeSqlStatement);
     }
 }

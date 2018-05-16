@@ -42,9 +42,9 @@ public class CountByExampleMethodGenerator extends
 
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
-        method.setReturnType(new FullyQualifiedJavaType("long")); //$NON-NLS-1$
+        method.setReturnType(new FullyQualifiedJavaType("long"));
         method.setName(introspectedTable.getCountByExampleStatementId());
-        method.addParameter(new Parameter(fqjt, "example")); //$NON-NLS-1$
+        method.addParameter(new Parameter(fqjt, "example"));
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);
 

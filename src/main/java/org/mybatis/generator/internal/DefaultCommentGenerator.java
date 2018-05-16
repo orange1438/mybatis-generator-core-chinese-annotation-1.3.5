@@ -205,20 +205,20 @@ public class DefaultCommentGenerator implements CommentGenerator {
             return;
         }
 
-        topLevelClass.addJavaDocLine("/** "); //$NON-NLS-1$
+        topLevelClass.addJavaDocLine("/** ");
 
         String remarks = introspectedTable.getFullyQualifiedTable().getRemark();
         // String remarks = introspectedTable.getRemarks();
         if (addRemarkComments && StringUtility.stringHasValue(remarks)) {
-            String[] remarkLines = remarks.split(System.getProperty("line.separator"));  //$NON-NLS-1$
+            String[] remarkLines = remarks.split(System.getProperty("line.separator"));
             for (String remarkLine : remarkLines) {
-                topLevelClass.addJavaDocLine(" * " + remarkLine + " " + introspectedTable.getFullyQualifiedTable());  //$NON-NLS-1$
+                topLevelClass.addJavaDocLine(" * " + remarkLine + " " + introspectedTable.getFullyQualifiedTable());
             }
         }
 
         addJavadocTag(topLevelClass, false);
 
-        topLevelClass.addJavaDocLine(" */"); //$NON-NLS-1$
+        topLevelClass.addJavaDocLine(" */");
     }
 
     /* (non-Javadoc)
@@ -232,15 +232,15 @@ public class DefaultCommentGenerator implements CommentGenerator {
 
         StringBuilder sb = new StringBuilder();
 
-        innerEnum.addJavaDocLine("/**"); //$NON-NLS-1$
+        innerEnum.addJavaDocLine("/**");
 
-        sb.append(" * This addEnumComment,中文注释自行修改、编译源码"); //$NON-NLS-1$
+        sb.append(" * This addEnumComment,中文注释自行修改、编译源码");
         sb.append(introspectedTable.getFullyQualifiedTable());
         innerEnum.addJavaDocLine(sb.toString());
 
         addJavadocTag(innerEnum, false);
 
-        innerEnum.addJavaDocLine(" */"); //$NON-NLS-1$
+        innerEnum.addJavaDocLine(" */");
     }
 
     /* (non-Javadoc)
@@ -385,12 +385,12 @@ public class DefaultCommentGenerator implements CommentGenerator {
         String paramterName;
         for (Parameter parameter : parameterList) {
             sb.setLength(0);
-            sb.append(" * @param "); //$NON-NLS-1$
+            sb.append(" * @param ");
             paramterName = parameter.getName();
             sb.append(paramterName);
 
             if ("orderByClause".equals(paramterName)) {
-                sb.append(" 排序字段"); //$NON-NLS-1$
+                sb.append(" 排序字段");
             } else if ("distinct".equals(paramterName)) {
                 sb.append(" 是否过滤重复数据");
             } else if ("criteria".equals(paramterName)) {
@@ -417,7 +417,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
             method.addJavaDocLine(sb.toString());
         }
 
-        method.addJavaDocLine(" */"); //$NON-NLS-1$
+        method.addJavaDocLine(" */");
     }
 
     /* (non-Javadoc)
@@ -431,10 +431,10 @@ public class DefaultCommentGenerator implements CommentGenerator {
             return;
         }
         method.setFinal(addMethodFinal);
-        method.addJavaDocLine("/** "); //$NON-NLS-1$
+        method.addJavaDocLine("/** ");
 
         StringBuilder sb = new StringBuilder();
-        sb.append(" * 获取 "); //$NON-NLS-1$
+        sb.append(" * 获取 ");
         if (introspectedColumn.getRemarks() != null
                 && !introspectedColumn.getRemarks().equals("")) {
             sb.append(introspectedColumn.getRemarks())
@@ -448,7 +448,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
 
         sb.setLength(0);
 
-        sb.append(" * @return "); //$NON-NLS-1$
+        sb.append(" * @return ");
         if (introspectedColumn.getRemarks() != null
                 && !introspectedColumn.getRemarks().equals("")) {
             sb.append(introspectedColumn.getRemarks());
@@ -458,7 +458,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
                     .append(introspectedColumn.getActualColumnName());
         }
         method.addJavaDocLine(sb.toString());
-        method.addJavaDocLine(" */"); //$NON-NLS-1$
+        method.addJavaDocLine(" */");
     }
 
     /* (non-Javadoc)
@@ -473,10 +473,10 @@ public class DefaultCommentGenerator implements CommentGenerator {
         }
 
         method.setFinal(addMethodFinal);
-        method.addJavaDocLine("/** "); //$NON-NLS-1$
+        method.addJavaDocLine("/** ");
 
         StringBuilder sb = new StringBuilder();
-        sb.append(" * 设置 ");  //$NON-NLS-1$
+        sb.append(" * 设置 ");
         if (introspectedColumn.getRemarks() != null
                 && !introspectedColumn.getRemarks().equals("")) {
             sb.append(introspectedColumn.getRemarks())
@@ -501,7 +501,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
                     .append(introspectedColumn.getActualColumnName());
         }
         method.addJavaDocLine(sb.toString());
-        method.addJavaDocLine(" */"); //$NON-NLS-1$
+        method.addJavaDocLine(" */");
     }
 
     /* (non-Javadoc)
@@ -516,7 +516,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
         }
         StringBuilder sb = new StringBuilder();
         String shortName = innerClass.getType().getShortName();
-        innerClass.addJavaDocLine("/**"); //$NON-NLS-1$
+        innerClass.addJavaDocLine("/**");
         sb.append(" * ")
                 .append(introspectedTable.getFullyQualifiedTable().getRemark())
                 .append(introspectedTable.getFullyQualifiedTable());

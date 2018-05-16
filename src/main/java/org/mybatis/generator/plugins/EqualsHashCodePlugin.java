@@ -125,39 +125,39 @@ public class EqualsHashCodePlugin extends PluginAdapter {
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setReturnType(FullyQualifiedJavaType
                 .getBooleanPrimitiveInstance());
-        method.setName("equals"); //$NON-NLS-1$
+        method.setName("equals");
         method.addParameter(new Parameter(FullyQualifiedJavaType
-                .getObjectInstance(), "that")); //$NON-NLS-1$
+                .getObjectInstance(), "that"));
         if (introspectedTable.isJava5Targeted()) {
-            method.addAnnotation("@Override"); //$NON-NLS-1$
+            method.addAnnotation("@Override");
         }
 
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);
 
-        method.addBodyLine("if (this == that) {"); //$NON-NLS-1$
-        method.addBodyLine("return true;"); //$NON-NLS-1$
-        method.addBodyLine("}"); //$NON-NLS-1$
+        method.addBodyLine("if (this == that) {");
+        method.addBodyLine("return true;");
+        method.addBodyLine("}");
 
-        method.addBodyLine("if (that == null) {"); //$NON-NLS-1$
-        method.addBodyLine("return false;"); //$NON-NLS-1$
-        method.addBodyLine("}"); //$NON-NLS-1$
+        method.addBodyLine("if (that == null) {");
+        method.addBodyLine("return false;");
+        method.addBodyLine("}");
 
-        method.addBodyLine("if (getClass() != that.getClass()) {"); //$NON-NLS-1$
-        method.addBodyLine("return false;"); //$NON-NLS-1$
-        method.addBodyLine("}"); //$NON-NLS-1$
+        method.addBodyLine("if (getClass() != that.getClass()) {");
+        method.addBodyLine("return false;");
+        method.addBodyLine("}");
 
         StringBuilder sb = new StringBuilder();
         sb.append(topLevelClass.getType().getShortName());
-        sb.append(" other = ("); //$NON-NLS-1$
+        sb.append(" other = (");
         sb.append(topLevelClass.getType().getShortName());
-        sb.append(") that;"); //$NON-NLS-1$
+        sb.append(") that;");
         method.addBodyLine(sb.toString());
 
         if (useEqualsHashCodeFromRoot && topLevelClass.getSuperClass() != null) {
-            method.addBodyLine("if (!super.equals(other)) {"); //$NON-NLS-1$
-            method.addBodyLine("return false;"); //$NON-NLS-1$
-            method.addBodyLine("}"); //$NON-NLS-1$
+            method.addBodyLine("if (!super.equals(other)) {");
+            method.addBodyLine("return false;");
+            method.addBodyLine("}");
         }
 
         boolean first = true;
@@ -168,11 +168,11 @@ public class EqualsHashCodePlugin extends PluginAdapter {
             sb.setLength(0);
 
             if (first) {
-                sb.append("return ("); //$NON-NLS-1$
+                sb.append("return (");
                 first = false;
             } else {
                 OutputUtilities.javaIndent(sb, 1);
-                sb.append("&& ("); //$NON-NLS-1$
+                sb.append("&& (");
             }
 
             String getterMethod = getGetterMethodName(
@@ -180,30 +180,30 @@ public class EqualsHashCodePlugin extends PluginAdapter {
                             .getFullyQualifiedJavaType());
 
             if (introspectedColumn.getFullyQualifiedJavaType().isPrimitive()) {
-                sb.append("this."); //$NON-NLS-1$
+                sb.append("this.");
                 sb.append(getterMethod);
-                sb.append("() == "); //$NON-NLS-1$
-                sb.append("other."); //$NON-NLS-1$
+                sb.append("() == ");
+                sb.append("other.");
                 sb.append(getterMethod);
-                sb.append("())"); //$NON-NLS-1$
+                sb.append("())");
             } else if (introspectedColumn.getFullyQualifiedJavaType().isArray()) {
-                topLevelClass.addImportedType("java.util.Arrays"); //$NON-NLS-1$
-                sb.append("Arrays.equals(this."); //$NON-NLS-1$
+                topLevelClass.addImportedType("java.util.Arrays");
+                sb.append("Arrays.equals(this.");
                 sb.append(getterMethod);
-                sb.append("(), "); //$NON-NLS-1$
-                sb.append("other."); //$NON-NLS-1$
+                sb.append("(), ");
+                sb.append("other.");
                 sb.append(getterMethod);
-                sb.append("()))"); //$NON-NLS-1$
+                sb.append("()))");
             } else {
-                sb.append("this."); //$NON-NLS-1$
+                sb.append("this.");
                 sb.append(getterMethod);
-                sb.append("() == null ? other."); //$NON-NLS-1$
+                sb.append("() == null ? other.");
                 sb.append(getterMethod);
-                sb.append("() == null : this."); //$NON-NLS-1$
+                sb.append("() == null : this.");
                 sb.append(getterMethod);
-                sb.append("().equals(other."); //$NON-NLS-1$
+                sb.append("().equals(other.");
                 sb.append(getterMethod);
-                sb.append("()))"); //$NON-NLS-1$
+                sb.append("()))");
             }
 
             if (!iter.hasNext()) {
@@ -236,19 +236,19 @@ public class EqualsHashCodePlugin extends PluginAdapter {
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setReturnType(FullyQualifiedJavaType.getIntInstance());
-        method.setName("hashCode"); //$NON-NLS-1$
+        method.setName("hashCode");
         if (introspectedTable.isJava5Targeted()) {
-            method.addAnnotation("@Override"); //$NON-NLS-1$
+            method.addAnnotation("@Override");
         }
 
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);
 
-        method.addBodyLine("final int prime = 31;"); //$NON-NLS-1$
-        method.addBodyLine("int result = 1;"); //$NON-NLS-1$
+        method.addBodyLine("final int prime = 31;");
+        method.addBodyLine("int result = 1;");
 
         if (useEqualsHashCodeFromRoot && topLevelClass.getSuperClass() != null) {
-            method.addBodyLine("result = prime * result + super.hashCode();"); //$NON-NLS-1$
+            method.addBodyLine("result = prime * result + super.hashCode();");
         }
 
         StringBuilder sb = new StringBuilder();
@@ -265,54 +265,54 @@ public class EqualsHashCodePlugin extends PluginAdapter {
 
             sb.setLength(0);
             if (fqjt.isPrimitive()) {
-                if ("boolean".equals(fqjt.getFullyQualifiedName())) { //$NON-NLS-1$
-                    sb.append("result = prime * result + ("); //$NON-NLS-1$
+                if ("boolean".equals(fqjt.getFullyQualifiedName())) {
+                    sb.append("result = prime * result + (");
                     sb.append(getterMethod);
-                    sb.append("() ? 1231 : 1237);"); //$NON-NLS-1$
+                    sb.append("() ? 1231 : 1237);");
                     method.addBodyLine(sb.toString());
-                } else if ("byte".equals(fqjt.getFullyQualifiedName())) { //$NON-NLS-1$
-                    sb.append("result = prime * result + "); //$NON-NLS-1$
+                } else if ("byte".equals(fqjt.getFullyQualifiedName())) {
+                    sb.append("result = prime * result + ");
                     sb.append(getterMethod);
-                    sb.append("();"); //$NON-NLS-1$
+                    sb.append("();");
                     method.addBodyLine(sb.toString());
-                } else if ("char".equals(fqjt.getFullyQualifiedName())) { //$NON-NLS-1$
-                    sb.append("result = prime * result + "); //$NON-NLS-1$
+                } else if ("char".equals(fqjt.getFullyQualifiedName())) {
+                    sb.append("result = prime * result + ");
                     sb.append(getterMethod);
-                    sb.append("();"); //$NON-NLS-1$
+                    sb.append("();");
                     method.addBodyLine(sb.toString());
-                } else if ("double".equals(fqjt.getFullyQualifiedName())) { //$NON-NLS-1$
+                } else if ("double".equals(fqjt.getFullyQualifiedName())) {
                     if (!hasTemp) {
-                        method.addBodyLine("long temp;"); //$NON-NLS-1$
+                        method.addBodyLine("long temp;");
                         hasTemp = true;
                     }
-                    sb.append("temp = Double.doubleToLongBits("); //$NON-NLS-1$
+                    sb.append("temp = Double.doubleToLongBits(");
                     sb.append(getterMethod);
-                    sb.append("());"); //$NON-NLS-1$
+                    sb.append("());");
                     method.addBodyLine(sb.toString());
                     method
-                            .addBodyLine("result = prime * result + (int) (temp ^ (temp >>> 32));"); //$NON-NLS-1$
-                } else if ("float".equals(fqjt.getFullyQualifiedName())) { //$NON-NLS-1$
+                            .addBodyLine("result = prime * result + (int) (temp ^ (temp >>> 32));");
+                } else if ("float".equals(fqjt.getFullyQualifiedName())) {
                     sb
-                            .append("result = prime * result + Float.floatToIntBits("); //$NON-NLS-1$
+                            .append("result = prime * result + Float.floatToIntBits(");
                     sb.append(getterMethod);
-                    sb.append("());"); //$NON-NLS-1$
+                    sb.append("());");
                     method.addBodyLine(sb.toString());
-                } else if ("int".equals(fqjt.getFullyQualifiedName())) { //$NON-NLS-1$
-                    sb.append("result = prime * result + "); //$NON-NLS-1$
+                } else if ("int".equals(fqjt.getFullyQualifiedName())) {
+                    sb.append("result = prime * result + ");
                     sb.append(getterMethod);
-                    sb.append("();"); //$NON-NLS-1$
+                    sb.append("();");
                     method.addBodyLine(sb.toString());
-                } else if ("long".equals(fqjt.getFullyQualifiedName())) { //$NON-NLS-1$
-                    sb.append("result = prime * result + (int) ("); //$NON-NLS-1$
+                } else if ("long".equals(fqjt.getFullyQualifiedName())) {
+                    sb.append("result = prime * result + (int) (");
                     sb.append(getterMethod);
-                    sb.append("() ^ ("); //$NON-NLS-1$
+                    sb.append("() ^ (");
                     sb.append(getterMethod);
-                    sb.append("() >>> 32));"); //$NON-NLS-1$
+                    sb.append("() >>> 32));");
                     method.addBodyLine(sb.toString());
-                } else if ("short".equals(fqjt.getFullyQualifiedName())) { //$NON-NLS-1$
-                    sb.append("result = prime * result + "); //$NON-NLS-1$
+                } else if ("short".equals(fqjt.getFullyQualifiedName())) {
+                    sb.append("result = prime * result + ");
                     sb.append(getterMethod);
-                    sb.append("();"); //$NON-NLS-1$
+                    sb.append("();");
                     method.addBodyLine(sb.toString());
                 } else {
                     // should never happen
@@ -321,21 +321,21 @@ public class EqualsHashCodePlugin extends PluginAdapter {
             } else if (fqjt.isArray()) {
                 // Arrays is already imported by the generateEquals method, we don't need
                 // to do it again
-                sb.append("result = prime * result + (Arrays.hashCode("); //$NON-NLS-1$
+                sb.append("result = prime * result + (Arrays.hashCode(");
                 sb.append(getterMethod);
-                sb.append("()));"); //$NON-NLS-1$
+                sb.append("()));");
                 method.addBodyLine(sb.toString());
             } else {
-                sb.append("result = prime * result + (("); //$NON-NLS-1$
+                sb.append("result = prime * result + ((");
                 sb.append(getterMethod);
-                sb.append("() == null) ? 0 : "); //$NON-NLS-1$
+                sb.append("() == null) ? 0 : ");
                 sb.append(getterMethod);
-                sb.append("().hashCode());"); //$NON-NLS-1$
+                sb.append("().hashCode());");
                 method.addBodyLine(sb.toString());
             }
         }
 
-        method.addBodyLine("return result;"); //$NON-NLS-1$
+        method.addBodyLine("return result;");
 
         topLevelClass.addMethod(method);
     }

@@ -100,12 +100,12 @@ public class ToStringPlugin extends PluginAdapter {
         method.setReturnType(FullyQualifiedJavaType.getStringInstance());
 
         //设置方法的名称，至此，方法签名已经装配完成；
-        method.setName("toString"); //$NON-NLS-1$
+        method.setName("toString");
 
         //判断当前MBG运行的环境是否支持Java5（这里就可以看出来IntrospectedTable类的作用了，主要是查询生成环境的作用）
         if (introspectedTable.isJava5Targeted()) {
             //如果支持Java5，就在方法上面生成一个@Override标签；
-            method.addAnnotation("@Override"); //$NON-NLS-1$
+            method.addAnnotation("@Override");
         }
 
         //访问上下文对象（这个context对象是在PluginAdapter初始化完成后，通过setContext方法设置进去的，
@@ -119,10 +119,10 @@ public class ToStringPlugin extends PluginAdapter {
         //可以看到，确实，只是简单的把要生成的代码通过String拼装到了method的body中而已；
         //想到了什么？确实，我想到了Servelt的输出方法。MBG默认的方法体具体的实现，就是像Servlet那样通过String输出的；
         //所以，这才会为我们后面准备用Velocity来重写MBG提供了依据，我们只是给MBG添加一个MVC的概念；
-        method.addBodyLine("StringBuilder sb = new StringBuilder();"); //$NON-NLS-1$
-        method.addBodyLine("sb.append(getClass().getSimpleName());"); //$NON-NLS-1$
-        method.addBodyLine("sb.append(\" [\");"); //$NON-NLS-1$
-        method.addBodyLine("sb.append(\"Hash = \").append(hashCode());"); //$NON-NLS-1$
+        method.addBodyLine("StringBuilder sb = new StringBuilder();");
+        method.addBodyLine("sb.append(getClass().getSimpleName());");
+        method.addBodyLine("sb.append(\" [\");");
+        method.addBodyLine("sb.append(\"Hash = \").append(hashCode());");
 
         //接下来要准备拼装类的字段了；
         StringBuilder sb = new StringBuilder();
@@ -138,20 +138,20 @@ public class ToStringPlugin extends PluginAdapter {
             sb.setLength(0);
 
             //添加字段的输出代码；
-            sb.append("sb.append(\"").append(", ").append(property) //$NON-NLS-1$ //$NON-NLS-2$
-                    .append("=\")").append(".append(").append(property) //$NON-NLS-1$ //$NON-NLS-2$
-                    .append(");"); //$NON-NLS-1$
+            sb.append("sb.append(\"").append(", ").append(property)  //$NON-NLS-2$
+                    .append("=\")").append(".append(").append(property)  //$NON-NLS-2$
+                    .append(");");
 
             //把这个字段的toString输出到代码中；所以才看到我们最后生成的代码结果中，每一个字段在toString方法中各占一行；
             method.addBodyLine(sb.toString());
         }
 
-        method.addBodyLine("sb.append(\"]\");"); //$NON-NLS-1$
+        method.addBodyLine("sb.append(\"]\");");
         if (useToStringFromRoot && topLevelClass.getSuperClass() != null) {
-            method.addBodyLine("sb.append(\", from super class \");"); //$NON-NLS-1$
-            method.addBodyLine("sb.append(super.toString());"); //$NON-NLS-1$
+            method.addBodyLine("sb.append(\", from super class \");");
+            method.addBodyLine("sb.append(super.toString());");
         }
-        method.addBodyLine("return sb.toString();"); //$NON-NLS-1$
+        method.addBodyLine("return sb.toString();");
 
         //把拼装好的方法DOM添加到topLevelClass中，完成方法添加；
         topLevelClass.addMethod(method);

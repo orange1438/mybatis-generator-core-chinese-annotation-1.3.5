@@ -47,7 +47,7 @@ public class ClassloaderUtility {
                 file = new File(classPathEntry);
                 if (!file.exists()) {
                     throw new RuntimeException(getString(
-                            "RuntimeError.9", classPathEntry)); //$NON-NLS-1$
+                            "RuntimeError.9", classPathEntry));
                 }
 
                 try {
@@ -55,7 +55,7 @@ public class ClassloaderUtility {
                 } catch (MalformedURLException e) {
                     // this shouldn't happen, but just in case...
                     throw new RuntimeException(getString(
-                            "RuntimeError.9", classPathEntry)); //$NON-NLS-1$
+                            "RuntimeError.9", classPathEntry));
                 }
             }
         }

@@ -132,7 +132,7 @@ public abstract class JavaElement {
      * Adds the suppress type warnings annotation.
      */
     public void addSuppressTypeWarningsAnnotation() {
-        addAnnotation("@SuppressWarnings(\"unchecked\")"); //$NON-NLS-1$
+        addAnnotation("@SuppressWarnings(\"unchecked\")");
     }
 
     /**

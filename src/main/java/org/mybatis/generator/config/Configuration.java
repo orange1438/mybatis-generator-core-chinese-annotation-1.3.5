@@ -81,14 +81,14 @@ public class Configuration {
 
         for (String classPathEntry : classPathEntries) {
             if (!stringHasValue(classPathEntry)) {
-                errors.add(getString("ValidationError.19")); //$NON-NLS-1$
+                errors.add(getString("ValidationError.19"));
                 // only need to state this error once
                 break;
             }
         }
 
         if (contexts.size() == 0) {
-            errors.add(getString("ValidationError.11")); //$NON-NLS-1$
+            errors.add(getString("ValidationError.11"));
         } else {
             for (Context context : contexts) {
                 context.validate(errors);
@@ -149,12 +149,12 @@ public class Configuration {
         Document document = new Document(
                 XmlConstants.MYBATIS_GENERATOR_CONFIG_PUBLIC_ID,
                 XmlConstants.MYBATIS_GENERATOR_CONFIG_SYSTEM_ID);
-        XmlElement rootElement = new XmlElement("generatorConfiguration"); //$NON-NLS-1$
+        XmlElement rootElement = new XmlElement("generatorConfiguration");
         document.setRootElement(rootElement);
 
         for (String classPathEntry : classPathEntries) {
-            XmlElement cpeElement = new XmlElement("classPathEntry"); //$NON-NLS-1$
-            cpeElement.addAttribute(new Attribute("location", classPathEntry)); //$NON-NLS-1$
+            XmlElement cpeElement = new XmlElement("classPathEntry");
+            cpeElement.addAttribute(new Attribute("location", classPathEntry));
             rootElement.addElement(cpeElement);
         }
 

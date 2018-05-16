@@ -42,12 +42,12 @@ public class AnnotatedSelectAllMethodGenerator extends
 
     @Override
     public void addMapperAnnotations(Interface interfaze, Method method) {
-        interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Select")); //$NON-NLS-1$
+        interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Select"));
 
         StringBuilder sb = new StringBuilder();
-        method.addAnnotation("@Select({"); //$NON-NLS-1$
+        method.addAnnotation("@Select({");
         javaIndent(sb, 1);
-        sb.append("\"select\","); //$NON-NLS-1$
+        sb.append("\"select\",");
         method.addAnnotation(sb.toString());
 
         Iterator<IntrospectedColumn> iter = introspectedTable
@@ -61,11 +61,11 @@ public class AnnotatedSelectAllMethodGenerator extends
             hasColumns = true;
 
             if (iter.hasNext()) {
-                sb.append(", "); //$NON-NLS-1$
+                sb.append(", ");
             }
 
             if (sb.length() > 80) {
-                sb.append("\","); //$NON-NLS-1$
+                sb.append("\",");
                 method.addAnnotation(sb.toString());
 
                 sb.setLength(0);
@@ -76,7 +76,7 @@ public class AnnotatedSelectAllMethodGenerator extends
         }
 
         if (hasColumns) {
-            sb.append("\","); //$NON-NLS-1$
+            sb.append("\",");
             method.addAnnotation(sb.toString());
         }
 
@@ -85,7 +85,7 @@ public class AnnotatedSelectAllMethodGenerator extends
 
         sb.setLength(0);
         javaIndent(sb, 1);
-        sb.append("\"from "); //$NON-NLS-1$
+        sb.append("\"from ");
         sb.append(escapeStringForJava(introspectedTable
                 .getAliasedFullyQualifiedTableNameAtRuntime()));
         sb.append('\"');
@@ -97,28 +97,28 @@ public class AnnotatedSelectAllMethodGenerator extends
         if (hasOrderBy) {
             sb.setLength(0);
             javaIndent(sb, 1);
-            sb.append("\"order by "); //$NON-NLS-1$
+            sb.append("\"order by ");
             sb.append(orderByClause);
             sb.append('\"');
             method.addAnnotation(sb.toString());
         }
 
-        method.addAnnotation("})"); //$NON-NLS-1$
+        method.addAnnotation("})");
 
         addAnnotatedResults(interfaze, method);
     }
 
     private void addAnnotatedResults(Interface interfaze, Method method) {
-        interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.type.JdbcType")); //$NON-NLS-1$
+        interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.type.JdbcType"));
 
         if (introspectedTable.isConstructorBased()) {
-            interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Arg")); //$NON-NLS-1$
-            interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.ConstructorArgs")); //$NON-NLS-1$
-            method.addAnnotation("@ConstructorArgs({"); //$NON-NLS-1$
+            interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Arg"));
+            interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.ConstructorArgs"));
+            method.addAnnotation("@ConstructorArgs({");
         } else {
-            interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Result")); //$NON-NLS-1$
-            interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Results")); //$NON-NLS-1$
-            method.addAnnotation("@Results({"); //$NON-NLS-1$
+            interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Result"));
+            interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Results"));
+            method.addAnnotation("@Results({");
         }
 
         StringBuilder sb = new StringBuilder();
@@ -153,6 +153,6 @@ public class AnnotatedSelectAllMethodGenerator extends
             method.addAnnotation(sb.toString());
         }
 
-        method.addAnnotation("})"); //$NON-NLS-1$
+        method.addAnnotation("})");
     }
 }

@@ -62,11 +62,11 @@ public class IntrospectedTableMyBatis3SimpleImpl extends IntrospectedTableMyBati
                 .getConfigurationType();
 
         AbstractJavaClientGenerator javaGenerator;
-        if ("XMLMAPPER".equalsIgnoreCase(type)) { //$NON-NLS-1$
+        if ("XMLMAPPER".equalsIgnoreCase(type)) {
             javaGenerator = new SimpleJavaClientGenerator();
-        } else if ("ANNOTATEDMAPPER".equalsIgnoreCase(type)) { //$NON-NLS-1$
+        } else if ("ANNOTATEDMAPPER".equalsIgnoreCase(type)) {
             javaGenerator = new SimpleAnnotatedClientGenerator();
-        } else if ("MAPPER".equalsIgnoreCase(type)) { //$NON-NLS-1$
+        } else if ("MAPPER".equalsIgnoreCase(type)) {
             javaGenerator = new SimpleJavaClientGenerator();
         } else {
             javaGenerator = (AbstractJavaClientGenerator) ObjectFactory

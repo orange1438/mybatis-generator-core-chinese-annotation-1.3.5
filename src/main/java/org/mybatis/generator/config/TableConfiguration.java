@@ -603,101 +603,101 @@ public class TableConfiguration extends PropertyHolder {
      * @return the xml element
      */
     public XmlElement toXmlElement() {
-        XmlElement xmlElement = new XmlElement("table"); //$NON-NLS-1$
-        xmlElement.addAttribute(new Attribute("tableName", tableName)); //$NON-NLS-1$
+        XmlElement xmlElement = new XmlElement("table");
+        xmlElement.addAttribute(new Attribute("tableName", tableName));
 
         if (stringHasValue(catalog)) {
-            xmlElement.addAttribute(new Attribute("catalog", catalog)); //$NON-NLS-1$
+            xmlElement.addAttribute(new Attribute("catalog", catalog));
         }
 
         if (stringHasValue(schema)) {
-            xmlElement.addAttribute(new Attribute("schema", schema)); //$NON-NLS-1$
+            xmlElement.addAttribute(new Attribute("schema", schema));
         }
 
         if (stringHasValue(alias)) {
-            xmlElement.addAttribute(new Attribute("alias", alias)); //$NON-NLS-1$
+            xmlElement.addAttribute(new Attribute("alias", alias));
         }
 
         if (stringHasValue(domainObjectName)) {
             xmlElement.addAttribute(new Attribute(
-                    "domainObjectName", domainObjectName)); //$NON-NLS-1$
+                    "domainObjectName", domainObjectName));
         }
 
         if (!insertStatementEnabled) {
-            xmlElement.addAttribute(new Attribute("enableInsert", "false")); //$NON-NLS-1$ //$NON-NLS-2$
+            xmlElement.addAttribute(new Attribute("enableInsert", "false"));  //$NON-NLS-2$
         }
 
         if (!selectByPrimaryKeyStatementEnabled) {
             xmlElement.addAttribute(new Attribute(
-                    "enableSelectByPrimaryKey", "false")); //$NON-NLS-1$ //$NON-NLS-2$
+                    "enableSelectByPrimaryKey", "false"));  //$NON-NLS-2$
         }
 
         if (!selectByExampleStatementEnabled) {
             xmlElement.addAttribute(new Attribute(
-                    "enableSelectByExample", "false")); //$NON-NLS-1$ //$NON-NLS-2$
+                    "enableSelectByExample", "false"));  //$NON-NLS-2$
         }
 
         if (!updateByPrimaryKeyStatementEnabled) {
             xmlElement.addAttribute(new Attribute(
-                    "enableUpdateByPrimaryKey", "false")); //$NON-NLS-1$ //$NON-NLS-2$
+                    "enableUpdateByPrimaryKey", "false"));  //$NON-NLS-2$
         }
 
         if (!deleteByPrimaryKeyStatementEnabled) {
             xmlElement.addAttribute(new Attribute(
-                    "enableDeleteByPrimaryKey", "false")); //$NON-NLS-1$ //$NON-NLS-2$
+                    "enableDeleteByPrimaryKey", "false"));  //$NON-NLS-2$
         }
 
         if (!deleteByExampleStatementEnabled) {
             xmlElement.addAttribute(new Attribute(
-                    "enableDeleteByExample", "false")); //$NON-NLS-1$ //$NON-NLS-2$
+                    "enableDeleteByExample", "false"));  //$NON-NLS-2$
         }
 
         if (!countByExampleStatementEnabled) {
             xmlElement.addAttribute(new Attribute(
-                    "enableCountByExample", "false")); //$NON-NLS-1$ //$NON-NLS-2$
+                    "enableCountByExample", "false"));  //$NON-NLS-2$
         }
 
         if (!updateByExampleStatementEnabled) {
             xmlElement.addAttribute(new Attribute(
-                    "enableUpdateByExample", "false")); //$NON-NLS-1$ //$NON-NLS-2$
+                    "enableUpdateByExample", "false"));  //$NON-NLS-2$
         }
 
         if (stringHasValue(selectByPrimaryKeyQueryId)) {
             xmlElement.addAttribute(new Attribute(
-                    "selectByPrimaryKeyQueryId", selectByPrimaryKeyQueryId)); //$NON-NLS-1$
+                    "selectByPrimaryKeyQueryId", selectByPrimaryKeyQueryId));
         }
 
         if (stringHasValue(selectByExampleQueryId)) {
             xmlElement.addAttribute(new Attribute(
-                    "selectByExampleQueryId", selectByExampleQueryId)); //$NON-NLS-1$
+                    "selectByExampleQueryId", selectByExampleQueryId));
         }
 
         if (configuredModelType != null) {
             xmlElement.addAttribute(new Attribute(
-                    "modelType", configuredModelType)); //$NON-NLS-1$
+                    "modelType", configuredModelType));
         }
 
         if (wildcardEscapingEnabled) {
-            xmlElement.addAttribute(new Attribute("escapeWildcards", "true")); //$NON-NLS-1$ //$NON-NLS-2$
+            xmlElement.addAttribute(new Attribute("escapeWildcards", "true"));  //$NON-NLS-2$
         }
 
         if (isAllColumnDelimitingEnabled) {
-            xmlElement.addAttribute(new Attribute("delimitAllColumns", "true")); //$NON-NLS-1$ //$NON-NLS-2$
+            xmlElement.addAttribute(new Attribute("delimitAllColumns", "true"));  //$NON-NLS-2$
         }
 
         if (delimitIdentifiers) {
             xmlElement
-                    .addAttribute(new Attribute("delimitIdentifiers", "true")); //$NON-NLS-1$ //$NON-NLS-2$
+                    .addAttribute(new Attribute("delimitIdentifiers", "true"));  //$NON-NLS-2$
         }
 
         if (stringHasValue(mapperName)) {
             xmlElement.addAttribute(new Attribute(
-                    "mapperName", mapperName)); //$NON-NLS-1$
+                    "mapperName", mapperName));
         }
 
         if (stringHasValue(sqlProviderName)) {
             xmlElement.addAttribute(new Attribute(
-                    "sqlProviderName", sqlProviderName)); //$NON-NLS-1$
+                    "sqlProviderName", sqlProviderName));
         }
 
         addPropertyXmlElements(xmlElement);
@@ -808,7 +808,7 @@ public class TableConfiguration extends PropertyHolder {
     public void validate(List<String> errors, int listPosition) {
         if (!stringHasValue(tableName)) {
             errors.add(getString(
-                    "ValidationError.6", Integer.toString(listPosition))); //$NON-NLS-1$
+                    "ValidationError.6", Integer.toString(listPosition)));
         }
 
         String fqTableName = composeFullyQualifiedTableName(
@@ -827,7 +827,7 @@ public class TableConfiguration extends PropertyHolder {
             boolean queryId2Set = stringHasValue(selectByPrimaryKeyQueryId);
 
             if (queryId1Set != queryId2Set) {
-                errors.add(getString("ValidationError.13", //$NON-NLS-1$
+                errors.add(getString("ValidationError.13",
                         fqTableName));
             }
         }

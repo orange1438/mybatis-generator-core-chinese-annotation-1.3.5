@@ -56,8 +56,8 @@ public class IgnoredColumnPattern {
     }
 
     public XmlElement toXmlElement() {
-        XmlElement xmlElement = new XmlElement("ignoreColumnsByRegex"); //$NON-NLS-1$
-        xmlElement.addAttribute(new Attribute("pattern", patternRegex)); //$NON-NLS-1$
+        XmlElement xmlElement = new XmlElement("ignoreColumnsByRegex");
+        xmlElement.addAttribute(new Attribute("pattern", patternRegex));
 
         for (IgnoredColumnException exception : exceptions) {
             xmlElement.addElement(exception.toXmlElement());
@@ -68,7 +68,7 @@ public class IgnoredColumnPattern {
 
     public void validate(List<String> errors, String tableName) {
         if (!stringHasValue(patternRegex)) {
-            errors.add(getString("ValidationError.27", //$NON-NLS-1$
+            errors.add(getString("ValidationError.27",
                     tableName));
         }
     }

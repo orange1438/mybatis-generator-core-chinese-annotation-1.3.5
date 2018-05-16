@@ -31,9 +31,9 @@ public class JavaTypeResolverConfiguration extends TypedPropertyHolder {
     }
 
     public XmlElement toXmlElement() {
-        XmlElement answer = new XmlElement("javaTypeResolver"); //$NON-NLS-1$
+        XmlElement answer = new XmlElement("javaTypeResolver");
         if (getConfigurationType() != null) {
-            answer.addAttribute(new Attribute("type", getConfigurationType())); //$NON-NLS-1$
+            answer.addAttribute(new Attribute("type", getConfigurationType()));
         }
 
         addPropertyXmlElements(answer);

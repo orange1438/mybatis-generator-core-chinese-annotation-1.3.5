@@ -86,7 +86,7 @@ public class InitializationBlock {
         OutputUtilities.javaIndent(sb, indentLevel);
 
         if (isStatic) {
-            sb.append("static "); //$NON-NLS-1$
+            sb.append("static ");
         }
 
         sb.append('{');
@@ -95,7 +95,7 @@ public class InitializationBlock {
         ListIterator<String> listIter = bodyLines.listIterator();
         while (listIter.hasNext()) {
             String line = listIter.next();
-            if (line.startsWith("}")) { //$NON-NLS-1$
+            if (line.startsWith("}")) {
                 indentLevel--;
             }
 
@@ -103,16 +103,16 @@ public class InitializationBlock {
             OutputUtilities.javaIndent(sb, indentLevel);
             sb.append(line);
 
-            if ((line.endsWith("{") && !line.startsWith("switch")) //$NON-NLS-1$ //$NON-NLS-2$
-                    || line.endsWith(":")) { //$NON-NLS-1$
+            if ((line.endsWith("{") && !line.startsWith("switch"))  //$NON-NLS-2$
+                    || line.endsWith(":")) {
                 indentLevel++;
             }
 
-            if (line.startsWith("break")) { //$NON-NLS-1$
+            if (line.startsWith("break")) {
                 // if the next line is '}', then don't outdent
                 if (listIter.hasNext()) {
                     String nextLine = listIter.next();
-                    if (nextLine.startsWith("}")) { //$NON-NLS-1$
+                    if (nextLine.startsWith("}")) {
                         indentLevel++;
                     }
 

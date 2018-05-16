@@ -76,23 +76,23 @@ public class MapperConfigPlugin extends PluginAdapter {
         //但是，使用框架中已经存在的API来完成这些功能，是一个扩展框架的一个良好的实践，这可以保证框架在API级别的一致性；
         //第二，properties属性是Plugin在创建的时候，通过setProperties方法传入的，是一个Properties类型数据；
         if (!stringHasValue(properties
-                .getProperty("targetProject"))) { //$NON-NLS-1$
+                .getProperty("targetProject"))) {
 
             //如果没有传入必填的参数，就把警告信息添加到传入的warnings列表中，该列表的内容会在MBG运行过程中统一日志；
             //这里需要注意的是getString方法，该方法是通过静态引入org.mybatis.generator.internal.util.messages.Messages
             //这个Messages类是MBG对国际化消息的一个封装，在后面扩展时候会讲到MBG的代码结构；
-            warnings.add(getString("ValidationError.18", //$NON-NLS-1$
-                    "MapperConfigPlugin", //$NON-NLS-1$
-                    "targetProject")); //$NON-NLS-1$
+            warnings.add(getString("ValidationError.18",
+                    "MapperConfigPlugin",
+                    "targetProject"));
             valid = false;
         }
 
         //同理，判断是否传入了targetPackage参数
         if (!stringHasValue(properties
-                .getProperty("targetPackage"))) { //$NON-NLS-1$
-            warnings.add(getString("ValidationError.18", //$NON-NLS-1$
-                    "MapperConfigPlugin", //$NON-NLS-1$
-                    "targetPackage")); //$NON-NLS-1$
+                .getProperty("targetPackage"))) {
+            warnings.add(getString("ValidationError.18",
+                    "MapperConfigPlugin",
+                    "targetPackage"));
             valid = false;
         }
 
@@ -112,13 +112,13 @@ public class MapperConfigPlugin extends PluginAdapter {
                 XmlConstants.MYBATIS3_MAPPER_CONFIG_SYSTEM_ID);
 
         //接着创建根目录，<configuration>，和JavaDOM基本一样，就不啰嗦了；
-        XmlElement root = new XmlElement("configuration"); //$NON-NLS-1$
+        XmlElement root = new XmlElement("configuration");
         document.setRootElement(root);
 
         //添加注释源码已删，因为这里做的有点不太规范，最好还是使用MBG提供的context.getCommentGenerator的addComment(XmlElement xmlElement)方法来统一生成注释
 
         //创建mappers节点；
-        XmlElement mappers = new XmlElement("mappers"); //$NON-NLS-1$
+        XmlElement mappers = new XmlElement("mappers");
         root.addElement(mappers);
 
         //准备根据搜集到的本次生成的mapper.xml文件，为mappers生成mapper子元素
@@ -126,8 +126,8 @@ public class MapperConfigPlugin extends PluginAdapter {
 
         //为每一个mapper.xml文件生成一个对应的mapper子元素；从这里就可以明确的看出，在mapperFiles集合中保存的确实是mapper.xml文件的路径；
         for (String mapperFile : mapperFiles) {
-            mapper = new XmlElement("mapper"); //$NON-NLS-1$
-            mapper.addAttribute(new Attribute("resource", mapperFile)); //$NON-NLS-1$
+            mapper = new XmlElement("mapper");
+            mapper.addAttribute(new Attribute("resource", mapperFile));
             mappers.addElement(mapper);
         }
 
@@ -140,9 +140,9 @@ public class MapperConfigPlugin extends PluginAdapter {
         //6，第四个参数代表是否合并，
         //7，最后一个参数是提供一个XML文件格式化工具，直接使用上下文的xmlFormatter即可（这个是可以在<context>元素中配置的哦~~）
         GeneratedXmlFile gxf = new GeneratedXmlFile(document, properties
-                .getProperty("fileName", "MapperConfig.xml"), //$NON-NLS-1$ //$NON-NLS-2$
-                properties.getProperty("targetPackage"), //$NON-NLS-1$
-                properties.getProperty("targetProject"), //$NON-NLS-1$
+                .getProperty("fileName", "MapperConfig.xml"),  //$NON-NLS-2$
+                properties.getProperty("targetPackage"),
+                properties.getProperty("targetProject"),
                 false, context.getXmlFormatter());
 
         //最后返回要生成的这个文件，交给MBG去生成；

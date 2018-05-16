@@ -31,9 +31,9 @@ public class OutputUtilities {
     private static final String lineSeparator;
 
     static {
-        String ls = System.getProperty("line.separator"); //$NON-NLS-1$
+        String ls = System.getProperty("line.separator");
         if (ls == null) {
-            ls = "\n"; //$NON-NLS-1$
+            ls = "\n";
         }
         lineSeparator = ls;
     }
@@ -56,7 +56,7 @@ public class OutputUtilities {
      */
     public static void javaIndent(StringBuilder sb, int indentLevel) {
         for (int i = 0; i < indentLevel; i++) {
-            sb.append("    "); //$NON-NLS-1$
+            sb.append("    ");
         }
     }
 
@@ -71,7 +71,7 @@ public class OutputUtilities {
      */
     public static void xmlIndent(StringBuilder sb, int indentLevel) {
         for (int i = 0; i < indentLevel; i++) {
-            sb.append("  "); //$NON-NLS-1$
+            sb.append("  ");
         }
     }
 
@@ -99,7 +99,7 @@ public class OutputUtilities {
         for (FullyQualifiedJavaType fqjt : importedTypes) {
             for (String importString : fqjt.getImportList()) {
                 sb.setLength(0);
-                sb.append("import "); //$NON-NLS-1$
+                sb.append("import ");
                 sb.append(importString);
                 sb.append(';');
                 importStrings.add(sb.toString());

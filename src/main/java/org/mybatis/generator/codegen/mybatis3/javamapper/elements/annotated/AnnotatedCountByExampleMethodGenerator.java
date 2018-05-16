@@ -34,13 +34,13 @@ public class AnnotatedCountByExampleMethodGenerator extends
     @Override
     public void addMapperAnnotations(Interface interfaze, Method method) {
         FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType(introspectedTable.getMyBatis3SqlProviderType());
-        interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.SelectProvider")); //$NON-NLS-1$
+        interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.SelectProvider"));
         StringBuilder sb = new StringBuilder();
-        sb.append("@SelectProvider(type="); //$NON-NLS-1$
+        sb.append("@SelectProvider(type=");
         sb.append(fqjt.getShortName());
-        sb.append(".class, method=\""); //$NON-NLS-1$
+        sb.append(".class, method=\"");
         sb.append(introspectedTable.getCountByExampleStatementId());
-        sb.append("\")"); //$NON-NLS-1$
+        sb.append("\")");
 
         method.addAnnotation(sb.toString());
     }

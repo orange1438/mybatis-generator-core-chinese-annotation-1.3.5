@@ -45,23 +45,23 @@ public class AnnotatedInsertMethodGenerator extends
 
     @Override
     public void addMapperAnnotations(Interface interfaze, Method method) {
-        interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Insert")); //$NON-NLS-1$
+        interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Insert"));
 
         GeneratedKey gk = introspectedTable.getGeneratedKey();
 
-        method.addAnnotation("@Insert({"); //$NON-NLS-1$
+        method.addAnnotation("@Insert({");
         StringBuilder insertClause = new StringBuilder();
         StringBuilder valuesClause = new StringBuilder();
 
         javaIndent(insertClause, 1);
         javaIndent(valuesClause, 1);
 
-        insertClause.append("\"insert into "); //$NON-NLS-1$
+        insertClause.append("\"insert into ");
         insertClause.append(escapeStringForJava(introspectedTable
                 .getFullyQualifiedTableNameAtRuntime()));
-        insertClause.append(" ("); //$NON-NLS-1$
+        insertClause.append(" (");
 
-        valuesClause.append("\"values ("); //$NON-NLS-1$
+        valuesClause.append("\"values (");
 
         List<String> valuesClauses = new ArrayList<String>();
         Iterator<IntrospectedColumn> iter = ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable.getAllColumns())
@@ -74,8 +74,8 @@ public class AnnotatedInsertMethodGenerator extends
             valuesClause.append(getParameterClause(introspectedColumn));
             hasFields = true;
             if (iter.hasNext()) {
-                insertClause.append(", "); //$NON-NLS-1$
-                valuesClause.append(", "); //$NON-NLS-1$
+                insertClause.append(", ");
+                valuesClause.append(", ");
             }
 
             if (valuesClause.length() > 60) {
@@ -83,7 +83,7 @@ public class AnnotatedInsertMethodGenerator extends
                     insertClause.append(')');
                     valuesClause.append(')');
                 }
-                insertClause.append("\","); //$NON-NLS-1$
+                insertClause.append("\",");
                 valuesClause.append('\"');
                 if (iter.hasNext()) {
                     valuesClause.append(',');
@@ -103,10 +103,10 @@ public class AnnotatedInsertMethodGenerator extends
         }
 
         if (hasFields) {
-            insertClause.append(")\","); //$NON-NLS-1$
+            insertClause.append(")\",");
             method.addAnnotation(insertClause.toString());
 
-            valuesClause.append(")\""); //$NON-NLS-1$
+            valuesClause.append(")\"");
             valuesClauses.add(valuesClause.toString());
         }
 
@@ -114,7 +114,7 @@ public class AnnotatedInsertMethodGenerator extends
             method.addAnnotation(clause);
         }
 
-        method.addAnnotation("})"); //$NON-NLS-1$
+        method.addAnnotation("})");
 
         if (gk != null) {
             addGeneratedKeyAnnotation(interfaze, method, gk);

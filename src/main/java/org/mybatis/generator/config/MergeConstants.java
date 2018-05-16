@@ -24,13 +24,13 @@ package org.mybatis.generator.config;
 public class MergeConstants {
 
     public static final String[] OLD_XML_ELEMENT_PREFIXES = {
-            "ibatorgenerated_", "abatorgenerated_"}; //$NON-NLS-1$ //$NON-NLS-2$
-    public static final String NEW_ELEMENT_TAG = "@mbg.generated"; //$NON-NLS-1$
+            "ibatorgenerated_", "abatorgenerated_"};  //$NON-NLS-2$
+    public static final String NEW_ELEMENT_TAG = "@mbg.generated";
     public static final String[] OLD_ELEMENT_TAGS = {
-            "@ibatorgenerated", //$NON-NLS-1$
-            "@abatorgenerated", //$NON-NLS-1$
-            "@mbggenerated", //$NON-NLS-1$
-            "@mbg.generated"}; //$NON-NLS-1$
+            "@ibatorgenerated",
+            "@abatorgenerated",
+            "@mbggenerated",
+            "@mbg.generated"};
 
     /**
      * Utility class - no instances

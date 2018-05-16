@@ -72,11 +72,11 @@ public class JDBCConnectionFactory implements ConnectionFactory {
         Properties props = new Properties();
 
         if (stringHasValue(userId)) {
-            props.setProperty("user", userId); //$NON-NLS-1$
+            props.setProperty("user", userId);
         }
 
         if (stringHasValue(password)) {
-            props.setProperty("password", password); //$NON-NLS-1$
+            props.setProperty("password", password);
         }
 
         props.putAll(otherProperties);
@@ -84,7 +84,7 @@ public class JDBCConnectionFactory implements ConnectionFactory {
         Connection conn = driver.connect(connectionURL, props);
 
         if (conn == null) {
-            throw new SQLException(getString("RuntimeError.7")); //$NON-NLS-1$
+            throw new SQLException(getString("RuntimeError.7"));
         }
 
         return conn;
@@ -97,7 +97,7 @@ public class JDBCConnectionFactory implements ConnectionFactory {
             Class<?> clazz = ObjectFactory.externalClassForName(driverClass);
             driver = (Driver) clazz.newInstance();
         } catch (Exception e) {
-            throw new RuntimeException(getString("RuntimeError.8"), e); //$NON-NLS-1$
+            throw new RuntimeException(getString("RuntimeError.8"), e);
         }
 
         return driver;

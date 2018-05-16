@@ -76,7 +76,7 @@ public class DefaultShellCallback implements ShellCallback {
         }
 
         StringBuilder sb = new StringBuilder();
-        StringTokenizer st = new StringTokenizer(targetPackage, "."); //$NON-NLS-1$
+        StringTokenizer st = new StringTokenizer(targetPackage, ".");
         while (st.hasMoreTokens()) {
             sb.append(st.nextToken());
             sb.append(File.separatorChar);

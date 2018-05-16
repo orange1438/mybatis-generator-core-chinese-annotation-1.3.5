@@ -45,7 +45,7 @@ public class ParserEntityResolver implements EntityResolver {
             throws SAXException, IOException {
         if (XmlConstants.IBATOR_CONFIG_PUBLIC_ID.equalsIgnoreCase(publicId)) {
             InputStream is = getClass().getClassLoader().getResourceAsStream(
-                    "org/mybatis/generator/config/xml/ibator-config_1_0.dtd"); //$NON-NLS-1$
+                    "org/mybatis/generator/config/xml/ibator-config_1_0.dtd");
             InputSource ins = new InputSource(is);
 
             return ins;
@@ -54,7 +54,7 @@ public class ParserEntityResolver implements EntityResolver {
             InputStream is = getClass()
                     .getClassLoader()
                     .getResourceAsStream(
-                            "org/mybatis/generator/config/xml/mybatis-generator-config_1_0.dtd"); //$NON-NLS-1$
+                            "org/mybatis/generator/config/xml/mybatis-generator-config_1_0.dtd");
             InputSource ins = new InputSource(is);
 
             return ins;

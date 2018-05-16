@@ -76,17 +76,17 @@ public class ColumnRenamingRule {
 
     public void validate(List<String> errors, String tableName) {
         if (!stringHasValue(searchString)) {
-            errors.add(getString("ValidationError.14", tableName)); //$NON-NLS-1$
+            errors.add(getString("ValidationError.14", tableName));
         }
     }
 
     public XmlElement toXmlElement() {
-        XmlElement xmlElement = new XmlElement("columnRenamingRule"); //$NON-NLS-1$
-        xmlElement.addAttribute(new Attribute("searchString", searchString)); //$NON-NLS-1$
+        XmlElement xmlElement = new XmlElement("columnRenamingRule");
+        xmlElement.addAttribute(new Attribute("searchString", searchString));
 
         if (replaceString != null) {
             xmlElement.addAttribute(new Attribute(
-                    "replaceString", replaceString)); //$NON-NLS-1$
+                    "replaceString", replaceString));
         }
 
         return xmlElement;

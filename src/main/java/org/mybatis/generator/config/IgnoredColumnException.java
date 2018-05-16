@@ -31,12 +31,12 @@ public class IgnoredColumnException extends IgnoredColumn {
 
     @Override
     public XmlElement toXmlElement() {
-        XmlElement xmlElement = new XmlElement("except"); //$NON-NLS-1$
-        xmlElement.addAttribute(new Attribute("column", columnName)); //$NON-NLS-1$
+        XmlElement xmlElement = new XmlElement("except");
+        xmlElement.addAttribute(new Attribute("column", columnName));
 
         if (stringHasValue(configuredDelimitedColumnName)) {
             xmlElement.addAttribute(new Attribute(
-                    "delimitedColumnName", configuredDelimitedColumnName)); //$NON-NLS-1$
+                    "delimitedColumnName", configuredDelimitedColumnName));
         }
 
         return xmlElement;
@@ -44,7 +44,7 @@ public class IgnoredColumnException extends IgnoredColumn {
 
     public void validate(List<String> errors, String tableName) {
         if (!stringHasValue(columnName)) {
-            errors.add(getString("ValidationError.26", //$NON-NLS-1$
+            errors.add(getString("ValidationError.26",
                     tableName));
         }
     }

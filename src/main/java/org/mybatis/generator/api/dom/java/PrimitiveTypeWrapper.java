@@ -48,8 +48,8 @@ public class PrimitiveTypeWrapper extends FullyQualifiedJavaType {
 
     public static PrimitiveTypeWrapper getBooleanInstance() {
         if (booleanInstance == null) {
-            booleanInstance = new PrimitiveTypeWrapper("java.lang.Boolean", //$NON-NLS-1$
-                    "booleanValue()"); //$NON-NLS-1$
+            booleanInstance = new PrimitiveTypeWrapper("java.lang.Boolean",
+                    "booleanValue()");
         }
 
         return booleanInstance;
@@ -57,8 +57,8 @@ public class PrimitiveTypeWrapper extends FullyQualifiedJavaType {
 
     public static PrimitiveTypeWrapper getByteInstance() {
         if (byteInstance == null) {
-            byteInstance = new PrimitiveTypeWrapper("java.lang.Byte", //$NON-NLS-1$
-                    "byteValue()"); //$NON-NLS-1$
+            byteInstance = new PrimitiveTypeWrapper("java.lang.Byte",
+                    "byteValue()");
         }
 
         return byteInstance;
@@ -66,8 +66,8 @@ public class PrimitiveTypeWrapper extends FullyQualifiedJavaType {
 
     public static PrimitiveTypeWrapper getCharacterInstance() {
         if (characterInstance == null) {
-            characterInstance = new PrimitiveTypeWrapper("java.lang.Character", //$NON-NLS-1$
-                    "charValue()"); //$NON-NLS-1$
+            characterInstance = new PrimitiveTypeWrapper("java.lang.Character",
+                    "charValue()");
         }
 
         return characterInstance;
@@ -75,8 +75,8 @@ public class PrimitiveTypeWrapper extends FullyQualifiedJavaType {
 
     public static PrimitiveTypeWrapper getDoubleInstance() {
         if (doubleInstance == null) {
-            doubleInstance = new PrimitiveTypeWrapper("java.lang.Double", //$NON-NLS-1$
-                    "doubleValue()"); //$NON-NLS-1$
+            doubleInstance = new PrimitiveTypeWrapper("java.lang.Double",
+                    "doubleValue()");
         }
 
         return doubleInstance;
@@ -84,8 +84,8 @@ public class PrimitiveTypeWrapper extends FullyQualifiedJavaType {
 
     public static PrimitiveTypeWrapper getFloatInstance() {
         if (floatInstance == null) {
-            floatInstance = new PrimitiveTypeWrapper("java.lang.Float", //$NON-NLS-1$
-                    "floatValue()"); //$NON-NLS-1$
+            floatInstance = new PrimitiveTypeWrapper("java.lang.Float",
+                    "floatValue()");
         }
 
         return floatInstance;
@@ -93,8 +93,8 @@ public class PrimitiveTypeWrapper extends FullyQualifiedJavaType {
 
     public static PrimitiveTypeWrapper getIntegerInstance() {
         if (integerInstance == null) {
-            integerInstance = new PrimitiveTypeWrapper("java.lang.Integer", //$NON-NLS-1$
-                    "intValue()"); //$NON-NLS-1$
+            integerInstance = new PrimitiveTypeWrapper("java.lang.Integer",
+                    "intValue()");
         }
 
         return integerInstance;
@@ -102,8 +102,8 @@ public class PrimitiveTypeWrapper extends FullyQualifiedJavaType {
 
     public static PrimitiveTypeWrapper getLongInstance() {
         if (longInstance == null) {
-            longInstance = new PrimitiveTypeWrapper("java.lang.Long", //$NON-NLS-1$
-                    "longValue()"); //$NON-NLS-1$
+            longInstance = new PrimitiveTypeWrapper("java.lang.Long",
+                    "longValue()");
         }
 
         return longInstance;
@@ -111,8 +111,8 @@ public class PrimitiveTypeWrapper extends FullyQualifiedJavaType {
 
     public static PrimitiveTypeWrapper getShortInstance() {
         if (shortInstance == null) {
-            shortInstance = new PrimitiveTypeWrapper("java.lang.Short", //$NON-NLS-1$
-                    "shortValue()"); //$NON-NLS-1$
+            shortInstance = new PrimitiveTypeWrapper("java.lang.Short",
+                    "shortValue()");
         }
 
         return shortInstance;

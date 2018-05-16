@@ -45,7 +45,7 @@ public class RowBoundsPlugin extends PluginAdapter {
     private Map<FullyQualifiedTable, List<XmlElement>> elementsToAdd;
 
     public RowBoundsPlugin() {
-        rowBounds = new FullyQualifiedJavaType("org.apache.ibatis.session.RowBounds"); //$NON-NLS-1$
+        rowBounds = new FullyQualifiedJavaType("org.apache.ibatis.session.RowBounds");
         elementsToAdd = new HashMap<FullyQualifiedTable, List<XmlElement>>();
     }
 
@@ -116,8 +116,8 @@ public class RowBoundsPlugin extends PluginAdapter {
      */
     private void copyAndAddMethod(Method method, Interface interfaze) {
         Method newMethod = new Method(method);
-        newMethod.setName(method.getName() + "WithRowbounds"); //$NON-NLS-1$
-        newMethod.addParameter(new Parameter(rowBounds, "rowBounds")); //$NON-NLS-1$
+        newMethod.setName(method.getName() + "WithRowbounds");
+        newMethod.addParameter(new Parameter(rowBounds, "rowBounds"));
         interfaze.addMethod(newMethod);
         interfaze.addImportedType(rowBounds);
     }
@@ -134,9 +134,9 @@ public class RowBoundsPlugin extends PluginAdapter {
         // remove old id attribute and add a new one with the new name
         for (Iterator<Attribute> iterator = newElement.getAttributes().iterator(); iterator.hasNext(); ) {
             Attribute attribute = iterator.next();
-            if ("id".equals(attribute.getName())) { //$NON-NLS-1$
+            if ("id".equals(attribute.getName())) {
                 iterator.remove();
-                Attribute newAttribute = new Attribute("id", attribute.getValue() + "WithRowbounds"); //$NON-NLS-1$ //$NON-NLS-2$
+                Attribute newAttribute = new Attribute("id", attribute.getValue() + "WithRowbounds");  //$NON-NLS-2$
                 newElement.addAttribute(newAttribute);
                 break;
             }

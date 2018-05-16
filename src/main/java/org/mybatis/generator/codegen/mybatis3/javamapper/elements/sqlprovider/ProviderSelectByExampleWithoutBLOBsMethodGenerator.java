@@ -43,12 +43,12 @@ public class ProviderSelectByExampleWithoutBLOBsMethodGenerator extends
         Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
 
         if (useLegacyBuilder) {
-            staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.BEGIN"); //$NON-NLS-1$
-            staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SELECT"); //$NON-NLS-1$
-            staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SELECT_DISTINCT"); //$NON-NLS-1$
-            staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.FROM"); //$NON-NLS-1$
-            staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.ORDER_BY"); //$NON-NLS-1$
-            staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SQL"); //$NON-NLS-1$
+            staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.BEGIN");
+            staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SELECT");
+            staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SELECT_DISTINCT");
+            staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.FROM");
+            staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.ORDER_BY");
+            staticImports.add("org.apache.ibatis.jdbc.SqlBuilder.SQL");
         } else {
             importedTypes.add(NEW_BUILDER_IMPORT);
         }
@@ -59,31 +59,31 @@ public class ProviderSelectByExampleWithoutBLOBsMethodGenerator extends
         Method method = new Method(getMethodName());
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setReturnType(FullyQualifiedJavaType.getStringInstance());
-        method.addParameter(new Parameter(fqjt, "example")); //$NON-NLS-1$
+        method.addParameter(new Parameter(fqjt, "example"));
 
         context.getCommentGenerator().addGeneralMethodComment(method,
                 introspectedTable);
 
         if (useLegacyBuilder) {
-            method.addBodyLine("BEGIN();"); //$NON-NLS-1$
+            method.addBodyLine("BEGIN();");
         } else {
-            method.addBodyLine("SQL sql = new SQL();"); //$NON-NLS-1$
+            method.addBodyLine("SQL sql = new SQL();");
         }
 
         boolean distinctCheck = true;
         for (IntrospectedColumn introspectedColumn : getColumns()) {
             if (distinctCheck) {
-                method.addBodyLine("if (example != null && example.isDistinct()) {"); //$NON-NLS-1$
-                method.addBodyLine(String.format("%sSELECT_DISTINCT(\"%s\");", //$NON-NLS-1$
+                method.addBodyLine("if (example != null && example.isDistinct()) {");
+                method.addBodyLine(String.format("%sSELECT_DISTINCT(\"%s\");",
                         builderPrefix,
                         escapeStringForJava(getSelectListPhrase(introspectedColumn))));
-                method.addBodyLine("} else {"); //$NON-NLS-1$
-                method.addBodyLine(String.format("%sSELECT(\"%s\");", //$NON-NLS-1$
+                method.addBodyLine("} else {");
+                method.addBodyLine(String.format("%sSELECT(\"%s\");",
                         builderPrefix,
                         escapeStringForJava(getSelectListPhrase(introspectedColumn))));
-                method.addBodyLine("}"); //$NON-NLS-1$
+                method.addBodyLine("}");
             } else {
-                method.addBodyLine(String.format("%sSELECT(\"%s\");", //$NON-NLS-1$
+                method.addBodyLine(String.format("%sSELECT(\"%s\");",
                         builderPrefix,
                         escapeStringForJava(getSelectListPhrase(introspectedColumn))));
             }
@@ -91,25 +91,25 @@ public class ProviderSelectByExampleWithoutBLOBsMethodGenerator extends
             distinctCheck = false;
         }
 
-        method.addBodyLine(String.format("%sFROM(\"%s\");", //$NON-NLS-1$
+        method.addBodyLine(String.format("%sFROM(\"%s\");",
                 builderPrefix,
                 escapeStringForJava(introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime())));
         if (useLegacyBuilder) {
-            method.addBodyLine("applyWhere(example, false);"); //$NON-NLS-1$
+            method.addBodyLine("applyWhere(example, false);");
         } else {
-            method.addBodyLine("applyWhere(sql, example, false);"); //$NON-NLS-1$
+            method.addBodyLine("applyWhere(sql, example, false);");
         }
 
-        method.addBodyLine(""); //$NON-NLS-1$
-        method.addBodyLine("if (example != null && example.getOrderByClause() != null) {"); //$NON-NLS-1$
-        method.addBodyLine(String.format("%sORDER_BY(example.getOrderByClause());", builderPrefix)); //$NON-NLS-1$
-        method.addBodyLine("}"); //$NON-NLS-1$
+        method.addBodyLine("");
+        method.addBodyLine("if (example != null && example.getOrderByClause() != null) {");
+        method.addBodyLine(String.format("%sORDER_BY(example.getOrderByClause());", builderPrefix));
+        method.addBodyLine("}");
 
-        method.addBodyLine(""); //$NON-NLS-1$
+        method.addBodyLine("");
         if (useLegacyBuilder) {
-            method.addBodyLine("return SQL();"); //$NON-NLS-1$
+            method.addBodyLine("return SQL();");
         } else {
-            method.addBodyLine("return sql.toString();"); //$NON-NLS-1$
+            method.addBodyLine("return sql.toString();");
         }
 
         if (callPlugins(method, topLevelClass)) {
