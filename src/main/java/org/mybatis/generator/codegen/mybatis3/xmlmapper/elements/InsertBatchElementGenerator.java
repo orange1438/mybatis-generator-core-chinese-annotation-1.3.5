@@ -29,7 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Jeff Butler
+ * @author orange1438
+ * github: github.com/orange1438
  */
 public class InsertBatchElementGenerator extends AbstractXmlElementGenerator {
 
@@ -46,15 +47,6 @@ public class InsertBatchElementGenerator extends AbstractXmlElementGenerator {
 
         answer.addAttribute(new Attribute(
                 "id", introspectedTable.getInsertBatchStatementId())); //$NON-NLS-1$
-
-        FullyQualifiedJavaType parameterType;
-        if (isSimple) {
-            parameterType = new FullyQualifiedJavaType(
-                    introspectedTable.getBaseRecordType());
-        } else {
-            parameterType = introspectedTable.getRules()
-                    .calculateAllFieldsClass();
-        }
 
         answer.addAttribute(new Attribute("parameterType", "java.util.List"));
 
@@ -84,8 +76,7 @@ public class InsertBatchElementGenerator extends AbstractXmlElementGenerator {
         StringBuilder valuesClause = new StringBuilder();
 
         insertClause.append("insert into "); //$NON-NLS-1$
-        insertClause.append(introspectedTable
-                .getFullyQualifiedTableNameAtRuntime());
+        insertClause.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
         insertClause.append(" ("); //$NON-NLS-1$
 
         valuesClause.append("("); //$NON-NLS-1$
@@ -134,8 +125,7 @@ public class InsertBatchElementGenerator extends AbstractXmlElementGenerator {
         }
 
         answer.addElement(innerForEach);
-        if (context.getPlugins().sqlMapInsertElementGenerated(answer,
-                introspectedTable)) {
+        if (context.getPlugins().sqlMapInsertElementGenerated(answer, introspectedTable)) {
             parentElement.addElement(answer);
         }
     }

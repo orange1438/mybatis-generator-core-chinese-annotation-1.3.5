@@ -29,7 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Jeff Butler
+ * @author orange1438
+ * github: github.com/orange1438
  */
 public class InsertBatchSelectiveElementGenerator extends
         AbstractXmlElementGenerator {

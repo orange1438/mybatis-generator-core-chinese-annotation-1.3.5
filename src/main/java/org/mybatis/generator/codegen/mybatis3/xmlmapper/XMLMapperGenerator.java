@@ -28,6 +28,7 @@ import static org.mybatis.generator.internal.util.messages.Messages.getString;
 /**
  *
  * @author Jeff Butler
+ * Modified By orange1438
  *
  */
 public class XMLMapperGenerator extends AbstractXmlGenerator {
@@ -39,10 +40,10 @@ public class XMLMapperGenerator extends AbstractXmlGenerator {
     protected XmlElement getSqlMapElement() {
         FullyQualifiedTable table = introspectedTable.getFullyQualifiedTable();
         progressCallback.startTask(getString(
-                "Progress.12", table.toString())); //$NON-NLS-1$
-        XmlElement answer = new XmlElement("mapper"); //$NON-NLS-1$
+                "Progress.12", table.toString()));
+        XmlElement answer = new XmlElement("mapper"); 
         String namespace = introspectedTable.getMyBatis3SqlMapNamespace();
-        answer.addAttribute(new Attribute("namespace", //$NON-NLS-1$
+        answer.addAttribute(new Attribute("namespace", 
                 namespace));
 
         context.getCommentGenerator().addRootComment(answer);
@@ -69,6 +70,13 @@ public class XMLMapperGenerator extends AbstractXmlGenerator {
         addUpdateByPrimaryKeySelectiveElement(answer);
         addUpdateByPrimaryKeyWithBLOBsElement(answer);
         addUpdateByPrimaryKeyWithoutBLOBsElement(answer);
+
+        // 批量更新
+        addUpdateBatchByPrimaryKeyElement(answer);
+        addUpdateBatchByPrimaryKeySelectiveElement(answer);
+
+        addUpdateBatchByExampleElement(answer);
+        addUpdateBatchByExampleSelectiveElement(answer);
 
         return answer;
     }
@@ -230,9 +238,39 @@ public class XMLMapperGenerator extends AbstractXmlGenerator {
 
     protected void addUpdateByPrimaryKeyWithoutBLOBsElement(
             XmlElement parentElement) {
-        if (introspectedTable.getRules()
-                .generateUpdateByPrimaryKeyWithoutBLOBs()) {
+        if (introspectedTable.getRules().generateUpdateByPrimaryKeyWithoutBLOBs()) {
             AbstractXmlElementGenerator elementGenerator = new UpdateByPrimaryKeyWithoutBLOBsElementGenerator(false);
+            initializeAndExecuteGenerator(elementGenerator, parentElement);
+        }
+    }
+
+    protected void addUpdateBatchByPrimaryKeySelectiveElement(
+            XmlElement parentElement) {
+        if (introspectedTable.getRules().generateUpdateByPrimaryKeySelective()) {
+            AbstractXmlElementGenerator elementGenerator = new UpdateBatchByPrimaryKeySelectiveElementGenerator();
+            initializeAndExecuteGenerator(elementGenerator, parentElement);
+        }
+    }
+
+    protected void addUpdateBatchByPrimaryKeyElement(
+            XmlElement parentElement) {
+        if (introspectedTable.getRules().generateUpdateByPrimaryKeyWithoutBLOBs()) {
+            AbstractXmlElementGenerator elementGenerator = new UpdateBatchByPrimaryKeyElementGenerator(false);
+            initializeAndExecuteGenerator(elementGenerator, parentElement);
+        }
+    }
+
+    protected void addUpdateBatchByExampleSelectiveElement(XmlElement parentElement) {
+        if (introspectedTable.getRules().generateUpdateByExampleSelective()) {
+            AbstractXmlElementGenerator elementGenerator = new UpdateBatchByExampleSelectiveElementGenerator();
+            initializeAndExecuteGenerator(elementGenerator, parentElement);
+        }
+    }
+
+    protected void addUpdateBatchByExampleElement(
+            XmlElement parentElement) {
+        if (introspectedTable.getRules().generateUpdateByExampleWithoutBLOBs()) {
+            AbstractXmlElementGenerator elementGenerator = new UpdateBatchByExampleElementGenerator();
             initializeAndExecuteGenerator(elementGenerator, parentElement);
         }
     }

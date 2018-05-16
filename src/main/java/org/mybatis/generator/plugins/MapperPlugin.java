@@ -167,6 +167,18 @@ public class MapperPlugin extends PluginAdapter {
             method = updateByExampleWithBLOBs(introspectedTable);
             interface1.addMethod(method);
 
+            method = updateBatchByPrimaryKey(introspectedTable);
+            interface1.addMethod(method);
+
+            method = updateBatchByPrimaryKeySelective(introspectedTable);
+            interface1.addMethod(method);
+
+            method = updateBatchByExampleSelective(introspectedTable);
+            interface1.addMethod(method);
+
+            method = updateBatchByExample(introspectedTable);
+            interface1.addMethod(method);
+
             addExampleClassComment(interface1);
 
             String project = context.getJavaClientGeneratorConfiguration().getTargetProject();
@@ -409,6 +421,72 @@ public class MapperPlugin extends PluginAdapter {
 
         Parameter record = new Parameter(M, "record");
         record.addAnnotation("@Param(\"record\")");
+        method.addParameter(record);
+        Parameter example = new Parameter(E, "example");
+        example.addAnnotation("@Param(\"example\")");
+        method.addParameter(example);
+
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+        return method;
+    }
+
+    /**
+     * 添加方法
+     */
+    protected Method updateBatchByPrimaryKey(IntrospectedTable introspectedTable) {
+        Method method = new Method();
+        method.setName("updateBatchByPrimaryKey");
+        method.setReturnType(FullyQualifiedJavaType.getIntInstance());
+        method.addParameter(new Parameter(MLIST, "record"));
+        method.setVisibility(JavaVisibility.PUBLIC);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+        return method;
+    }
+
+    /**
+     * 添加方法
+     */
+    protected Method updateBatchByPrimaryKeySelective(IntrospectedTable introspectedTable) {
+        Method method = new Method();
+        method.setName("updateBatchByPrimaryKeySelective");
+        method.setReturnType(FullyQualifiedJavaType.getIntInstance());
+        method.addParameter(new Parameter(MLIST, "record"));
+        method.setVisibility(JavaVisibility.PUBLIC);
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+        return method;
+    }
+
+    /**
+     * 添加批量更新方法
+     */
+    protected Method updateBatchByExampleSelective(IntrospectedTable introspectedTable) {
+        Method method = new Method();
+        method.setName("updateBatchByExampleSelective");
+        method.setReturnType(FullyQualifiedJavaType.getIntInstance());
+        method.setVisibility(JavaVisibility.PUBLIC);
+
+        Parameter record = new Parameter(MLIST, "record");
+        record.addAnnotation("@Param(\"recordList\")");
+        method.addParameter(record);
+        Parameter example = new Parameter(E, "example");
+        example.addAnnotation("@Param(\"example\")");
+        method.addParameter(example);
+
+        context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+        return method;
+    }
+
+    /**
+     * 添加批量更新方法
+     */
+    protected Method updateBatchByExample(IntrospectedTable introspectedTable) {
+        Method method = new Method();
+        method.setName("updateBatchByExample");
+        method.setReturnType(FullyQualifiedJavaType.getIntInstance());
+        method.setVisibility(JavaVisibility.PUBLIC);
+
+        Parameter record = new Parameter(MLIST, "record");
+        record.addAnnotation("@Param(\"recordList\")");
         method.addParameter(record);
         Parameter example = new Parameter(E, "example");
         example.addAnnotation("@Param(\"example\")");

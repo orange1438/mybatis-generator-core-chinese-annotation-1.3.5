@@ -52,6 +52,16 @@ public class MyBatis3FormattingUtilities {
     }
 
     /**
+     * 得到字段名
+     *
+     * @param introspectedColumn
+     * @return
+     */
+    public static String getParameterField(
+            IntrospectedColumn introspectedColumn) {
+        return introspectedColumn.getJavaProperty(null);
+    }
+    /**
      * Gets the parameter clause.
      *
      * @param introspectedColumn

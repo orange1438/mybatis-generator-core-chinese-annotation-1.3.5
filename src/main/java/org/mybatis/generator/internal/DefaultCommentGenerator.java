@@ -360,6 +360,14 @@ public class DefaultCommentGenerator implements CommentGenerator {
             sb.append(" 根据条件修改字段 （包含二进制大对象）");
         } else if ("selectByExampleWithBLOBs".equals(method_name)) {
             sb.append(" 根据条件查询（包含二进制大对象）");
+        } else if ("updateBatchByPrimaryKey".equals(method_name)) {
+            sb.append(" 根据主键，批量更新");
+        } else if ("updateBatchByPrimaryKeySelective".equals(method_name)) {
+            sb.append(" 根据主键，批量更新对应字段数据");
+        } else if ("updateBatchByExampleSelective".equals(method_name)) {
+            sb.append(" 根据条件，批量更新对应字段数据");
+        } else if ("updateBatchByExample".equals(method_name)) {
+            sb.append(" 根据条件，批量更新");
         }
 
         final List<Parameter> parameterList = method.getParameters();
@@ -394,6 +402,10 @@ public class DefaultCommentGenerator implements CommentGenerator {
                     sb.append(" 批量插入字段对象(必须含ID）");
                 } else if ("updateByExample".equals(method_name) || "updateByExampleSelective".equals(method_name)) {
                     sb.append(" 修改字段对象 (JOPO)");
+                } else if ("updateBatchByPrimaryKey".equals(method_name) || "updateBatchByPrimaryKeySelective".equals(method_name)) {
+                    sb.append(" 批量修改字段对象(必须含ID）");
+                } else if ("updateBatchByExampleSelective".equals(method_name) || "updateBatchByExample".equals(method_name)) {
+                    sb.append(" 批量修改字段对象 (JOPO)");
                 } else {
                     sb.append(" 修改字段对象(必须含ID）");
                 }

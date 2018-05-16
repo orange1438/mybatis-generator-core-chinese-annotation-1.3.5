@@ -10,8 +10,8 @@ import java.util.List;
  * ID:主键的变量类型
  *
  * @author orange1438
- *         github: github.com/orange1438
- *         date: 2017/02/19 21:39
+ * github: github.com/orange1438
+ * date: 2017/02/19 21:39
  */
 public interface IMapper<M, E, ID extends Serializable> {
     /**
@@ -128,4 +128,35 @@ public interface IMapper<M, E, ID extends Serializable> {
      * @return
      */
     //  int updateByExample(@Param("record") M record, @Param("example") E example);
+
+
+    /**
+     * 根据ID批量修改对应字段
+     *
+     * @param record 修改字段对象(必须含ID）
+     */
+    int updateBatchByPrimaryKeySelective(List<M> record);
+
+    /**
+     * 根据ID批量修改所有字段(必须含ID）
+     *
+     * @param record 修改字段对象(必须含ID）
+     */
+    int updateBatchByPrimaryKey(List<M> record);
+
+    /**
+     * 根据条件批量修改对应字段
+     * @param record 修改字段对象 (JOPO)
+     * @param example 条件对象
+     * @return
+     */
+    //   int updateBatchByExampleSelective(@Param("recordList") List<M> record, @Param("example") E example);
+
+    /**
+     * 根据条件批量修改所有字段
+     * @param record 修改字段对象 (JOPO)
+     * @param example 条件对象
+     * @return
+     */
+    //  int updateBatchByExample(@Param("recordList") List<M> record, @Param("example") E example);
 }
