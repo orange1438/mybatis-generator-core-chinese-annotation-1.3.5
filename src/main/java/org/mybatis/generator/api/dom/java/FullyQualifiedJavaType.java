@@ -236,7 +236,7 @@ public class FullyQualifiedJavaType implements
     public static final FullyQualifiedJavaType getGeneratedCriteriaInstance() {
         if (generatedCriteriaInstance == null) {
             generatedCriteriaInstance = new FullyQualifiedJavaType(
-                    "GeneratedCriteria");
+                    "BaseCriteria");
         }
 
         return generatedCriteriaInstance;

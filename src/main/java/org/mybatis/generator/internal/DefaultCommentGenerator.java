@@ -65,6 +65,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
     private boolean addMethodFinal;
 
     private String author;
+
     /**
      * Instantiates a new default comment generator.
      */
@@ -118,7 +119,6 @@ public class DefaultCommentGenerator implements CommentGenerator {
 
         addRemarkComments = isTrue(properties
                 .getProperty(PropertyRegistry.COMMENT_GENERATOR_ADD_REMARK_COMMENTS));
-
 
 
         addMethodFinal = isTrue(properties
@@ -278,16 +278,18 @@ public class DefaultCommentGenerator implements CommentGenerator {
         StringBuilder sb = new StringBuilder();
 
         if ("distinct".equals(field.getName())) {
-            sb.append(" 过滤重复数据");
+            sb.append(" * 过滤重复数据");
         } else if ("orderByClause".equals(field.getName())) {
-            sb.append(" 排序字段");
+            sb.append(" * 排序字段");
         } else if ("oredCriteria".equals(field.getName())) {
-            sb.append(" 查询条件");
+            sb.append(" * 查询条件");
         } else if ("serialVersionUID".equals(field.getName())) {
-            sb.append("串行版本ID");
+            sb.append(" * 串行版本ID");
         }
         if (sb.length() > 0) {
-            field.addJavaDocLine("//" + sb.toString());
+            field.addJavaDocLine("/** ");
+            field.addJavaDocLine(sb.toString());
+            field.addJavaDocLine("*/");
         }
     }
 
@@ -409,6 +411,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
                 } else {
                     sb.append(" 修改字段对象(必须含ID）");
                 }
+
             } else if ("example".equals(paramterName)) {
                 sb.append(" 条件对象");
             } else if (paramterName.toLowerCase().indexOf("id") > -1) {
@@ -416,7 +419,17 @@ public class DefaultCommentGenerator implements CommentGenerator {
             }
             method.addJavaDocLine(sb.toString());
         }
-
+        if ("countByExample".equals(method_name)) {
+            method.addJavaDocLine(" * @return 返回数据的数量");
+        } else if (method_name.indexOf("delete") > -1) {
+            method.addJavaDocLine(" * @return 返回删除成功的数量");
+        } else if (method_name.indexOf("insert") > -1) {
+            method.addJavaDocLine(" * @return 返回添加成功的数量");
+        } else if (method_name.indexOf("update") > -1) {
+            method.addJavaDocLine(" * @return 返回更新成功的数量");
+        } else if (method_name.indexOf("select") > -1) {
+            method.addJavaDocLine(" * @return 返回查询的结果");
+        }
         method.addJavaDocLine(" */");
     }
 

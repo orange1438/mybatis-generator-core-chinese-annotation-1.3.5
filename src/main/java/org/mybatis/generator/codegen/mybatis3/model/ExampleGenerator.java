@@ -390,7 +390,7 @@ public class ExampleGenerator extends AbstractJavaGenerator {
 
         method = new Method();
         method.setVisibility(JavaVisibility.PROTECTED);
-        method.setName("GeneratedCriteria");
+        method.setName("BaseCriteria");
         method.setConstructor(true);
         method.addBodyLine("super();");
         method.addBodyLine("criteria = new ArrayList<Criterion>();");

@@ -100,7 +100,9 @@ public class MapperPlugin extends PluginAdapter {
             //import实体类
             interfaze.addImportedType(entityType);
             return true;
-        } else return super.clientGenerated(interfaze, topLevelClass, introspectedTable);
+        } else {
+            return super.clientGenerated(interfaze, topLevelClass, introspectedTable);
+        }
     }
 
     @Override
