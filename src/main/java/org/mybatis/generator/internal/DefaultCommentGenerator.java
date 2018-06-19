@@ -61,7 +61,9 @@ public class DefaultCommentGenerator implements CommentGenerator {
 
     private SimpleDateFormat dateFormat;
 
-    // 是否在get、set方法里添加final关键字
+    /**
+     * 是否在get、set方法里添加final关键字
+     */
     private boolean addMethodFinal;
 
     private String author;
@@ -82,6 +84,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
     /* (non-Javadoc)
      * @see org.mybatis.generator.api.CommentGenerator#addJavaFileComment(org.mybatis.generator.api.dom.java.CompilationUnit)
      */
+    @Override
     public void addJavaFileComment(CompilationUnit compilationUnit) {
         // add no file level comments by default
         compilationUnit.addFileCommentLine("/* https://github.com/orange1438 */");
@@ -93,6 +96,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
      *
      * @param xmlElement the xml element
      */
+    @Override
     public void addComment(XmlElement xmlElement) {
         // add no document level comments by default
         // 删除mapper.xml中的注释
@@ -101,6 +105,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
     /* (non-Javadoc)
      * @see org.mybatis.generator.api.CommentGenerator#addRootComment(org.mybatis.generator.api.dom.xml.XmlElement)
      */
+    @Override
     public void addRootComment(XmlElement rootElement) {
         // add no document level comments by default
     }
@@ -108,6 +113,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
     /* (non-Javadoc)
      * @see org.mybatis.generator.api.CommentGenerator#addConfigurationProperties(java.util.Properties)
      */
+    @Override
     public void addConfigurationProperties(Properties properties) {
         this.properties.putAll(properties);
 
@@ -224,6 +230,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
     /* (non-Javadoc)
      * @see org.mybatis.generator.api.CommentGenerator#addEnumComment(org.mybatis.generator.api.dom.java.InnerEnum, org.mybatis.generator.api.IntrospectedTable)
      */
+    @Override
     public void addEnumComment(InnerEnum innerEnum,
                                IntrospectedTable introspectedTable) {
         if (suppressAllComments) {
@@ -246,18 +253,20 @@ public class DefaultCommentGenerator implements CommentGenerator {
     /* (non-Javadoc)
      * @see org.mybatis.generator.api.CommentGenerator#addFieldComment(org.mybatis.generator.api.dom.java.Field, org.mybatis.generator.api.IntrospectedTable, org.mybatis.generator.api.IntrospectedColumn)
      */
+    @Override
     public void addFieldComment(Field field,
                                 IntrospectedTable introspectedTable,
                                 IntrospectedColumn introspectedColumn) {
         if (suppressAllComments) {
             return;
         }
+        field.addJavaDocLine("/** ");
         // 添加字段注释
         StringBuffer sb = new StringBuffer();
         //对应表中字段的备注(数据库中自己写的备注信息)
         if (introspectedColumn.getRemarks() != null
                 && !introspectedColumn.getRemarks().equals("")) {
-            sb.append("// " + introspectedColumn.getRemarks());
+            sb.append(" * " + introspectedColumn.getRemarks());
             if (introspectedColumn.getDefaultValue() != null && !introspectedColumn.getDefaultValue().isEmpty()) {
                 sb.append("  默认：" + introspectedColumn.getDefaultValue());
             }
@@ -265,11 +274,13 @@ public class DefaultCommentGenerator implements CommentGenerator {
         if (sb.length() > 0) {
             field.addJavaDocLine(sb.toString());
         }
+        field.addJavaDocLine(" */ ");
     }
 
     /* (non-Javadoc)
      * @see org.mybatis.generator.api.CommentGenerator#addFieldComment(org.mybatis.generator.api.dom.java.Field, org.mybatis.generator.api.IntrospectedTable)
      */
+    @Override
     public void addFieldComment(Field field, IntrospectedTable introspectedTable) {
         if (suppressAllComments) {
             return;
@@ -297,6 +308,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
      * @see org.mybatis.generator.api.CommentGenerator#addGeneralMethodComment(org.mybatis.generator.api.dom.java.Method, org.mybatis.generator.api.IntrospectedTable)
      * 修改mapper接口中的注释
      */
+    @Override
     public void addGeneralMethodComment(Method method,
                                         IntrospectedTable introspectedTable) {
         if (suppressAllComments) {
@@ -309,75 +321,75 @@ public class DefaultCommentGenerator implements CommentGenerator {
         if (method.isConstructor()) {
             sb.append(" 构造查询条件");
         }
-        String method_name = method.getName();
-        if ("toString".equals(method_name)
-                || "hashCode".equals(method_name)
-                || "equals".equals(method_name)) {
+        String methodName = method.getName();
+        if ("toString".equals(methodName)
+                || "hashCode".equals(methodName)
+                || "equals".equals(methodName)) {
             return;
-        } else if ("setOrderByClause".equals(method_name)) {
+        } else if ("setOrderByClause".equals(methodName)) {
             sb.append(" 设置排序字段");
-        } else if ("setDistinct".equals(method_name)) {
+        } else if ("setDistinct".equals(methodName)) {
             sb.append(" 设置过滤重复数据");
-        } else if ("getOredCriteria".equals(method_name)) {
+        } else if ("getOredCriteria".equals(methodName)) {
             sb.append(" 获取当前的查询条件实例");
-        } else if ("isDistinct".equals(method_name)) {
+        } else if ("isDistinct".equals(methodName)) {
             sb.append(" 是否过滤重复数据");
-        } else if ("getOrderByClause".equals(method_name)) {
+        } else if ("getOrderByClause".equals(methodName)) {
             sb.append(" 获取排序字段");
-        } else if ("createCriteria".equals(method_name)) {
+        } else if ("createCriteria".equals(methodName)) {
             sb.append(" 创建一个查询条件");
-        } else if ("createCriteriaInternal".equals(method_name)) {
+        } else if ("createCriteriaInternal".equals(methodName)) {
             sb.append(" 内部构建查询条件对象");
-        } else if ("clear".equals(method_name)) {
+        } else if ("clear".equals(methodName)) {
             sb.append(" 清除查询条件");
-        } else if ("countByExample".equals(method_name)) {
+        } else if ("countByExample".equals(methodName)) {
             sb.append(" 查询数量");
-        } else if ("deleteByExample".equals(method_name)) {
+        } else if ("deleteByExample".equals(methodName)) {
             sb.append(" 根据条件删除");
-        } else if ("deleteByPrimaryKey".equals(method_name)) {
+        } else if ("deleteByPrimaryKey".equals(methodName)) {
             sb.append(" 根据ID删除");
-        } else if ("insert".equals(method_name)) {
+        } else if ("insert".equals(methodName)) {
             sb.append(" 添加对象所有字段");
-        } else if ("insertSelective".equals(method_name)) {
+        } else if ("insertSelective".equals(methodName)) {
             sb.append(" 添加对象对应字段");
-        } else if ("insertBatch".equals(method_name)) {
+        } else if ("insertBatch".equals(methodName)) {
             sb.append(" 添加List集合对象所有字段");
-        } else if ("insertBatchSelective".equals(method_name)) {
+        } else if ("insertBatchSelective".equals(methodName)) {
             sb.append(" 添加List集合对象对应字段");
-        } else if ("selectByExample".equals(method_name)) {
+        } else if ("selectByExample".equals(methodName)) {
             sb.append(" 根据条件查询（二进制大对象）");
-        } else if ("selectByPrimaryKey".equals(method_name)) {
+        } else if ("selectByPrimaryKey".equals(methodName)) {
             sb.append(" 根据ID查询");
-        } else if ("updateByExampleSelective".equals(method_name)) {
+        } else if ("updateByExampleSelective".equals(methodName)) {
             sb.append(" 根据条件修改对应字段");
-        } else if ("updateByExample".equals(method_name)) {
+        } else if ("updateByExample".equals(methodName)) {
             sb.append(" 根据条件修改所有字段");
-        } else if ("updateByPrimaryKeySelective".equals(method_name)) {
+        } else if ("updateByPrimaryKeySelective".equals(methodName)) {
             sb.append(" 根据ID修改对应字段");
-        } else if ("updateByPrimaryKey".equals(method_name)) {
+        } else if ("updateByPrimaryKey".equals(methodName)) {
             sb.append(" 根据ID修改所有字段(必须含ID）");
-        } else if ("updateByPrimaryKeyWithBLOBs".equals(method_name)) {
+        } else if ("updateByPrimaryKeyWithBLOBs".equals(methodName)) {
             sb.append(" 根据ID修改字段（包含二进制大对象）");
-        } else if ("updateByExampleWithBLOBs".equals(method_name)) {
+        } else if ("updateByExampleWithBLOBs".equals(methodName)) {
             sb.append(" 根据条件修改字段 （包含二进制大对象）");
-        } else if ("selectByExampleWithBLOBs".equals(method_name)) {
+        } else if ("selectByExampleWithBLOBs".equals(methodName)) {
             sb.append(" 根据条件查询（包含二进制大对象）");
-        } else if ("updateBatchByPrimaryKey".equals(method_name)) {
+        } else if ("updateBatchByPrimaryKey".equals(methodName)) {
             sb.append(" 根据主键，批量更新");
-        } else if ("updateBatchByPrimaryKeySelective".equals(method_name)) {
+        } else if ("updateBatchByPrimaryKeySelective".equals(methodName)) {
             sb.append(" 根据主键，批量更新对应字段数据");
-        } else if ("updateBatchByExampleSelective".equals(method_name)) {
+        } else if ("updateBatchByExampleSelective".equals(methodName)) {
             sb.append(" 根据条件，批量更新对应字段数据");
-        } else if ("updateBatchByExample".equals(method_name)) {
+        } else if ("updateBatchByExample".equals(methodName)) {
             sb.append(" 根据条件，批量更新");
         }
 
         final List<Parameter> parameterList = method.getParameters();
         if (!parameterList.isEmpty()) {
-            if ("or".equals(method_name)) {
+            if ("or".equals(methodName)) {
                 sb.append(" 增加或者的查询条件,用于构建或者查询");
             }
-        } else if ("or".equals(method_name)) {
+        } else if ("or".equals(methodName)) {
             sb.append(" 创建一个新的或者查询条件");
         }
 
@@ -398,15 +410,15 @@ public class DefaultCommentGenerator implements CommentGenerator {
             } else if ("criteria".equals(paramterName)) {
                 sb.append(" 过滤条件实例");
             } else if ("record".equals(paramterName)) {
-                if ("insert".equals(method_name) || "insertSelective".equals(method_name)) {
+                if ("insert".equals(methodName) || "insertSelective".equals(methodName)) {
                     sb.append(" 插入字段对象(必须含ID）");
-                } else if ("insertBatch".equals(method_name) || "insertBatchSelective".equals(method_name)) {
+                } else if ("insertBatch".equals(methodName) || "insertBatchSelective".equals(methodName)) {
                     sb.append(" 批量插入字段对象(必须含ID）");
-                } else if ("updateByExample".equals(method_name) || "updateByExampleSelective".equals(method_name)) {
+                } else if ("updateByExample".equals(methodName) || "updateByExampleSelective".equals(methodName)) {
                     sb.append(" 修改字段对象 (JOPO)");
-                } else if ("updateBatchByPrimaryKey".equals(method_name) || "updateBatchByPrimaryKeySelective".equals(method_name)) {
+                } else if ("updateBatchByPrimaryKey".equals(methodName) || "updateBatchByPrimaryKeySelective".equals(methodName)) {
                     sb.append(" 批量修改字段对象(必须含ID）");
-                } else if ("updateBatchByExampleSelective".equals(method_name) || "updateBatchByExample".equals(method_name)) {
+                } else if ("updateBatchByExampleSelective".equals(methodName) || "updateBatchByExample".equals(methodName)) {
                     sb.append(" 批量修改字段对象 (JOPO)");
                 } else {
                     sb.append(" 修改字段对象(必须含ID）");
@@ -419,15 +431,15 @@ public class DefaultCommentGenerator implements CommentGenerator {
             }
             method.addJavaDocLine(sb.toString());
         }
-        if ("countByExample".equals(method_name)) {
+        if ("countByExample".equals(methodName)) {
             method.addJavaDocLine(" * @return 返回数据的数量");
-        } else if (method_name.indexOf("delete") > -1) {
+        } else if (methodName.indexOf("delete") > -1) {
             method.addJavaDocLine(" * @return 返回删除成功的数量");
-        } else if (method_name.indexOf("insert") > -1) {
+        } else if (methodName.indexOf("insert") > -1) {
             method.addJavaDocLine(" * @return 返回添加成功的数量");
-        } else if (method_name.indexOf("update") > -1) {
+        } else if (methodName.indexOf("update") > -1) {
             method.addJavaDocLine(" * @return 返回更新成功的数量");
-        } else if (method_name.indexOf("select") > -1) {
+        } else if (methodName.indexOf("select") > -1) {
             method.addJavaDocLine(" * @return 返回查询的结果");
         }
         method.addJavaDocLine(" */");
@@ -437,6 +449,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
      * @see org.mybatis.generator.api.CommentGenerator#addGetterComment(org.mybatis.generator.api.dom.java.Method, org.mybatis.generator.api.IntrospectedTable, org.mybatis.generator.api.IntrospectedColumn)
      * getter方法
      */
+    @Override
     public void addGetterComment(Method method,
                                  IntrospectedTable introspectedTable,
                                  IntrospectedColumn introspectedColumn) {
@@ -478,6 +491,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
      * @see org.mybatis.generator.api.CommentGenerator#addSetterComment(org.mybatis.generator.api.dom.java.Method, org.mybatis.generator.api.IntrospectedTable, org.mybatis.generator.api.IntrospectedColumn)
      * setter方法
      */
+    @Override
     public void addSetterComment(Method method,
                                  IntrospectedTable introspectedTable,
                                  IntrospectedColumn introspectedColumn) {
@@ -520,6 +534,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
     /* (non-Javadoc)
      * @see org.mybatis.generator.api.CommentGenerator#addClassComment(org.mybatis.generator.api.dom.java.InnerClass, org.mybatis.generator.api.IntrospectedTable)
      */
+    @Override
     public void addClassComment(InnerClass innerClass,
                                 IntrospectedTable introspectedTable) {
         // add no document level comments by default
@@ -547,6 +562,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
      * @see org.mybatis.generator.api.CommentGenerator#addClassComment(org.mybatis.generator.api.dom.java.InnerClass, org.mybatis.generator.api.IntrospectedTable, boolean)
      * 删除生成Criteria对象的注释信息的注释
      */
+    @Override
     public void addClassComment(InnerClass innerClass,
                                 IntrospectedTable introspectedTable, boolean markAsDoNotDelete) {
         // add no document level comments by default
