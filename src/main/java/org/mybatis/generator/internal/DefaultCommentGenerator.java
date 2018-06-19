@@ -314,12 +314,15 @@ public class DefaultCommentGenerator implements CommentGenerator {
         if (suppressAllComments) {
             return;
         }
-        method.setFinal(addMethodFinal);
+
         StringBuilder sb = new StringBuilder();
 
         sb.append(" *");
         if (method.isConstructor()) {
             sb.append(" 构造查询条件");
+        } else {
+            // 构造函数不需要Final
+            method.setFinal(addMethodFinal);
         }
         String methodName = method.getName();
         if ("toString".equals(methodName)
