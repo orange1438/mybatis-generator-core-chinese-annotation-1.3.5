@@ -46,9 +46,9 @@ public class UpdateBatchByPrimaryKeyElementGenerator extends
 
         for (IntrospectedColumn introspectedColumn : ListUtilities.removeGeneratedAlwaysColumns(introspectedTable.getNonPrimaryKeyColumns())) {
             sb.setLength(0);
-            sb.append(MyBatis3FormattingUtilities.getParameterField(introspectedColumn));
+            sb.append(MyBatis3FormattingUtilities.getActualColumnName(introspectedColumn));
             sb.append(" =case ");
-            sb.append(MyBatis3FormattingUtilities.getParameterField(introspectedTable.getPrimaryKeyColumns().get(0)));
+            sb.append(MyBatis3FormattingUtilities.getActualColumnName(introspectedTable.getPrimaryKeyColumns().get(0)));
 
 
             XmlElement trimElement = new XmlElement("trim");

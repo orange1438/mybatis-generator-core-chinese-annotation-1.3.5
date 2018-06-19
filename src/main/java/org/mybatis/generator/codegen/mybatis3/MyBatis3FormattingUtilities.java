@@ -52,7 +52,7 @@ public class MyBatis3FormattingUtilities {
     }
 
     /**
-     * 得到字段名
+     * 得到字段名 ,手写字母是大写的的名称，如 OpenId
      *
      * @param introspectedColumn
      * @return
@@ -61,6 +61,18 @@ public class MyBatis3FormattingUtilities {
             IntrospectedColumn introspectedColumn) {
         return introspectedColumn.getJavaProperty(null);
     }
+
+    /**
+     * 得到数据表设计的字段名
+     *
+     * @param introspectedColumn
+     * @return
+     */
+    public static String getActualColumnName(
+            IntrospectedColumn introspectedColumn) {
+        return introspectedColumn.getActualColumnName();
+    }
+
     /**
      * Gets the parameter clause.
      *
