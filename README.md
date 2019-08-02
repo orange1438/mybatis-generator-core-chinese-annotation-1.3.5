@@ -12,9 +12,50 @@
 <br>
 <font color="#ff0000">在设计数据库的时候，必须有主键</font>
 ## 使用方式
-maven工程的打包，执行命令：clean install ，加入到本地仓库,生成“1.3.5-chinese-annotation-by-orange1438”包名
+maven工程的打包，执行命令：clean install ，加入到本地仓库,生成“orange1438\mybatis\generator\mybatis-generator-core\1.3.5”包名
 ```java
+        <build>
+               <defaultGoal>compile</defaultGoal>
+               <plugins>
+                   <!-- 指定java版本-->
+                   <plugin>
+                       <groupId>org.apache.maven.plugins</groupId>
+                       <artifactId>maven-compiler-plugin</artifactId>
+                       <configuration>
+                           <source>1.8</source>
+                           <target>1.8</target>
+                       </configuration>
+                   </plugin>
        
+                   <plugin>
+                       <groupId>org.mybatis.generator</groupId>
+                       <artifactId>mybatis-generator-maven-plugin</artifactId>
+                       <version>1.3.5</version>
+                       <configuration>
+                           <verbose>true</verbose>
+                           <overwrite>true</overwrite>
+                           <!-- 指定配置文件的路径，默认是在resources下-->
+                           <configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>
+                       </configuration>
+                       <executions>
+                           <execution>
+                               <id>Generate MyBatis Artifacts</id>
+                               <goals>
+                                   <goal>generate</goal>
+                               </goals>
+                           </execution>
+                       </executions>
+                       <dependencies>
+                           <dependency>
+                               <groupId>orange6618.mybatis.generator</groupId>
+                               <artifactId>mybatis-generator-core</artifactId>
+                               <version>1.3.5</version>
+                           </dependency>
+                       </dependencies>
+                   </plugin>
+       
+               </plugins>
+           </build>
 ```
 <br>
 
