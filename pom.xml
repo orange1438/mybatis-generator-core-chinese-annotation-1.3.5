@@ -9,15 +9,35 @@
         <version>1.3.5</version>
     </parent>
 
-    <groupId>orange1438.mybatis.generator</groupId>
+    <groupId>io.github.orange1438</groupId>
     <artifactId>mybatis-generator-core</artifactId>
     <version>1.3.5</version>
     <description>生成的代码是中文注释，符合阿里java规范，作者是 orange1438@qq.com</description>
     <packaging>jar</packaging>
     <name>MyBatis Generator Core</name>
 
+    <properties>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <build>
         <plugins>
+            <!-- Javadoc -->
+            <!-- GPG -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <!-- create the Source JAR and JavaDoc a bit earlier so it is ready for the assembly -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -65,13 +85,11 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Sonatype Nexus Snapshots</name>
+            <id>oss</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </snapshotRepository>
         <repository>
-            <id>sonatype-nexus-staging</id>
-            <name>Nexus Release Repository</name>
+            <id>oss</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
@@ -87,7 +105,7 @@
         <tag>master</tag>
         <url>https://github.com/orange1438/mybatis-generator-core-chinese-annotation-1.3.5.git</url>
         <connection>https://github.com/orange1438/mybatis-generator-core-chinese-annotation-1.3.5.git</connection>
-        <developerConnection>https://github.com/orange1438/mybatis-generator-core-chinese-annotation-1.3.5.git
+        <developerConnection>https://github.com/orange1438/mybatis-generator-core-chinese-annotation-1.3.5
         </developerConnection>
     </scm>
     <developers>
@@ -97,4 +115,6 @@
             <organization>orange6618</organization>
         </developer>
     </developers>
+
+
 </project>

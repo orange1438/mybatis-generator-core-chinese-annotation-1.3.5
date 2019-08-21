@@ -12,7 +12,7 @@
 <br>
 <font color="#ff0000">在设计数据库的时候，必须有主键</font>
 ## 使用方式
-maven工程的打包，执行命令：clean install ，加入到本地仓库,生成“orange6618\mybatis\generator\mybatis-generator-core\1.3.5”包名
+maven工程的打包，执行命令：clean install ，加入到本地仓库,生成“io\github\orange1438\mybatis-generator-core\1.3.5”包名（已经发布在maven中央仓库去了，可直接使用）
 ```java
         <build>
                <defaultGoal>compile</defaultGoal>
@@ -47,7 +47,7 @@ maven工程的打包，执行命令：clean install ，加入到本地仓库,生
                        </executions>
                        <dependencies>
                            <dependency>
-                               <groupId>orange6618.mybatis.generator</groupId>
+                               <groupId>io.github.orange1438</groupId>
                                <artifactId>mybatis-generator-core</artifactId>
                                <version>1.3.5</version>
                            </dependency>
@@ -61,6 +61,14 @@ maven工程的打包，执行命令：clean install ，加入到本地仓库,生
 配置文件在该项目的资源文件里：resources/test/下的generatorConfig.properties文件和generatorConfig.xml文件；
 <br>我自己调试使用的是mysql数据库。想使用oracle数据，参考generatorConfigForOracle.xml文件里的配置（别忘了数据连接驱动jar包哦）
 <br>
+<br>其中以下部分，我已经发布在maven中央仓库去了，可直接使用
+```
+    <dependency>
+       groupId>io.github.orange1438</groupId>
+       <artifactId>mybatis-generator-core</artifactId>
+       <version>1.3.5</version>
+    </dependency>
+```
 
 ## 源码剖析说明
 1.剖析org.mybatis.generator.plugins.ToStringPlugin源码<br>
